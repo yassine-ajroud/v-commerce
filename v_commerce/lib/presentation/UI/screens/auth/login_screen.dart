@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:v_commerce/di.dart';
+import 'package:v_commerce/domain/usecases/authentication_usecases/google_login_usecase.dart';
 import 'package:v_commerce/presentation/UI/screens/auth/forget_password_screen.dart';
 import 'package:v_commerce/presentation/UI/screens/auth/signup_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -111,7 +113,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             const SizedBox(
                               height: 20,
                             ),
-                             SocialSecondaryButton(text: AppLocalizations.of(context)!.continue_with_google, onClick: () {}, asset: 'assets/images/google.png'),
+                             SocialSecondaryButton(text: AppLocalizations.of(context)!.continue_with_google, onClick: ()async {
+                                  await GoogleLoginUsecase(sl())();
+
+                             }, asset: 'assets/images/google.png'),
                                   const SizedBox(height: 10,),
                                   SocialSecondaryButton(text: AppLocalizations.of(context)!.continue_with_facebook, onClick: () async{
                                     await controller.facebookLogin(context);

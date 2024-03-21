@@ -13,7 +13,7 @@ abstract class AuthenticationRepository {
   Future<Either<Failure,Unit>> logout();
   Future<Either<Failure,Unit>> clearUserImage(String userId);
   Future<Either<Failure,Map<String,dynamic>>> facebookLogin();
-  Future<Either<Failure,Token>> googleLogin();
+  Future<Either<Failure,Map<String,dynamic>>> googleLogin();
   Future<Either<Failure,Unit>> resetPassword({required String email,required String password});
   Future<Either<Failure,Unit>> forgetPassword(String email);
   Future<Either<Failure,Unit>> verifyOTP({required String email,required int otp});

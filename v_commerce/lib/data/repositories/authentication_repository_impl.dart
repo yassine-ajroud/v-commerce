@@ -92,9 +92,17 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   }
 
   @override
-  Future<Either<Failure, Token>> googleLogin() {
-    // TODO: implement googleLogin
-    throw UnimplementedError();
+  Future<Either<Failure, Map<String,dynamic>>> googleLogin() async{
+            try {
+      final tm = await authRemoteDataSource.facebookLogin();
+     // await authLocalDataSource.saveUserInformations(_tm);
+
+      return right(tm);
+    } on LoginException catch (e) {
+      return left(LoginFailure(e.message));
+    } on LocalStorageException {
+      return left(LocalStorageFailure());
+    }
   }
 
   @override

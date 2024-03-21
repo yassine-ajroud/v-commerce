@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:v_commerce/data/data_sources/local_data_sorce/settings_local_data_source.dart';
 import 'package:http_parser/http_parser.dart';
 import '../../../../core/errors/exceptions/exceptions.dart';
@@ -19,7 +20,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 abstract class AuthenticationRemoteDataSource {
   Future<String> createAccount({required address,required email,required firstName,required lastName,required password,required phone,required String? image,required String? oauth});
   Future<TokenModel> login(String email, String password);
-  Future<TokenModel> googleLogin();
+  Future<Map<String,dynamic>> googleLogin();
   Future<Map<String,dynamic>> facebookLogin();
   Future<User> getcurrentUser(String id);
   Future<void> updateProfil({required String address,required String email,required String firstName,required String lastName,required String phone,required String id});
@@ -118,43 +119,43 @@ class AuthenticationRemoteDataSourceImpl
 
 //not completed
   @override
-  Future<TokenModel> googleLogin() async {
-    throw UnimplementedError();
-    // TokenModel token;
-    // try {
-    //   final googleSignIN = GoogleSignIn();
-    //   final user = await googleSignIN.signIn();
-    //   if (user != null) {
-    //     final name = user.displayName!.split(' ');
-    //     final email = user.email;
-    //     final id = user.id;
-    //     final usr = UserModel(
-    //         firstName: name[0],
-    //         lastName: name[1],
-    //         email: email,
-    //         phone: '',
-    //         password: '123',
-    //         ban: false,
-    //         role: 'user',
-    //         id: id);
-    //     try {
-    //       token = await login(email, '123');
-    //     } catch (e) {
-    //       await createAccount(usr);
-    //       token = await login(email, '123');
-    //     }
-    //     googleSignIN.signOut;
-    //     await googleSignIN.disconnect();
-    //     return token;
-    //   } else {
-    //     print("error");
-    //     throw LoginException("Login failure");
-    //   }
-    // } on LocalStorageException {
-    //   rethrow;
-    // } catch (e) {
-    //   throw ServerException();
-    // }
+  Future<Map<String,dynamic>> googleLogin() async {
+    try {
+      final googleSignIN = GoogleSignIn();
+      final user = await googleSignIN.signIn();
+      if (user != null) {
+                print(user);
+
+        final name = user.displayName!.split(' ');
+        final email = user.email;
+        final id = user.id;
+        // final usr = UserModel(
+        //     firstName: name[0],
+        //     lastName: name[1],
+        //     email: email,
+        //     phone: '',
+        //     password: '123',
+        //     ban: false,
+        //     role: 'user',
+        //     id: id);
+        // try {
+        //   token = await login(email, '123');
+        // } catch (e) {
+        //   await createAccount(usr);
+        //   token = await login(email, '123');
+        // }
+        googleSignIN.signOut;
+        await googleSignIN.disconnect();
+        return {};
+      } else {
+        print("error");
+        throw LoginException("Login failure");
+      }
+    } on LocalStorageException {
+      rethrow;
+    } catch (e) {
+      throw ServerException();
+    }
   }
 
   @override
