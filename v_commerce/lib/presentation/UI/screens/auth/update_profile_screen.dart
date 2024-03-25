@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:v_commerce/presentation/UI/Widgets/input.dart';
 import 'package:v_commerce/presentation/UI/widgets/button.dart';
@@ -8,6 +9,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../core/styles/colors.dart';
 import '../../../../core/styles/text_styles.dart';
+import '../../widgets/city_picker.dart';
+import '../../widgets/date_picker.dart';
+import '../../widgets/gender_input.dart';
 
 
 class UpdateProfileScreen extends StatefulWidget {
@@ -32,18 +36,25 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     firstname.text=c.currentUser.firstName;
                   lastname.text=c.currentUser.lastName;
                   email.text=c.currentUser.email;
-                  address.text=c.currentUser.address;
                   phone.text=c.currentUser.phone;
+                 c.birthDate=c.currentUser.birthDate;
+                  c.gender=c.currentUser.gender;
+                 c.city=c.currentUser.address;
   }
 
   @override
   void dispose() {
+        AuthenticationController c = Get.find();
+
     firstname.dispose();
     lastname.dispose();
     phone.dispose();
     address.dispose();
     email.dispose();
     super.dispose();
+    c.birthDate=null;
+    c.gender=null;
+    c.city=null;
   }
 
   @override
@@ -134,20 +145,35 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       const SizedBox(
                         height: 10,
                       ),
-                      InputText(
-                          hint: AppLocalizations.of(context)!.address,
-                          controler: address,
-                          validator: (v) {
-                            if (v!.isEmpty) {
-                              return AppLocalizations.of(context)!
-                                  .address_required;
-                            }
-                            return null;
-                          }),
+                     const CityInput(),
+                           const SizedBox(
+                        height: 10,
+                      ),
+                        const  DatePickerInput(),
+                               const SizedBox(
+                        height: 10,
+                      ),
+                    const  GenderInput(),
                           SizedBox(height: 30.h,),
                           MyButton(text: AppLocalizations.of(context)!.save, click: ()async{
                             if(_formKey.currentState!.validate()){
-                              await controller.updateProfile(address: address, email: email, firstName: firstname, lastName: lastname, phone: phone, id:controller.currentUser.id,context: context);
+                              
+                                 if(controller.birthDate!=null&&controller.gender!=null && controller.city!=null){
+                                   await controller.updateProfile(address: controller.city!, email: email, firstName: firstname, lastName: lastname, phone: phone, id:controller.currentUser.id,birthDate:controller.birthDate!,gender:controller.gender!,context: context);
+ 
+                                  }else{
+                                    Fluttertoast.showToast(
+                          msg: AppLocalizations.of(context)!.missing_data,
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: AppColors.toastColor,
+                          textColor: AppColors.white,
+                          fontSize: 16.0);
+                                  }
+
+
+
                             }
                           })
                       ]),

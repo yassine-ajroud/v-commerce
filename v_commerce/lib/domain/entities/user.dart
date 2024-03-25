@@ -8,14 +8,19 @@ class User extends Equatable {
   final String phone;
   final String? password;
   final String? image;
-  final String address;
+  final String? address;
   final bool ban;
   final String role;
   final String? oAuth;
+  final String? gender;
+  final String? birthDate;
+
 
   const User(
       {
       this.id,
+      required this.birthDate,
+      required this.gender,
       required this.oAuth,
       required this.address,
       required this.image,
@@ -28,6 +33,6 @@ class User extends Equatable {
        this.password});
 
   @override
-  List<Object?> get props => [firstName,lastName,email,phone,password,ban,id,role,image,address,oAuth];
+  List<Object?> get props => [firstName,lastName,email,phone,password,ban,id,role,image,address,oAuth,gender,birthDate];
 
 }

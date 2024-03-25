@@ -1,13 +1,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:v_commerce/core/utils/string_const.dart';
+import 'package:v_commerce/presentation/UI/widgets/date_picker.dart';
+import 'package:v_commerce/presentation/UI/widgets/gender_input.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
 import '../../../../core/styles/colors.dart';
 import '../../../../core/styles/text_styles.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../widgets/button.dart';
+import '../../widgets/city_picker.dart';
 import '../../widgets/dialog.dart';
 import '../../widgets/input.dart';
 
@@ -38,6 +42,9 @@ class _SignupScreenState extends State<SignupScreen> {
     email.dispose();
     password.dispose();
     cpassword.dispose();
+    final AuthenticationController c= Get.find();
+    c.birthDate=null;
+    c.gender=null;
   }
 
   @override
@@ -151,16 +158,15 @@ class _SignupScreenState extends State<SignupScreen> {
                       const SizedBox(
                         height: 10,
                       ),
-                      InputText(
-                          hint: AppLocalizations.of(context)!.address,
-                          controler: address,
-                          validator: (v) {
-                            if (v!.isEmpty) {
-                              return AppLocalizations.of(context)!
-                                  .address_required;
-                            }
-                            return null;
-                          }),
+                    const  CityInput(),
+                           const SizedBox(
+                        height: 10,
+                      ),
+                        const  DatePickerInput(),
+                               const SizedBox(
+                        height: 10,
+                      ),
+                      const GenderInput(),
                       SizedBox(
                         width: MediaQuery.sizeOf(context).width,
                         child: Row(
@@ -216,15 +222,29 @@ class _SignupScreenState extends State<SignupScreen> {
                             click: () async {
                               if (_formKey.currentState!.validate()) {
                                 if(controller.termsAccepted){
-                                    await controller.createAccount(
+                                  if(controller.birthDate!=null&&controller.gender!=null && controller.city!=null){
+                                  await controller.createAccount(
                                     cpassword: cpassword,
-                                    address: address,
+                                    address: controller.city!,
                                     email: email,
+                                    birthDate: controller.birthDate!,
+                                    gender: controller.gender!,
                                     firstName: firstname,
                                     lastName: lastname,
                                     password: password,
                                     phone: phone,
                                     context: context);
+                                  }else{
+                                    Fluttertoast.showToast(
+                          msg: AppLocalizations.of(context)!.missing_data,
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: AppColors.toastColor,
+                          textColor: AppColors.white,
+                          fontSize: 16.0);
+                                  }
+                                   
                                 }else{
 
                                    Fluttertoast.showToast(

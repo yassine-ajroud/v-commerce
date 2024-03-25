@@ -18,12 +18,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 abstract class AuthenticationRemoteDataSource {
-  Future<String> createAccount({required address,required email,required firstName,required lastName,required password,required phone,required String? image,required String? oauth});
+  Future<String> createAccount({required String? address,required email,required firstName,required lastName,required password,required phone,required String? image,required String? oauth,required String? gender, required String? birthDate});
   Future<TokenModel> login(String email, String password);
   Future<Map<String,dynamic>> googleLogin();
   Future<Map<String,dynamic>> facebookLogin();
   Future<User> getcurrentUser(String id);
-  Future<void> updateProfil({required String address,required String email,required String firstName,required String lastName,required String phone,required String id});
+  Future<void> updateProfil({required String address,required String email,required String firstName,required String lastName,required String phone,required String id,required String birthdate,required String gender});
   Future<void> forgetPassword(String email);
   Future<void> verifyOTP(String email,int otp);
   Future<void> resetPassword(String email,String password);
@@ -64,12 +64,14 @@ class AuthenticationRemoteDataSourceImpl
 ));
 
   @override
-  Future<String> createAccount({required address,required email,required firstName,required lastName,required password,required phone,required String? image,required String? oauth}) async {
+  Future<String> createAccount({required String? address,required email,required firstName,required lastName,required password,required phone,required String? image,required String? oauth,required String? gender, required String? birthDate}) async {
     try {
     AppLocalizations t = await AppLocalizations.delegate.load(Locale(await locale));
       UserModel userModel = UserModel(
           role: 'user',
           oAuth: oauth,
+          gender: gender,
+          birthDate: birthDate,
           firstName: firstName,
           lastName: lastName,
           address: address,
@@ -124,37 +126,22 @@ class AuthenticationRemoteDataSourceImpl
       final googleSignIN = GoogleSignIn();
       final user = await googleSignIN.signIn();
       if (user != null) {
-                print(user);
-
         final name = user.displayName!.split(' ');
         final email = user.email;
-        final id = user.id;
-        // final usr = UserModel(
-        //     firstName: name[0],
-        //     lastName: name[1],
-        //     email: email,
-        //     phone: '',
-        //     password: '123',
-        //     ban: false,
-        //     role: 'user',
-        //     id: id);
-        // try {
-        //   token = await login(email, '123');
-        // } catch (e) {
-        //   await createAccount(usr);
-        //   token = await login(email, '123');
-        // }
+         final res = {
+          'firstName':name[0],
+          'lastName':name[1],
+          'email':email,
+          'image':user.photoUrl
+         };
         googleSignIN.signOut;
         await googleSignIN.disconnect();
-        return {};
+        return res;
       } else {
-        print("error");
         throw LoginException("Login failure");
       }
-    } on LocalStorageException {
-      rethrow;
     } catch (e) {
-      throw ServerException();
+      rethrow;
     }
   }
 
@@ -174,7 +161,7 @@ class AuthenticationRemoteDataSourceImpl
   }
 
   @override
-  Future<void> updateProfil({required address,required email,required firstName,required lastName,required phone,required id}) async {
+  Future<void> updateProfil({required address,required email,required firstName,required lastName,required phone,required id,required gender,required birthdate}) async {
     try {
       await verifyToken();
       Map<String,dynamic> model = {
@@ -183,7 +170,10 @@ class AuthenticationRemoteDataSourceImpl
           'lastName': lastName,
           'address': address,
           'email': email,
-          'phone': phone};
+          'phone': phone,
+          'gender':gender,
+          'birthDate':birthdate
+          };
       await dio.put(ApiConst.updateProfil, data: model,options: Options(
           headers: {
             "authorization": "Bearer ${await token.then((value) => value.token)}",

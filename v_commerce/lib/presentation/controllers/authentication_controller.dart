@@ -10,6 +10,7 @@ import 'package:v_commerce/domain/entities/user.dart';
 import 'package:v_commerce/domain/usecases/authentication_usecases/create_account_usecase.dart';
 import 'package:v_commerce/domain/usecases/authentication_usecases/facebook_login_usecase.dart';
 import 'package:v_commerce/domain/usecases/authentication_usecases/get_user_usecase.dart';
+import 'package:v_commerce/domain/usecases/authentication_usecases/google_login_usecase.dart';
 import 'package:v_commerce/domain/usecases/authentication_usecases/login_usecase.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:v_commerce/domain/usecases/authentication_usecases/logout_usecase.dart';
@@ -38,9 +39,29 @@ class AuthenticationController extends GetxController{
   String userImage='';
     XFile? img;
   File? f;
+  String? gender;
+  String? birthDate;
+  String?city;
   final ImagePicker _picker = ImagePicker();
 
-  bool get missingData=>currentUser.phone=='' ||currentUser.address=='' ;
+  bool get missingData=>currentUser.phone=='' ||currentUser.address=='' || currentUser.birthDate==''||currentUser.gender=='' ;
+
+  void setBirthDate(DateTime date){
+    final year = date.year;
+    final month = date.month;
+    final day = date.day;
+    birthDate = '$year-$month-$day';
+    update();
+  }
+
+  void setGender(String value){
+    gender=value;
+    update();
+  }
+  void setCity(String value){
+    city=value;
+    update();
+  }
 
   Future<void> pickImage()async{
     try {
@@ -48,8 +69,7 @@ class AuthenticationController extends GetxController{
                               source: ImageSource.gallery);
                           if (img != null) {
                             f = File(img!.path);
-                            userImage = basename(f!.path);
-                          update();
+                            setuserImage(basename(f!.path));
       }
     } catch (e) {
       print(e);
@@ -68,12 +88,11 @@ class AuthenticationController extends GetxController{
   }
 
   Future<void> updateImage(BuildContext context)async{
-if(userImage==''){
+  if(userImage==''){
                   await ClearUserImageUsecase(sl())(currentUser.id!);
                 }else{
                   await UpdateUserImageUsecase(sl()).call(userId:currentUser.id!,file:f!);
                 }
-
                 await getCurrentUser(currentUser.id!).then((value) => Fluttertoast.showToast(
                           msg: AppLocalizations.of(context)!.profile_picture_updated,
                           toastLength: Toast.LENGTH_SHORT,
@@ -82,6 +101,7 @@ if(userImage==''){
                           backgroundColor: AppColors.toastColor,
                           textColor: AppColors.white,
                           fontSize: 16.0) );
+                          
   }
 
   Future<void> login(TextEditingController email,TextEditingController password,BuildContext context)async{
@@ -165,8 +185,8 @@ if(userImage==''){
 
   }
 
-  Future<void> createAccount({required TextEditingController  address,required TextEditingController email,required TextEditingController firstName,required TextEditingController lastName,required TextEditingController password,required TextEditingController cpassword,required TextEditingController phone,String? image,required BuildContext context})async{
-          final res = await CreateAccountUsecase(sl()).call(email: email.text, password: password.text,address: address.text,phone: phone.text,firstName: firstName.text,lastName: lastName.text,image: image??'',oauth: null);
+  Future<void> createAccount({required String  address,required TextEditingController email,required TextEditingController firstName,required TextEditingController lastName,required TextEditingController password,required TextEditingController cpassword,required TextEditingController phone,String? image, required String birthDate,required String gender ,required BuildContext context})async{
+          final res = await CreateAccountUsecase(sl()).call(email: email.text, password: password.text,address: address,phone: phone.text,firstName: firstName.text,lastName: lastName.text,image: image??'',oauth: null,birthdate: birthDate,gender: gender);
       String message='';
       res.fold((l) => 
                           message= l.message!,
@@ -174,11 +194,15 @@ if(userImage==''){
                             message=AppLocalizations.of(context)!.account_created;
                             email.clear();
                             password.clear();
-                            address.clear();
                             phone.clear();
                             firstName.clear();
                             lastName.clear();
                             cpassword.clear();
+                            this.gender=null;
+                            this.birthDate=null;
+                            city=null;
+                            update();
+
                           });
                           Fluttertoast.showToast(
                           msg: message,
@@ -202,14 +226,17 @@ if(userImage==''){
                           fontSize: 16.0), 
                           (r) {
                             currentUser = r;
+                            city=currentUser.address;
+                            gender=currentUser.gender;
+                            birthDate=currentUser.birthDate;
                             update();
                           });
   }
 
-  Future<void> updateProfile({required TextEditingController address,required TextEditingController email,required TextEditingController firstName,required TextEditingController lastName,required TextEditingController phone,required id,required BuildContext context})async{
+  Future<void> updateProfile({required String address,required TextEditingController email,required TextEditingController firstName,required TextEditingController lastName,required TextEditingController phone,required id,required String birthDate,required String gender ,required BuildContext context})async{
     String message='';
     print(currentUser.id);
- final res = await UpdateProfilUsecase(sl())(email: email.text,firstName: firstName.text,lastName: lastName.text,address: address.text,phone:phone.text,id:id);
+ final res = await UpdateProfilUsecase(sl())(email: email.text,firstName: firstName.text,lastName: lastName.text,address: address,phone:phone.text,id:id,gender: gender,birthDate: birthDate);
       res.fold((l) => message=l.message!,
                           (r) async{
                             message = AppLocalizations.of(context)!.profile_updated;
@@ -257,13 +284,28 @@ String message='error';
     
     final res =await FacebookLoginUsecase(sl())();
     res.fold((l) => null, (r)async {
-      print(r['id']);
-      print( r['name'].split(' ')[0]);
-      print( r['name'].split(' ')[1]);
-      print(r['picture']['data']['url']);
-          await CreateAccountUsecase(sl()).call(oauth:'F',email: r['id'].toString(), password: '0987654321',address: '',phone: '',firstName: r['name'].split(' ')[0].toString(),lastName: r['name'].split(' ')[1].toString(),image: r['picture']['data']['url']);
+          await CreateAccountUsecase(sl()).call(oauth:'F',email: r['id'].toString(), password: '0987654321',address: null,phone: '',firstName: r['name'].split(' ')[0].toString(),lastName: r['name'].split(' ')[1].toString(),image: r['picture']['data']['url'],birthdate: null,gender: null);
 
          final lg = await LoginUsecase(sl())(email: r['id'], password: '0987654321');
+         lg.fold((l) => null, (r) async{
+                                      token = r;
+                                      await getCurrentUser(token.userId);
+           return Navigator.of(context).pushReplacement(MaterialPageRoute(builder:(_)=> ProfileScreen()));
+           
+         });
+    });
+    isLoading = false;
+    update();
+  }
+
+  Future<void> googleLogin(BuildContext context)async{
+                   isLoading = true;
+    
+    final res =await GoogleLoginUsecase(sl())();
+    res.fold((l) => null, (r)async {
+          await CreateAccountUsecase(sl()).call(oauth:'G',email: r['email'], password: '0987654321',address: null,phone: '',firstName: r['firstName'],lastName: r['lastName'],image: r['image'],birthdate: null,gender: null);
+
+         final lg = await LoginUsecase(sl())(email: r['email'], password: '0987654321');
          lg.fold((l) => null, (r) async{
                                       token = r;
                                       await getCurrentUser(token.userId);

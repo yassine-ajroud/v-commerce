@@ -29,12 +29,14 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   }
 
   @override
-  Future<Either<Failure, String>> createAccount({required address,required email,required firstName,required lastName,required password,required phone,required String? image,required String? oauth}) async{
+  Future<Either<Failure, String>> createAccount({required String? address,required email,required firstName,required lastName,required password,required phone,required String? image,required String? oauth,required String? gender,required String? birthDate}) async{
      try {
       final res = await authRemoteDataSource.createAccount(firstName: firstName,
           lastName: lastName,
           address: address,
           email: email,
+          birthDate: birthDate,
+          gender: gender,
           phone: phone,
           image:image??'',
           oauth:oauth,
@@ -81,6 +83,8 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
           image: model.image,
           address: model.address,
           role: model.role,
+          birthDate: model.birthDate,
+          gender: model.gender,
           firstName: model.firstName,
           lastName: model.lastName,
           email: model.email,
@@ -94,9 +98,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   @override
   Future<Either<Failure, Map<String,dynamic>>> googleLogin() async{
             try {
-      final tm = await authRemoteDataSource.facebookLogin();
-     // await authLocalDataSource.saveUserInformations(_tm);
-
+      final tm = await authRemoteDataSource.googleLogin();
       return right(tm);
     } on LoginException catch (e) {
       return left(LoginFailure(e.message));
@@ -158,9 +160,9 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   }
 
   @override
-  Future<Either<Failure, Unit>> updateProfil({required address,required email,required firstName,required lastName,required phone, required id})async {
+  Future<Either<Failure, Unit>> updateProfil({required address,required email,required firstName,required lastName,required phone, required id,required birthDate,required gender})async {
         try {
-      await authRemoteDataSource.updateProfil(address: address,email: email,firstName: firstName,lastName: lastName,phone: phone,id: id);
+      await authRemoteDataSource.updateProfil(address: address,email: email,firstName: firstName,lastName: lastName,phone: phone,id: id,birthdate: birthDate,gender: gender);
       return const Right(unit);
     } on ServerException {
       return Left(ServerFailure());

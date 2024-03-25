@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
 
 import 'button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 
 class LogoutDialog extends StatelessWidget {
@@ -21,8 +23,8 @@ class LogoutDialog extends StatelessWidget {
   ),
   actionsPadding: const EdgeInsets.symmetric(horizontal:20,vertical: 10),
   actions: [
-    TextButton(onPressed: (){Navigator.of(context).pop();}, child: Text('Annuler')),
-    MyButton(text: 'logout', click: ()async{
+    TextButton(onPressed: (){Navigator.of(context).pop();}, child: Text(AppLocalizations.of(context)!.cancel)),
+    MyButton(text: AppLocalizations.of(context)!.logout, click: ()async{
       await controller.logout(context);
     })
   ]

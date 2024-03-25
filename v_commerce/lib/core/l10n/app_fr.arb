@@ -72,14 +72,37 @@
     "update_profile_picture":"mettre à jour la photo de profil",
     "profile_picture_updated":"photo de profil mise à jour avec succès",
     "logged_with_facebook":"connecté avec Facebook",
-    "logged_with_google":"connecté avec Google"
-
-
-
-
-
-
-
+    "logged_with_google":"connecté avec Google",
+    "birth_date":"date de naissance",
+    "gender":"le sexe",
+    "male":"mâle",
+    "female":"femelle",
+    "missing_data":"il faut saisir tous les données requis",
+"ariana":"Ariana",
+"beja":"Béja",
+"ben_arous":"Ben Arous",
+"bizerte":"Bizerte",
+"gabes":"Gabès",
+"gafsa":"Gafsa",
+"jendouba":"Jendouba",
+"kairouan":"Kairouan",
+"kasserine":"Kasserine",
+"kebili":"Kebili",
+"kef":"Kef",
+"mahdia":"Mahdia",
+"manouba":"Manouba",
+"medenine":"Medenine",
+"monastir":"Monastir",
+"nabeul":"Nabeul",
+"sfax":"Sfax",
+"sidi_bouzid":"Sidi bouzid",
+"siliana":"Siliana",
+"sousse":"Sousse",
+"tataouine":"Tataouine",
+"tozeur":"Tozeur",
+"tunis":"Tunis",
+"zaghouan":"Zaghouan",
+"city":"région"
 
 
 

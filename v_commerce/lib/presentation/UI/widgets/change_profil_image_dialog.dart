@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/presentation/UI/widgets/button.dart';
@@ -21,7 +22,6 @@ class _ProfileImageDialogState extends State<ProfileImageDialog> {
   void initState() {
    final AuthenticationController controller = Get.find();
             controller.setuserImage(controller.currentUser.image??'');
-
     super.initState();
   }
 
@@ -30,35 +30,38 @@ class _ProfileImageDialogState extends State<ProfileImageDialog> {
     return  GetBuilder<AuthenticationController>(
      id: ControllerID.UPDATE_USER_IMAGE,
       builder:(controller) {
+
         return AlertDialog(
       title:  Text(AppLocalizations.of(context)!.update_profile_picture),
-      titleTextStyle: TextStyle(fontWeight: FontWeight.bold,color:Colors.black,fontSize: 20),
+      titleTextStyle: const TextStyle(fontWeight: FontWeight.bold,color:Colors.black,fontSize: 20),
       backgroundColor: Colors.white,
       shape:const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(Radius.circular(20))
       ),
-      content:  Stack(
-        fit: StackFit.loose,
-       alignment: AlignmentDirectional.center,
-       children: [
-      GestureDetector(
-        onTap: ()async{
-       await controller.pickImage();
-        },
-        child: CircleAvatar(
-                             radius: 80,
-                           backgroundImage:controller.userImage== '' ? Image.asset('assets/images/userImage.jpeg').image:controller.f==null? NetworkImage(controller.currentUser.image!):Image.file(controller.f!).image,
-                           ),
-      ),
-                        controller.currentUser.image!= '' ? Positioned(
-                       top: 0,
-                       right: 0,
-                       child: CircleAvatar(
-                         backgroundColor: Colors.white,
-                         child: IconButton(icon:const Icon(Icons.clear),onPressed: ()async{
-                           controller.setuserImage(controller.userImage==''?controller.currentUser.image!:'');
-                         },),)):const SizedBox()
-       ],
+      content:  SizedBox(
+        height: 150.h,
+        child: Stack(
+         alignment: AlignmentDirectional.center,
+         children: [
+        GestureDetector(
+          onTap: ()async{
+         await controller.pickImage();
+          },
+          child: CircleAvatar(
+                               radius: 80,
+                             backgroundImage:controller.userImage== '' ? Image.asset('assets/images/userImage.jpeg').image:controller.f==null? NetworkImage(controller.userImage):Image.file(controller.f!).image,
+                             ),
+        ),
+                          controller.currentUser.image!= '' ? Positioned(
+                         top: 0,
+                         right: 0,
+                         child: CircleAvatar(
+                           backgroundColor: Colors.white,
+                           child: IconButton(icon:const Icon(Icons.clear),onPressed: ()async{
+                             controller.setuserImage(controller.userImage==''?controller.currentUser.image!:'');
+                           },),)):Container(),
+         ],
+        ),
       ),
 actionsPadding: const EdgeInsets.symmetric(horizontal:20,vertical: 10),
   actions: [
@@ -69,7 +72,7 @@ actionsPadding: const EdgeInsets.symmetric(horizontal:20,vertical: 10),
             click:controller.currentUser.image!=controller.userImage?()async{
              
                 await controller.updateImage(context);
-              
+                
       
             }:null),
   ]

@@ -57,7 +57,7 @@
     "phone_number":"رقم الهاتف",
     "address":"العنوان",
     "i_accept":"لقد قرأت وأوافق ",
-    "terms_and_conditions":".على الشروط والأحكام",
+    "terms_and_conditions":"على الشروط والأحكام",
     "terms_and_conditions_required":"يجب عليك قبول الشروط والأحكام",
     "connect_to_your_account":"تسجيل الدخول إلى حسابك",
     "edit_user_infos":"تعديل معلومات المستخدم",
@@ -71,13 +71,39 @@
     "update_profile_picture":"تحديث الصورة الشخصية",
     "profile_picture_updated":"تم تحديث الصورة الشخصية بنجاح",
     "logged_with_facebook":"تم تسجيل الدخول باستخدام الفيسبوك",
-    "logged_with_google":"تم تسجيل الدخول باستخدام جوجل"
+    "logged_with_google":"تم تسجيل الدخول باستخدام جوجل",
+    "birth_date":"تاريخ الميلاد",
+    "gender":"الجنس",
+    "male":"ذكر",
+    "female":"أنثى",
+    "missing_data":"يجب عليك إدخال كافة البيانات المطلوبة",
 
 
-
-
-
-
+"ariana":"أريانة",
+"beja":"باجة",
+"ben_arous":"بن عروس",
+"bizerte":"بنزرت",
+"gabes":"قابس",
+"gafsa":"قفصة",
+"jendouba":"جندوبة",
+"kairouan":"القيروان",
+"kasserine":"القصرين",
+"kebili":"قبلي",
+"kef":"الكاف",
+"mahdia":"المهدية",
+"manouba":"منوبة",
+"medenine":"مدنين",
+"monastir":"المنستير",
+"nabeul":"نابل",
+"sfax":"صفاقس",
+"sidi_bouzid":"سيدي بوزيد",
+"siliana":"سليانة",
+"sousse":"سوسة",
+"tataouine":"تطاوين",
+"tozeur":"توزر",
+"tunis":"تونس",
+"zaghouan":"زغوان",
+"city":"الولاية"
 
 
 
