@@ -22,32 +22,28 @@ class _DatePickerInputState extends State<DatePickerInput> {
     return GetBuilder<AuthenticationController>(
       init: AuthenticationController(),
       builder: (controller) {
-        return Container(
-          height: 55.h,
-          decoration: BoxDecoration(
-            border:Border.all(width: 2.0,color: AppColors.black),
-            borderRadius: BorderRadius.circular(10)
-         
+        return GestureDetector(
+          onTap:()async{
+                  final now = DateTime.now();
+             final date = await showDatePicker(context: context, initialDate: now, firstDate: DateTime(1900), lastDate: DateTime(now.year+10));
+              if(date!=null){
+              controller.setBirthDate(date);
+        
+              }
+                } ,
+          child: Container(
+            height: 35.h,
+            width: double.infinity,
+            decoration: const BoxDecoration(
+               border: Border(
+                bottom: BorderSide(width: 1.0, color: AppColors.black),
+             ),
+            ),
+            child: Text.rich(TextSpan(children:[const WidgetSpan(child:Padding(
+              padding: EdgeInsets.symmetric(horizontal:10.0),
+              child: Icon(Icons.calendar_month_sharp),
+            ) ),TextSpan(text:controller.birthDate?? AppLocalizations.of(context)!.birth_date,style: AppTextStyle.smallblackTextStyle )])),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Text(controller.birthDate?? AppLocalizations.of(context)!.birth_date,style: AppTextStyle.smallblackTextStyle,),
-              ),
-              IconButton(
-                padding: EdgeInsets.zero,
-                icon:const Icon(Icons.calendar_month_outlined),onPressed:()async{
-                final now = DateTime.now();
-           final date = await showDatePicker(context: context, initialDate: now, firstDate: DateTime(1900), lastDate: DateTime(now.year+10));
-            if(date!=null){
-            controller.setBirthDate(date);
-
-            }
-              } ,),
-
-          ],),
         );
       }
     );

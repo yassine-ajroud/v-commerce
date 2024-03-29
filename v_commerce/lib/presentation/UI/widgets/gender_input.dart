@@ -31,6 +31,8 @@ class _GenderInputState extends State<GenderInput> {
          
           ),
           child: DropdownButton<String>(
+
+            underline: null,
                       isExpanded: true,
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
            value: controller.gender,

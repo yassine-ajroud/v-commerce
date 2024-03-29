@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
                           ),
                           home: const SplashScreen(),
                           supportedLocales: L10n.all,
-                          locale: Locale('en'),
+                          locale: Locale(controller.currentlocale),
                           localizationsDelegates: const [
                             AppLocalizations.delegate,
                             GlobalMaterialLocalizations.delegate,

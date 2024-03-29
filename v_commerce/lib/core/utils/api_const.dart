@@ -15,7 +15,17 @@ class ApiConst {
   static const String resetPassword = "$baseUrl/Resetpassword";
   static const String updateUserImage = "$baseUrl/updateImage";
 
+  //cart apis
+  static const String addCart = "$baseUrl/cart/add";
+  static const String getCart = "$baseUrl/cart/get";
+  static const String updateCart = "$baseUrl/cart/update";
+  static const String deleteCart = "$baseUrl/cart/delete";
 
+   //cart apis
+  static const String addWishlist = "$baseUrl/wishlist/add";
+  static const String getWishlist = "$baseUrl/wishlist/get";
+  static const String updateWishlist = "$baseUrl/wishlist/update";
+  static const String deleteWishlist = "$baseUrl/wishlist/delete";
 
 
 
@@ -33,10 +43,6 @@ class ApiConst {
 
   //promotions apis
   static const String getPromotions = "$baseUrl/";
-
-  //wishlist apis
-  static const String wishlist = "$baseUrl/wishlist";
-  static const String getWishlist = "$baseUrl/wishlist/find";
 
   //cart apis
   static const String cart = "$baseUrl/carts";

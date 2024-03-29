@@ -19,13 +19,13 @@ class MyButton extends StatelessWidget {
       constraints: BoxConstraints(
         maxHeight: 50.h,
         minHeight: 50.h,
-        minWidth: 150.w,
-        maxWidth: 250.w
+        minWidth: double.infinity,
+        maxWidth: double.infinity
       ),
                // width: 150.w,
                 child: ElevatedButton(onPressed:click,style: ButtonStyle(backgroundColor:MaterialStateProperty.all(color ??AppColors.primary),shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
+                    borderRadius: BorderRadius.circular(20.0),
                     side:  BorderSide(color :color??AppColors.primary)
                   )
                 )), child: Text(text,style: AppTextStyle.buttonTextStyle)

@@ -6,12 +6,12 @@ import '../../../core/styles/colors.dart';
 class InputText extends StatefulWidget {
   final String hint;
    bool ? isPassword;
-  // Icon ? icon;
+  final IconData? leading; 
   final String? Function(String?)? validator;
   final TextEditingController? controler;
   final int ? length;
   final TextInputType ? type ;
-   InputText({super.key, required this.hint,this.isPassword,this.type,this.controler,this.validator,this.length});
+   InputText({super.key, required this.hint,this.isPassword,this.type,this.controler,this.validator,this.length, this.leading});
 
   @override
   State<InputText> createState() => _InputTextState();
@@ -32,24 +32,31 @@ class _InputTextState extends State<InputText> {
       maxLength: widget.length,
       validator: widget.validator,
       controller: widget.controler,
+      
     obscureText: obs ,
     keyboardType: widget.type ?? TextInputType.text,
       decoration: InputDecoration(
         hintText:widget.hint,
+        prefixIcon: Icon(widget.leading,color: AppColors.black,),
             suffixIcon: widget.isPassword??false ?InkWell(onTap:(){setState(() {
               obs=!obs;
               icon=Icon(obs?Icons.visibility:Icons.visibility_off);
             });}, child:icon):null,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide:const BorderSide(color: AppColors.black,
-              width: 2.0)
+            focusedBorder: const  UnderlineInputBorder(
+             // borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color: AppColors.black,
+              width: 1)
             ),
-            enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  borderSide: const BorderSide(
+            border:const  UnderlineInputBorder(
+             // borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color: AppColors.black,
+              width: 1)
+            ),
+            enabledBorder:const UnderlineInputBorder(
+                 // borderRadius: BorderRadius.circular(10.0),
+                  borderSide:  BorderSide(
                     color: AppColors.black,
-                    width: 2.0,
+                    width: 1,
                   ),
           ),
     ));

@@ -20,7 +20,8 @@ class SplashScreen extends StatefulWidget {
     final  SettingsController settingsController = Get.find() ;
     final AuthenticationController authController = Get.find();
 
-    await settingsController.loadLocale();
+    final lang = await settingsController.loadLocale();
+    settingsController.setLocal(lang);
     bool res = true;
     final autologiVarReturn = await AutoLoginUsecase(sl()).call();
     autologiVarReturn.fold((l) {

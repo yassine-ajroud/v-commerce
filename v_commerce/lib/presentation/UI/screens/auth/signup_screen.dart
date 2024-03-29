@@ -1,10 +1,12 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:v_commerce/core/utils/string_const.dart';
 import 'package:v_commerce/presentation/UI/widgets/date_picker.dart';
+import 'package:v_commerce/presentation/UI/widgets/gender_box.dart';
 import 'package:v_commerce/presentation/UI/widgets/gender_input.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
 import '../../../../core/styles/colors.dart';
@@ -76,6 +78,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       InputText(
                         hint: AppLocalizations.of(context)!.first_name,
                         controler: firstname,
+                        leading: Icons.person,
                         validator: (v) {
                           if (v!.isEmpty) {
                             return AppLocalizations.of(context)!
@@ -85,11 +88,12 @@ class _SignupScreenState extends State<SignupScreen> {
                         },
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                       InputText(
                         hint: AppLocalizations.of(context)!.last_name,
                         controler: lastname,
+                        leading: Icons.person,
                         validator: (v) {
                           if (v!.isEmpty) {
                             return AppLocalizations.of(context)!
@@ -99,11 +103,12 @@ class _SignupScreenState extends State<SignupScreen> {
                         },
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                       InputText(
                           hint: AppLocalizations.of(context)!.email,
                           type: TextInputType.emailAddress,
+                          leading: Icons.mail,
                           controler: email,
                           validator: (v) {
                             if (!v!.endsWith('@gmail.com') || v.isEmpty) {
@@ -113,12 +118,13 @@ class _SignupScreenState extends State<SignupScreen> {
                             return null;
                           }),
                       const SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                       InputText(
                           hint: AppLocalizations.of(context)!.password,
                           isPassword: true,
                           controler: password,
+                          leading: Icons.lock,
                           validator: (v) {
                             if (v!.length < 8) {
                               return AppLocalizations.of(context)!
@@ -127,11 +133,12 @@ class _SignupScreenState extends State<SignupScreen> {
                             return null;
                           }),
                       const SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                       InputText(
                           hint: AppLocalizations.of(context)!.confirm_password,
                           isPassword: true,
+                          leading: Icons.lock,
                           controler: cpassword,
                           validator: (v) {
                             if (v != password.text || v!.isEmpty) {
@@ -141,11 +148,13 @@ class _SignupScreenState extends State<SignupScreen> {
                             return null;
                           }),
                       const SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                       InputText(
                           hint: AppLocalizations.of(context)!.phone_number,
                           type: TextInputType.phone,
+                                                  leading: Icons.phone,
+
                           controler: phone,
                           length: 8,
                           validator: (v) {
@@ -156,17 +165,45 @@ class _SignupScreenState extends State<SignupScreen> {
                             return null;
                           }),
                       const SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                     const  CityInput(),
                            const SizedBox(
-                        height: 10,
+                        height: 30,
                       ),
                         const  DatePickerInput(),
+                   
+                    //  const GenderInput(),
                                const SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
-                      const GenderInput(),
+                       Padding(
+                         padding: const EdgeInsets.all(10.0),
+                         child: Row(
+                          children: [
+                            const SizedBox(
+                              height: 40,
+                              child: Stack(
+                                children: [
+                                  Icon(Icons.male,size: 30,),
+                                  Positioned(bottom: -2, child: Icon(Icons.female,size:30)),
+                                ],
+                              ),
+                            ),
+                            Text('gender',style: AppTextStyle.blackTextStyle,)
+                          ],
+                                             ),
+                       ),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                        GenderBox(Icons.male, AppColors.primary),
+                        SizedBox(width: 20.w,),
+                                                GenderBox(Icons.female, Colors.black)
+
+                      ],),
                       SizedBox(
                         width: MediaQuery.sizeOf(context).width,
                         child: Row(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
 import '../../../../core/styles/text_styles.dart';
 import '../../Widgets/input.dart';
@@ -27,17 +29,15 @@ class _ForgetPasswordScreen extends State<ForgetPasswordScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: AppColors.backgroundWhite,
         appBar: AppBar(
-          backgroundColor: Colors.white10,
+        backgroundColor: AppColors.backgroundWhite,
           elevation: 0,
           leading: IconButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              icon: const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-              )),
+             icon:const Icon(Icons.arrow_back,size: 30,)),
         ),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -56,14 +56,15 @@ class _ForgetPasswordScreen extends State<ForgetPasswordScreen> {
                     child: Text(
                         style: AppTextStyle.descriptionTextStyle, AppLocalizations.of(context)!.verification_code_details),
                   ),
-                  const SizedBox(
-                    height: 20,
+                   SizedBox(
+                    height: 30.h,
                   ),
                   Form(
                       key: _formKey,
                       child: InputText(
                         hint: AppLocalizations.of(context)!.email,
                         type: TextInputType.emailAddress,
+                        leading: Icons.email,
                         controler: email,
                         validator: (v) {
                           if (!v!.endsWith("@gmail.com") || v.isEmpty) {
@@ -73,8 +74,8 @@ class _ForgetPasswordScreen extends State<ForgetPasswordScreen> {
                           return null;
                         },
                       )),
-                  const SizedBox(
-                    height: 20,
+                   SizedBox(
+                    height: 30.h,
                   ),
                   GetBuilder<AuthenticationController>(
                     init: AuthenticationController(),

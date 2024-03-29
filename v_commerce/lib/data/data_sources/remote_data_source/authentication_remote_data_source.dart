@@ -36,6 +36,9 @@ abstract class AuthenticationRemoteDataSource {
 
 }
 
+
+
+
 class AuthenticationRemoteDataSourceImpl
     implements AuthenticationRemoteDataSource {
 
@@ -253,8 +256,6 @@ class AuthenticationRemoteDataSourceImpl
             "authorization": "Bearer ${await token.then((value) => value.token)}",
           },
         ),);
-                      print(res.statusCode);
-
          if(res.statusCode==202){
       throw DataNotFoundException(t.wrong_password);
      }else if(res.statusCode==500){
@@ -314,16 +315,12 @@ class AuthenticationRemoteDataSourceImpl
   Future<void> updateUserImage(String userID, File file) async{
        try {
 String fileName = file.path.split('/').last;
-print(fileName);
     FormData formData = FormData.fromMap({
         'id':userID,
         "file":
             await MultipartFile.fromFile(file.path, filename:fileName,contentType: MediaType("image","jpeg")),
     });
 
-      // Map<String,dynamic> model = {
-      //     'id':userID,
-      //     'image':file};
       await dio.post(ApiConst.updateUserImage, data: formData);
     } catch (e) {
       throw ServerException(message: 'cannot update image');

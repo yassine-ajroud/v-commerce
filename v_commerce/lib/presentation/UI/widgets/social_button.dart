@@ -12,36 +12,25 @@ class SocialSecondaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 325.w,
-      height: 50.h,
-      child: ElevatedButton(
-        onPressed: onClick,
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(AppColors.white),
-          minimumSize: MaterialStateProperty.all(Size(325.w, 50.h)),
-          foregroundColor: MaterialStateProperty.all(AppColors.primary),
-          shape: MaterialStateProperty.all(
-            RoundedRectangleBorder(
-              side: BorderSide(color: AppColors.primary, width: 2.w),
-              borderRadius: BorderRadius.circular(13.r),
-            ),
+    return GestureDetector(
+      onTap: onClick,
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.backgroundWhite,
+          border: Border.all(
+            width: 1.w, 
+            color: AppColors.black          
           ),
+          borderRadius: BorderRadius.circular(10.r)
         ),
-        child: Row(
-          children: [
-            SizedBox(width: 10.w,),
+        width: 90.w,
+        height: 55.h,
 
-            SizedBox(
-              height: 25.h,
-              width: 25.w,
-              child: Image(image: AssetImage(asset)),
-            ),
-            SizedBox(width: 30.w,),
-                        Text(text)
-    
-          ],
-        ),
+          child: Padding(
+            padding: const EdgeInsets.all(14.0),
+            child: Image(image: AssetImage(asset),fit: BoxFit.contain),
+          ),
+        
       ),
     );
   }
