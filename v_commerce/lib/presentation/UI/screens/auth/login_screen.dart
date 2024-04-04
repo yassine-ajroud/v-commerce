@@ -64,9 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const SizedBox(
-                              height: 20,
-                            ),
+                            
                             Align(
                                 alignment:Adaptivity.alignmentLeft(settingsController.currentlocale),
                                 child: Text(
@@ -88,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               },
                             ),
                              SizedBox(
-                              height: 20.h,
+                              height: 25.h,
                             ),
                             InputText(
                                 hint: AppLocalizations.of(context)!.password,
@@ -117,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   )),
                             ),
                              SizedBox(
-                              height: 20.h,
+                              height: 25.h,
                             ),
                            MyButton(
                                 text: AppLocalizations.of(context)!.login,
@@ -160,7 +158,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                  
                                ),
                              ),
-                               SizedBox(height: 20.h,),
+                               SizedBox(height: 25.h,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -173,7 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             builder: (_) =>const SignupScreen()));
                                   },
                                   child:  Text(
-                                    AppLocalizations.of(context)!.register,
+                                    AppLocalizations.of(context)!.signUp,
                                     style:AppTextStyle.blueTextButtonTextStyle,
                                   ),
                                 )

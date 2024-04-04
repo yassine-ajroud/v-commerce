@@ -59,7 +59,7 @@
     "i_accept":"لقد قرأت وأوافق ",
     "terms_and_conditions":"على الشروط والأحكام",
     "terms_and_conditions_required":"يجب عليك قبول الشروط والأحكام",
-    "connect_to_your_account":"تسجيل الدخول إلى حسابك",
+    "connect_to_your_account":"لديك حساب؟",
     "edit_user_infos":"تعديل معلومات المستخدم",
     "change_password":"تغيير كلمة المرور",
     "change_language":"تغيير اللغة",
@@ -105,7 +105,11 @@
 "zaghouan":"زغوان",
 "city":"الولاية",
 "or_continue_with":"أو الاستمرار مع",
-"welcome_back":"مرحبًا بعودتك!"
+"welcome_back":"مرحبًا بعودتك!",
+"create_your_account":"أنشئ حسابك!",
+"next":"متابعة"
+
+
 
 
 

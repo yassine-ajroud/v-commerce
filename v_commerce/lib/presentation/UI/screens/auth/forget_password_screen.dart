@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:v_commerce/core/styles/colors.dart';
+import 'package:v_commerce/presentation/UI/widgets/input.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
 import '../../../../core/styles/text_styles.dart';
-import '../../Widgets/input.dart';
 import '../../widgets/button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

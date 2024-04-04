@@ -41,7 +41,7 @@ class _DatePickerInputState extends State<DatePickerInput> {
             ),
             child: Text.rich(TextSpan(children:[const WidgetSpan(child:Padding(
               padding: EdgeInsets.symmetric(horizontal:10.0),
-              child: Icon(Icons.calendar_month_sharp),
+              child: Icon(Icons.calendar_today),
             ) ),TextSpan(text:controller.birthDate?? AppLocalizations.of(context)!.birth_date,style: AppTextStyle.smallblackTextStyle )])),
           ),
         );

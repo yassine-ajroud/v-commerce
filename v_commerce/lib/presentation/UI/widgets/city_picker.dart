@@ -41,7 +41,7 @@ class _CityInputState extends State<CityInput> {
                 width: 1,
               ),
           ),
-         prefixIcon: Icon(Icons.location_on),
+         prefixIcon: Icon(Icons.location_on,color: AppColors.black,),
          
          ),
                   isExpanded: true,

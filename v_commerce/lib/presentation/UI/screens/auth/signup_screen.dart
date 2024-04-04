@@ -1,20 +1,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
-import 'package:v_commerce/core/utils/string_const.dart';
-import 'package:v_commerce/presentation/UI/widgets/date_picker.dart';
-import 'package:v_commerce/presentation/UI/widgets/gender_box.dart';
-import 'package:v_commerce/presentation/UI/widgets/gender_input.dart';
+import 'package:v_commerce/core/utils/adaptive.dart';
+import 'package:v_commerce/presentation/UI/screens/auth/signup_screen2.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
+import 'package:v_commerce/presentation/controllers/settings_controller.dart';
 import '../../../../core/styles/colors.dart';
 import '../../../../core/styles/text_styles.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../widgets/button.dart';
-import '../../widgets/city_picker.dart';
-import '../../widgets/dialog.dart';
 import '../../widgets/input.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -28,25 +23,29 @@ class _SignupScreenState extends State<SignupScreen> {
   final _formKey = GlobalKey<FormState>();
   final firstname = TextEditingController();
   final lastname = TextEditingController();
-  final phone = TextEditingController();
-  final address = TextEditingController();
   final email = TextEditingController();
   final password = TextEditingController();
   final cpassword = TextEditingController();
+  late final SettingsController settingsController;
+
+  @override
+  void initState() {
+    settingsController=Get.find();
+    super.initState();
+  }
 
     @override
   void dispose() {
     super.dispose();
     firstname.dispose();
     lastname.dispose();
-    phone.dispose();
-    address.dispose();
     email.dispose();
     password.dispose();
     cpassword.dispose();
     final AuthenticationController c= Get.find();
     c.birthDate=null;
     c.gender=null;
+    c.city=null;
   }
 
   @override
@@ -54,279 +53,153 @@ class _SignupScreenState extends State<SignupScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: Center(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Align(
-                          alignment: Alignment.centerLeft,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                Align(
+                  alignment: Adaptivity.alignmentLeft(settingsController.currentlocale),
+                  child: GestureDetector(
+                    onTap: (){
+                        Navigator.of(context).pop();
+                    },
+                    child: const Icon(
+                      Icons.arrow_back,size: 30,color: AppColors.black,),
+                  )),
+                         SizedBox(
+                            height: 30.h,
+                          ),
+                    Align(
+                        alignment:Adaptivity.alignmentLeft(settingsController.currentlocale),
+                        child: SizedBox(
+                          width: MediaQuery.sizeOf(context).width*0.9,
                           child: Text(
                               style: AppTextStyle.titleTextStyle,
-                              AppLocalizations.of(context)!.signUp)),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      InputText(
-                        hint: AppLocalizations.of(context)!.first_name,
-                        controler: firstname,
-                        leading: Icons.person,
+                              AppLocalizations.of(context)!.create_your_account),
+                        )),
+                    SizedBox(
+                            height: 30.h,
+                          ),
+                    InputText(
+                      hint: AppLocalizations.of(context)!.first_name,
+                      controler: firstname,
+                      leading: Icons.person,
+                      validator: (v) {
+                        if (v!.isEmpty) {
+                          return AppLocalizations.of(context)!
+                              .first_name_required;
+                        }
+                        return null;
+                      },
+                    ),
+                     SizedBox(
+                            height: 25.h,
+                          ),
+                    InputText(
+                      hint: AppLocalizations.of(context)!.last_name,
+                      controler: lastname,
+                      leading: Icons.person,
+                      validator: (v) {
+                        if (v!.isEmpty) {
+                          return AppLocalizations.of(context)!
+                              .last_name_required;
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBox(
+                            height: 25.h,
+                          ),
+                    InputText(
+                        hint: AppLocalizations.of(context)!.email,
+                        type: TextInputType.emailAddress,
+                        leading: Icons.mail,
+                        controler: email,
                         validator: (v) {
-                          if (v!.isEmpty) {
+                          if (!v!.endsWith('@gmail.com') || v.isEmpty) {
                             return AppLocalizations.of(context)!
-                                .first_name_required;
+                                .invalid_email_address;
                           }
                           return null;
-                        },
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      InputText(
-                        hint: AppLocalizations.of(context)!.last_name,
-                        controler: lastname,
-                        leading: Icons.person,
+                        }),
+                     SizedBox(
+                            height: 25.h,
+                          ),
+                    InputText(
+                        hint: AppLocalizations.of(context)!.password,
+                        isPassword: true,
+                        controler: password,
+                        leading: Icons.lock,
                         validator: (v) {
-                          if (v!.isEmpty) {
+                          if (v!.length < 8) {
                             return AppLocalizations.of(context)!
-                                .last_name_required;
+                                .invalid_password;
                           }
                           return null;
-                        },
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      InputText(
-                          hint: AppLocalizations.of(context)!.email,
-                          type: TextInputType.emailAddress,
-                          leading: Icons.mail,
-                          controler: email,
-                          validator: (v) {
-                            if (!v!.endsWith('@gmail.com') || v.isEmpty) {
-                              return AppLocalizations.of(context)!
-                                  .invalid_email_address;
-                            }
-                            return null;
-                          }),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      InputText(
-                          hint: AppLocalizations.of(context)!.password,
-                          isPassword: true,
-                          controler: password,
-                          leading: Icons.lock,
-                          validator: (v) {
-                            if (v!.length < 8) {
-                              return AppLocalizations.of(context)!
-                                  .invalid_password;
-                            }
-                            return null;
-                          }),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      InputText(
-                          hint: AppLocalizations.of(context)!.confirm_password,
-                          isPassword: true,
-                          leading: Icons.lock,
-                          controler: cpassword,
-                          validator: (v) {
-                            if (v != password.text || v!.isEmpty) {
-                              return AppLocalizations.of(context)!
-                                  .password_does_not_match;
-                            }
-                            return null;
-                          }),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      InputText(
-                          hint: AppLocalizations.of(context)!.phone_number,
-                          type: TextInputType.phone,
-                                                  leading: Icons.phone,
-
-                          controler: phone,
-                          length: 8,
-                          validator: (v) {
-                            if (v!.length != 8) {
-                              return AppLocalizations.of(context)!
-                                  .phone_number_equired;
-                            }
-                            return null;
-                          }),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                    const  CityInput(),
-                           const SizedBox(
-                        height: 30,
-                      ),
-                        const  DatePickerInput(),
-                   
-                    //  const GenderInput(),
-                               const SizedBox(
-                        height: 20,
-                      ),
-                       Padding(
-                         padding: const EdgeInsets.all(10.0),
-                         child: Row(
-                          children: [
-                            const SizedBox(
-                              height: 40,
-                              child: Stack(
-                                children: [
-                                  Icon(Icons.male,size: 30,),
-                                  Positioned(bottom: -2, child: Icon(Icons.female,size:30)),
-                                ],
-                              ),
-                            ),
-                            Text('gender',style: AppTextStyle.blackTextStyle,)
-                          ],
-                                             ),
-                       ),
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                        GenderBox(Icons.male, AppColors.primary),
-                        SizedBox(width: 20.w,),
-                                                GenderBox(Icons.female, Colors.black)
-
-                      ],),
+                        }),
+                     SizedBox(
+                            height: 25.h,
+                          ),
+                    InputText(
+                        hint: AppLocalizations.of(context)!.confirm_password,
+                        isPassword: true,
+                        leading: Icons.lock,
+                        controler: cpassword,
+                        validator: (v) {
+                          if (v != password.text || v!.isEmpty) {
+                            return AppLocalizations.of(context)!
+                                .password_does_not_match;
+                          }
+                          return null;
+                        }),
                       SizedBox(
-                        width: MediaQuery.sizeOf(context).width,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            GetBuilder<AuthenticationController>(
-                              id: ControllerID.TERMS_AND_CONDITIONS,
-                              init: AuthenticationController(),
-                              builder: (controller) {
-                                return Checkbox(
-                                  activeColor: AppColors.primary,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  value: controller.termsAccepted,
-                                  onChanged: (value) {
-                                    controller.aceptTerms(value!);
-                                  },
-                                );
-                              },
-                            ),
-                            Text(AppLocalizations.of(context)!.i_accept,
-                                style: AppTextStyle.smallblackTextStyle),
-                            TextButton(
-                              clipBehavior: Clip.antiAlias,
-                              style: TextButton.styleFrom(
-                                  padding: EdgeInsets.zero,
-                                  tapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap,
-                                  alignment: Alignment.centerLeft),
-                              onPressed: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (_) => const MyDialog());
-                              },
-                              child: Text(
-                                AppLocalizations.of(context)!
-                                    .terms_and_conditions,
-                                style: AppTextStyle.smallblackTextButtonStyle,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      GetBuilder<AuthenticationController>(
-                        init: AuthenticationController(),
-                        builder: (controller) {
-                          return MyButton(
-                            text: AppLocalizations.of(context)!.signUp,
-                            click: () async {
-                              if (_formKey.currentState!.validate()) {
-                                if(controller.termsAccepted){
-                                  if(controller.birthDate!=null&&controller.gender!=null && controller.city!=null){
-                                  await controller.createAccount(
-                                    cpassword: cpassword,
-                                    address: controller.city!,
-                                    email: email,
-                                    birthDate: controller.birthDate!,
-                                    gender: controller.gender!,
-                                    firstName: firstname,
-                                    lastName: lastname,
-                                    password: password,
-                                    phone: phone,
-                                    context: context);
-                                  }else{
-                                    Fluttertoast.showToast(
-                          msg: AppLocalizations.of(context)!.missing_data,
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.BOTTOM,
-                          timeInSecForIosWeb: 1,
-                          backgroundColor: AppColors.toastColor,
-                          textColor: AppColors.white,
-                          fontSize: 16.0);
-                                  }
-                                   
-                                }else{
+                            height: 35.h,
+                          ),
+                    GetBuilder<AuthenticationController>(
+                      init: AuthenticationController(),
+                      builder: (controller) {
+                        return MyButton(
+                          text: AppLocalizations.of(context)!.next,
+                          click: () async {
+                            if (_formKey.currentState!.validate()) {
 
-                                   Fluttertoast.showToast(
-                          msg: AppLocalizations.of(context)!.terms_and_conditions_required,
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.BOTTOM,
-                          timeInSecForIosWeb: 1,
-                          backgroundColor: AppColors.toastColor,
-                          textColor: AppColors.white,
-                          fontSize: 16.0);
-  }
-                                
-                               
-                              }
-                            },
-                          );
-                        },
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 6,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                             Text(AppLocalizations.of(context)!.connect_to_your_account,
-                                textAlign: TextAlign.center,style: AppTextStyle.smallblackTextStyle,),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child:  Text(
-                                AppLocalizations.of(context)!.login,
-                                style: AppTextStyle.blueTextButtonTextStyle,
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                    ]),
-              ),
+                              Navigator.of(context).push(MaterialPageRoute(builder: (_)=>SignupScreen2(
+                                firstname: firstname,
+                                lastname: lastname,
+                                email: email,
+                                password: password,
+                                cpassword: cpassword,
+                              )));             
+                            }
+                          },
+                        );
+                      },
+                    ),
+                      SizedBox(
+                            height: 25.h,
+                          ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                         Text(AppLocalizations.of(context)!.connect_to_your_account,
+                            textAlign: TextAlign.center,style: AppTextStyle.smallblackTextStyle,),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child:  Text(
+                            AppLocalizations.of(context)!.login,
+                            style: AppTextStyle.blueTextButtonTextStyle,
+                          ),
+                        )
+                      ],
+                    )
+                  ]),
             ),
           ),
         ),

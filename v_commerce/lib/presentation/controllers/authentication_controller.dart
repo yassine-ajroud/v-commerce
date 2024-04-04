@@ -201,6 +201,7 @@ class AuthenticationController extends GetxController{
                             this.gender=null;
                             this.birthDate=null;
                             city=null;
+                            termsAccepted=false;
                             update();
 
                           });
