@@ -18,4 +18,12 @@ class Adaptivity{
     return Alignment.centerLeft;
     }
   }
+
+  static EdgeInsets textFieldIconPadding(String language){
+     if(language=='ar'){
+    return const EdgeInsets.only(right:25.0,left: 10);
+    }else{
+    return const EdgeInsets.only(right:10.0,left: 25);
+    }
+  }
 }

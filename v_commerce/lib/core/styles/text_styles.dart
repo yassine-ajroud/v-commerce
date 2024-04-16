@@ -7,14 +7,18 @@ class AppTextStyle {
   static TextStyle secondaryTitleTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 36.sp, color: AppColors.darkGrey2);
   static TextStyle whiteTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp, color: AppColors.white,);
   static TextStyle greyTitleTextStyle = TextStyle(fontWeight: FontWeight.normal, fontSize: 15.sp, color: AppColors.darkGrey);
-    static TextStyle blackTitleTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp, color: AppColors.black);
+    
+    static TextStyle blackTitleTextStyle = TextStyle(fontWeight: FontWeight.w500, fontSize: 16.sp, color: AppColors.black,fontFamily: 'Montserrat');
+    static TextStyle smallDarkButtonTextStyle = TextStyle(fontWeight: FontWeight.normal, fontSize: 12.sp, color: AppColors.white,fontFamily: 'Montserrat');
+    static TextStyle hintTextStyle = TextStyle(fontWeight: FontWeight.w500, fontSize: 12.sp, color: AppColors.hintColor,fontFamily: 'Montserrat');
+
     static TextStyle secondaryBlackTitleTextStyle = TextStyle(fontWeight: FontWeight.normal, fontSize: 18.sp, color: AppColors.black);
     static TextStyle smallblackTextStyle = TextStyle(fontWeight: FontWeight.normal, fontSize: 12.sp, color: AppColors.black);
     static TextStyle descriptionTextStyle = TextStyle(fontWeight: FontWeight.normal, fontSize: 15.sp, color: AppColors.darkGrey2);
     static TextStyle smallblackTextButtonStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp, color: AppColors.black);
   static TextStyle blackTextStyle = TextStyle(fontWeight: FontWeight.normal, fontSize: 15.sp, color: AppColors.black);
 
-    static TextStyle disabledTitleTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp, color: AppColors.darkGrey);
+    static TextStyle disabledTitleTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp, color: AppColors.hintColor);
 
   static TextStyle buttonTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp, color: AppColors.white);
   static TextStyle blueTextButtonTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp, color: AppColors.primary);

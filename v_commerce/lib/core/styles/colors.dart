@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   static const primary = Color(0xffA8D38C);
+    static const secondary = Color.fromARGB(255, 40, 79, 117);
+
   static const backgroundWhite = Colors.white;
-  static const textColor = Color(0xff585858);
+  static const hintColor = Color.fromARGB(255, 71, 71, 71);
   static const grey = Color(0xffAAAAAA);
   static const toastColor = Colors.black;
 
@@ -17,5 +19,6 @@ class AppColors {
   static const secondaryBlack = Colors.black26;
   static const white = Colors.white;
   static const red = Color.fromARGB(255, 221, 80, 80);
+  static const lightBlue=Color.fromARGB(255, 230, 234, 255);
 
 }
