@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:v_commerce/presentation/UI/screens/auth/login_screen.dart';
 import 'package:v_commerce/presentation/UI/screens/auth/profile_screen.dart';
+import 'package:v_commerce/presentation/UI/screens/main/home_page.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
 import 'package:v_commerce/presentation/controllers/settings_controller.dart';
 
@@ -41,7 +42,7 @@ class SplashScreen extends StatefulWidget {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (context) => res ? const ProfileScreen():const LoginScreen()));
+              builder: (context) => res ? const HomeScreen():const LoginScreen()));
     });
   }
   @override

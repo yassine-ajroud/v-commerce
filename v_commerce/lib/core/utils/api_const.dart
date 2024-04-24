@@ -1,8 +1,8 @@
 class ApiConst {
 
-  static const String ipAddress = "192.168.1.20";
-  static const String baseUrl = "http://$ipAddress:8000/api"; //ip Address
-
+  static const String ipAddress = "192.168.1.20";//ip Address
+  static const String baseUrl = "http://$ipAddress:8000/api"; 
+  
   //authentication apis
   static const String register = "$baseUrl/register";
   static const String login = "$baseUrl/login";
@@ -27,13 +27,24 @@ class ApiConst {
   static const String updateWishlist = "$baseUrl/wishlist/update";
   static const String deleteWishlist = "$baseUrl/wishlist/delete";
 
-
-
-  //static const String paiement = "$baseUrl/payment";
-/*
   //product apis
   static const String products = "$baseUrl/products";
   static const String category = "$baseUrl/products/category";
+
+  //3Dproduct apis
+  static const String product3D = "$baseUrl/3Dproducts";
+  static const String allproduct3D = "$baseUrl/3Dproducts/all";
+
+  //promotion apis
+  static const String promotions = "$baseUrl/promotions";
+
+  //category apis
+  static const String categories = "$baseUrl/category";
+  static const String subCategories = "$baseUrl/subcategory";
+
+
+/*
+  //static const String paiement = "$baseUrl/payment";
 
   //review apis
   static const String reviews = "$baseUrl/reviews";
@@ -51,8 +62,6 @@ class ApiConst {
   //fournisseur apis 
   static const String fournisseur = "$baseUrl/fournisseurs";
 
-  //category apis
-  static const String getCategories = "$baseUrl/categories";
 
  //category apis
   static const String sales = "$baseUrl/sales";

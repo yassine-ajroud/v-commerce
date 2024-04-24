@@ -1,9 +1,12 @@
 import 'package:get_it/get_it.dart';
+import 'package:v_commerce/data/data_Sources/remote_data_source/promotion_remote_data_source.dart';
 import 'package:v_commerce/data/data_sources/remote_data_source/cart_remote_data_source.dart';
 import 'package:v_commerce/data/data_sources/remote_data_source/wishlist_remote_data_source.dart';
 import 'package:v_commerce/data/repositories/cart_repository_impl.dart';
+import 'package:v_commerce/data/repositories/promotion_repository_impl.dart';
 import 'package:v_commerce/data/repositories/wishlist_repository_impl.dart';
 import 'package:v_commerce/domain/repositories/cart_repository.dart';
+import 'package:v_commerce/domain/repositories/promotion_repository.dart';
 import 'package:v_commerce/domain/repositories/wishlist_repository.dart';
 import 'package:v_commerce/domain/usecases/authentication_usecases/forget_password_usecase.dart';
 import 'package:v_commerce/domain/usecases/authentication_usecases/reset_password_usecase.dart';
@@ -12,6 +15,7 @@ import 'package:v_commerce/domain/usecases/cart_usecases/create_cart_usecase.dar
 import 'package:v_commerce/domain/usecases/cart_usecases/delete_cart_usecase.dart';
 import 'package:v_commerce/domain/usecases/cart_usecases/get_cart_usecase.dart';
 import 'package:v_commerce/domain/usecases/cart_usecases/update_cart_usecase.dart';
+import 'package:v_commerce/domain/usecases/promotion_usecases/get_all_promotions_usecase.dart';
 
 import 'data/data_sources/local_data_sorce/authentication_local_data_source.dart';
 import 'data/data_sources/remote_data_source/authentication_remote_data_source.dart';
@@ -41,6 +45,8 @@ Future<void> init() async {
       CartRepositoryImpl(sl()));
   sl.registerLazySingleton<WishListRepository>(() =>
       WishListRepositoryImpl(sl()));
+  sl.registerLazySingleton<PromotionRepository>(() =>
+      PromotionRepositoryImpl(sl()));    
 
   /* data sources */
   sl.registerLazySingleton<AuthenticationRemoteDataSource>(
@@ -51,6 +57,9 @@ Future<void> init() async {
       () => CartRemoteDataSourceImpl());
   sl.registerLazySingleton<WishListRemoteDataSource>(
       () => WishListRemoteDataSourceImpl());
+  sl.registerLazySingleton<PromotionRemoteDataSource>(() => PromotionRemoteDataSourceImpl());    
+ 
+
   /* usecases */
   //authentication//
   sl.registerLazySingleton(() => CreateAccountUsecase(sl()));
@@ -71,12 +80,14 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetCartUsecase(sl()));
   sl.registerLazySingleton(() => DeleteCartUsecase(sl()));
 
-    //wishlist//
+  //wishlist//
   sl.registerLazySingleton(() => CreateWishListUsecase(sl()));
   sl.registerLazySingleton(() => UpdateWishListUsecase(sl()));
   sl.registerLazySingleton(() => GetWishListUsecase(sl()));
   sl.registerLazySingleton(() => DeleteWishListUsecase(sl()));
 
+  //promotion//
+  sl.registerLazySingleton(() => GetAllPromotionsUsecase(sl()));
 
 
 }

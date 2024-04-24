@@ -1,0 +1,66 @@
+
+import 'package:dio/dio.dart';
+import 'package:v_commerce/core/errors/exceptions/exceptions.dart';
+import 'package:v_commerce/core/utils/api_const.dart';
+import 'package:v_commerce/data/data_sources/local_data_sorce/authentication_local_data_source.dart';
+import 'package:v_commerce/data/data_sources/local_data_sorce/settings_local_data_source.dart';
+import 'package:v_commerce/data/data_sources/remote_data_source/authentication_remote_data_source.dart';
+import 'package:v_commerce/data/models/category_model.dart';
+import 'package:v_commerce/data/models/token_model.dart';
+
+abstract class CategoryRemoteDataSource {
+  Future<List<CategoryModel>> getAllCategories();
+}
+
+class CategoryRemoteDataSourceImpl implements CategoryRemoteDataSource {
+
+   Future<TokenModel>get token async {
+    return await AuthenticationLocalDataSourceImpl().getUserInformations();
+  }
+     Future<String>get locale async {
+    return await SettingsLocalDataSourcImpl().loadLocale();
+  }
+
+    Future<void> verifyToken () async {
+     return await token.then((value) async{
+      if(value.expiryDate.isBefore(DateTime.now())){
+        final newToken =await AuthenticationRemoteDataSourceImpl().refreshToken(value.refreshToken,value.userId);
+        await AuthenticationLocalDataSourceImpl().saveUserInformations(newToken);
+      }
+    });
+  }
+
+   final dio = Dio(BaseOptions(
+  baseUrl: ApiConst.baseUrl,
+  contentType: Headers.jsonContentType,
+  validateStatus: (int? status) {
+    return status != null;
+    // return status != null && status >= 200 && status < 300;
+  },
+));
+
+  @override
+  Future<List<CategoryModel>> getAllCategories() async {
+    try {
+      await verifyToken();
+      final response = await dio.get(
+        ApiConst.categories,
+        options: Options(
+          headers: {
+            "authorization": "Bearer ${await token}",
+          },
+        ),
+      );
+      List<dynamic> data = response.data;
+      List<CategoryModel> Categories =
+          data.map((e) => CategoryModel.fromJson(e)).toList();
+      return Categories;
+    } on DioException catch (e) {
+      if (e.response!.statusCode == 401) {
+        throw NotAuthorizedException();
+      } else {
+        throw ServerException();
+      }
+    }
+  }
+}
