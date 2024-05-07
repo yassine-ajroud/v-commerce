@@ -98,5 +98,35 @@ class ProductRepositoryImp implements ProductRepository {
       return left(NotAuthorizedFailure());
     }
   }
+  
+  @override
+  Future<Either<Failure, List<Product>>> getSortedProducts() async{
+     try {
+      final productModels = await productRemoteDataSource.getSortedProducts();
+      final products = productModels
+          .map((e) => Product(
+              id: e.id,
+              reference: e.reference,
+              dimensions:e.dimensions,
+              provider: e.provider,
+              category: e.category,
+              name: e.name,
+              description: e.description,
+              price: e.price,
+              rate: e.rate,
+              promotion: e.promotion,
+              sales: e.sales,
+              subCategory: e.subCategory,
+              image: e.image,
+              materials: e.materials,
+              ))
+          .toList();
+      return right(products);
+    } on ServerException {
+      return left(ServerFailure());
+    } on NotAuthorizedException {
+      return left(NotAuthorizedFailure());
+    }
+  }
 
 }

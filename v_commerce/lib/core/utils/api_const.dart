@@ -29,6 +29,7 @@ class ApiConst {
 
   //product apis
   static const String products = "$baseUrl/products";
+  static const String sortdproducts = "$baseUrl/products/sorted";
   static const String category = "$baseUrl/products/category";
 
   //3Dproduct apis
@@ -42,6 +43,8 @@ class ApiConst {
   static const String categories = "$baseUrl/category";
   static const String subCategories = "$baseUrl/subcategory";
 
+  //fournisseur apis 
+  static const String supplier = "$baseUrl/supplier";
 
 /*
   //static const String paiement = "$baseUrl/payment";
@@ -59,8 +62,7 @@ class ApiConst {
   static const String cart = "$baseUrl/carts";
   static const String getCart = "$baseUrl/carts/find";
   
-  //fournisseur apis 
-  static const String fournisseur = "$baseUrl/fournisseurs";
+
 
 
  //category apis

@@ -16,7 +16,6 @@ class PromotionRepositoryImpl implements PromotionRepository {
   Future<Either<Failure, List<Promotion>>> getAllPromotions() async{
        try {
       final promotionModels = await promotionRemoteDataSource.getAllPromotions();
-      print("models $promotionModels");
       final promotions = promotionModels
           .map((e) => Promotion(
               id: e.id,

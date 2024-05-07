@@ -16,6 +16,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('rebuild');
     return SafeArea(
       child: Scaffold(
         body: Padding(

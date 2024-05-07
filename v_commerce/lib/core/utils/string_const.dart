@@ -64,5 +64,10 @@ class ControllerID{
     static const TERMS_AND_CONDITIONS = 'terms';
     static const LANGUAGE = 'language';
     static const UPDATE_USER_IMAGE = 'userImage';
+    static const SELECT_CATEGORY = 'select_category';
+    static const PRODUCT_FILTER = 'product_filter';
+    static const GET_PRODUCT='get_product';
+    static const GET_SUPPLIER='get_supplier';
+
 }
 

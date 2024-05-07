@@ -224,9 +224,12 @@ class AuthenticationRemoteDataSourceImpl
   Future<TokenModel> refreshToken(String refreshToken,String uid)async {
      try {
       final res = await dio.post(ApiConst.refreshToken, data: {"refreshtoken":refreshToken,"uid":uid},);
+      if(res.statusCode==400){
+      throw NotAuthorizedException();
+     }
       return TokenModel.fromJson(res.data);
     } catch (e) {
-      throw RefreshTokenException();
+      rethrow;
     } 
   }
   
@@ -289,7 +292,7 @@ class AuthenticationRemoteDataSourceImpl
       await verifyToken();
       return token;
     } catch (e) {
-      throw NotAuthorizedException();
+     rethrow;
     } 
   }
   

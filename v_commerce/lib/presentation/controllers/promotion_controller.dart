@@ -12,4 +12,10 @@ class PromotionController extends GetxController {
     return promotionsList;
   }
 
+  Future<double> getPromotionPrice(String prodId)async{
+  if(promotionsList.isEmpty){
+    await getAllPromotions();
+  }
+ return promotionsList.firstWhere((element) => element.product==prodId).newPrice;
+  }
 }

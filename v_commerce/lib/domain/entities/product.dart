@@ -12,10 +12,10 @@ class Product extends Equatable{
   final bool promotion;
   final int sales;
   final double rate;
-  final LocalProvider provider;
+  final String provider;
   final LocalDimensions dimensions;
-  final LocalCategory category;
-  final LocalSubCategory subCategory;
+  final String category;
+  final String subCategory;
 
   const Product({required this.id, required this.name, required this.reference, required this.description, required this.price,
    required this.image, required this.materials, required this.promotion, required this.sales, required this.rate, required this.provider,
@@ -25,15 +25,7 @@ class Product extends Equatable{
   List<Object?> get props => [id, name, reference,description,price,image,materials,promotion,sales,rate,provider,dimensions,category,subCategory];
 }
 
-class LocalProvider extends Equatable{
-  final String id;
-  final String name;
 
- const LocalProvider({required this.id,required this.name});
- 
-  @override
-  List<Object?> get props => [id,name];
-}
 
 class LocalDimensions extends Equatable{
   final double? height;
@@ -44,22 +36,4 @@ class LocalDimensions extends Equatable{
  
   @override
   List<Object?> get props => [height,width,thickness];
-}
-
-class LocalCategory extends Equatable{
-  final String id;
-  final String title;
- const LocalCategory({required this.id,required this.title});
- 
-  @override
-  List<Object?> get props => [id,title];
-}
-
-class LocalSubCategory extends Equatable{
-  final String id;
-  final String title;
- const LocalSubCategory({required this.id,required this.title});
- 
-  @override
-  List<Object?> get props => [id,title];
 }

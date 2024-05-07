@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:v_commerce/presentation/UI/screens/auth/login_screen.dart';
-import 'package:v_commerce/presentation/UI/screens/auth/profile_screen.dart';
-import 'package:v_commerce/presentation/UI/screens/main/home_page.dart';
+import 'package:v_commerce/presentation/UI/screens/main/home_screen.dart';
+import 'package:v_commerce/presentation/UI/screens/product/product_screen.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
+import 'package:v_commerce/presentation/controllers/category_controller.dart';
+import 'package:v_commerce/presentation/controllers/product_controller.dart';
 import 'package:v_commerce/presentation/controllers/settings_controller.dart';
 
 import '../../../../core/styles/colors.dart';
@@ -18,6 +20,9 @@ class SplashScreen extends StatefulWidget {
   static Future<void> init(BuildContext context, int duration) async {
     Get.put(SettingsController()) ;
     Get.put(AuthenticationController()) ;
+    Get.put(CategoryController()) ;
+    Get.put(ProductController()) ;
+
     final  SettingsController settingsController = Get.find() ;
     final AuthenticationController authController = Get.find();
 
@@ -39,10 +44,12 @@ class SplashScreen extends StatefulWidget {
    
     });
     Future.delayed( Duration(seconds: duration), () {
+
+      
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (context) => res ? const HomeScreen():const LoginScreen()));
+              builder: (context) => res ? const ProductScreen(productId: "6636aca6f868771a2dbbf553",):const LoginScreen()));
     });
   }
   @override

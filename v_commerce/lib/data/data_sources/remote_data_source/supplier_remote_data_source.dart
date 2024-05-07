@@ -1,20 +1,19 @@
-
 import 'package:dio/dio.dart';
-import 'package:v_commerce/core/errors/exceptions/exceptions.dart';
 import 'package:v_commerce/core/utils/api_const.dart';
 import 'package:v_commerce/data/data_sources/local_data_sorce/authentication_local_data_source.dart';
 import 'package:v_commerce/data/data_sources/local_data_sorce/settings_local_data_source.dart';
 import 'package:v_commerce/data/data_sources/remote_data_source/authentication_remote_data_source.dart';
-import 'package:v_commerce/data/models/category_model.dart';
+import 'package:v_commerce/data/models/supplier_model.dart';
 import 'package:v_commerce/data/models/token_model.dart';
 
-abstract class CategoryRemoteDataSource {
-  Future<List<CategoryModel>> getAllCategories();
+import '../../../core/errors/exceptions/exceptions.dart';
+
+abstract class SupplierRemoteDataSource {
+  Future<SupplierModel> getSupplierById(String id);
 }
 
-class CategoryRemoteDataSourceImpl implements CategoryRemoteDataSource {
-
-   Future<TokenModel>get token async {
+class SupplierRemoteDataSourceImpl implements SupplierRemoteDataSource{
+    Future<TokenModel>get token async {
     return await AuthenticationLocalDataSourceImpl().getUserInformations();
   }
      Future<String>get locale async {
@@ -38,24 +37,19 @@ class CategoryRemoteDataSourceImpl implements CategoryRemoteDataSource {
     // return status != null && status >= 200 && status < 300;
   },
 ));
-
   @override
-  Future<List<CategoryModel>> getAllCategories() async {
-    try {
-      await verifyToken();
-      final response = await dio.get(
-        ApiConst.categories,
-     options: Options(
+  Future<SupplierModel> getSupplierById(String id) async{
+       try {
+              await verifyToken();
+      final response = await dio.get("${ApiConst.supplier}/$id",
+        options: Options(
            headers: {
             "authorization": "Bearer ${await token.then((value) => value.token)}",
           },
-        ),
-      );
-      List<dynamic> data = response.data;
-      List<CategoryModel> categories =
-          data.map((e) => CategoryModel.fromJson(e)).toList();
-      return categories;
-    } on DioException catch (e) {
+        ),);
+      final data = response.data;
+      return  SupplierModel.fromJson(data);
+    }on DioException catch (e) {
       if (e.response!.statusCode == 401) {
         throw NotAuthorizedException();
       } else {
@@ -63,4 +57,5 @@ class CategoryRemoteDataSourceImpl implements CategoryRemoteDataSource {
       }
     }
   }
+
 }

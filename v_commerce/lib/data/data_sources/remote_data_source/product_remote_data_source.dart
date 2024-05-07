@@ -10,6 +10,7 @@ import 'package:v_commerce/data/models/token_model.dart';
 
 abstract class ProductRemoteDataSource {
   Future<List<ProductModel>> getAllProducts();
+  Future<List<ProductModel>> getSortedProducts();
   Future<ProductModel> getOneProducts({required String id});
   Future<List<ProductModel>> getProductsByCategory({required String category});
   Future<List<ProductModel>> getProductsBySubCategory({required String category,required subCategory});
@@ -48,9 +49,9 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
               await verifyToken();
       final response = await dio.get(
         ApiConst.products,
-        options: Options(
-          headers: {
-            "authorization": "Bearer ${await token}",
+          options: Options(
+           headers: {
+            "authorization": "Bearer ${await token.then((value) => value.token)}",
           },
         ),
       );
@@ -74,9 +75,9 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
     try {
               await verifyToken();
       final response = await dio.get("${ApiConst.products}/$id",
-      options: Options(
-          headers: {
-            "authorization": "Bearer ${await token}",
+        options: Options(
+           headers: {
+            "authorization": "Bearer ${await token.then((value) => value.token)}",
           },
         ),);
       final data = response.data;
@@ -99,13 +100,12 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
               await verifyToken();
       final response = await dio.get(
         "${ApiConst.category}/$category",
-        options: Options(
-          headers: {
-            "authorization": "Bearer ${await token}",
+          options: Options(
+           headers: {
+            "authorization": "Bearer ${await token.then((value) => value.token)}",
           },
         ),
       );
-
       List<dynamic> data = response.data;
       List<ProductModel> products =
           data.map((e) => ProductModel.fromJson(e)).toList();
@@ -126,8 +126,8 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
       final response = await dio.get(
         "${ApiConst.category}/$category/subcategory/$subCategory",
         options: Options(
-          headers: {
-            "authorization": "Bearer ${await token}",
+           headers: {
+            "authorization": "Bearer ${await token.then((value) => value.token)}",
           },
         ),
       );
@@ -135,7 +135,33 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
       List<dynamic> data = response.data;
       List<ProductModel> products =
           data.map((e) => ProductModel.fromJson(e)).toList();
-      print(products);
+      return products;
+    } on DioException catch (e) {
+      if (e.response!.statusCode == 401) {
+        throw NotAuthorizedException();
+      } else {
+        throw ServerException();
+      }
+    }
+  }
+  
+  @override
+  Future<List<ProductModel>> getSortedProducts() async{
+      try {
+              await verifyToken();
+      final response = await dio.get(
+        ApiConst.sortdproducts,
+        options: Options(
+           headers: {
+            "authorization": "Bearer ${await token.then((value) => value.token)}",
+          },
+        ),
+      );
+      final data = response.data;
+        List<ProductModel> products =[];
+        for (Map<String,dynamic>json in data){
+          products.add(ProductModel.fromJson(json));
+        }
       return products;
     } on DioException catch (e) {
       if (e.response!.statusCode == 401) {

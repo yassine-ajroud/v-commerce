@@ -4,21 +4,25 @@ import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/core/styles/text_styles.dart';
 import 'package:v_commerce/core/utils/adaptive.dart';
 import 'package:v_commerce/core/utils/svg.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchInput extends StatelessWidget {
-  const SearchInput({super.key});
+  final TextEditingController controller;
+  final  Function(String)? onChanged;
+  const SearchInput({super.key,required this.controller,required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
     return  TextField(
                     keyboardType: TextInputType.text,
-                    
+                    controller: controller,
+                    onChanged:onChanged ,
                     decoration: InputDecoration(
                       prefixIcon:Padding(
                         padding: Adaptivity.textFieldIconPadding('en'),
                         child: SvgPicture.string(APPSVG.searchIcon,)
                       ), 
-                      hintText: "Recherche",
+                      hintText: AppLocalizations.of(context)!.search,
                       hintStyle: AppTextStyle.hintTextStyle,
                       enabled: true,
                       filled: true,
