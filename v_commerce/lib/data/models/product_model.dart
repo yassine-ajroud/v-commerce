@@ -40,6 +40,6 @@ class ProductModel extends Product {
 
 class LocalDimensionsModel extends LocalDimensions{
   const LocalDimensionsModel({super.height,super.width,super.thickness});
-  factory LocalDimensionsModel.fromJson(Map<String,dynamic> json)=>LocalDimensionsModel(height: json['height'],width: json['width'],thickness: json['thickness']);
+  factory LocalDimensionsModel.fromJson(Map<String,dynamic> json)=>LocalDimensionsModel(height: double.tryParse(json['height'].toString()),width: double.tryParse(json['width'].toString()),thickness: double.tryParse(json['thickness'].toString()));
 }
 

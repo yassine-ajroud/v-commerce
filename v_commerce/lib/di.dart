@@ -2,17 +2,20 @@ import 'package:get_it/get_it.dart';
 import 'package:v_commerce/data/data_Sources/remote_data_source/promotion_remote_data_source.dart';
 import 'package:v_commerce/data/data_sources/remote_data_source/cart_remote_data_source.dart';
 import 'package:v_commerce/data/data_sources/remote_data_source/category_remote_data_source.dart';
+import 'package:v_commerce/data/data_sources/remote_data_source/product_3d_remote_data_source.dart';
 import 'package:v_commerce/data/data_sources/remote_data_source/product_remote_data_source.dart';
 import 'package:v_commerce/data/data_sources/remote_data_source/supplier_remote_data_source.dart';
 import 'package:v_commerce/data/data_sources/remote_data_source/wishlist_remote_data_source.dart';
 import 'package:v_commerce/data/repositories/cart_repository_impl.dart';
 import 'package:v_commerce/data/repositories/category_reopsitory.dart';
+import 'package:v_commerce/data/repositories/product_3d_repository_impl.dart';
 import 'package:v_commerce/data/repositories/product_repository_impl.dart';
 import 'package:v_commerce/data/repositories/promotion_repository_impl.dart';
 import 'package:v_commerce/data/repositories/supplier_repository_impl.dart';
 import 'package:v_commerce/data/repositories/wishlist_repository_impl.dart';
 import 'package:v_commerce/domain/repositories/cart_repository.dart';
 import 'package:v_commerce/domain/repositories/category_repository.dart';
+import 'package:v_commerce/domain/repositories/product3d_repository.dart';
 import 'package:v_commerce/domain/repositories/product_repository.dart';
 import 'package:v_commerce/domain/repositories/promotion_repository.dart';
 import 'package:v_commerce/domain/repositories/supplier_repository.dart';
@@ -25,6 +28,7 @@ import 'package:v_commerce/domain/usecases/cart_usecases/delete_cart_usecase.dar
 import 'package:v_commerce/domain/usecases/cart_usecases/get_cart_usecase.dart';
 import 'package:v_commerce/domain/usecases/cart_usecases/update_cart_usecase.dart';
 import 'package:v_commerce/domain/usecases/category_usecases/get_categories_usecase.dart';
+import 'package:v_commerce/domain/usecases/product_3d_usecases/get_all_3d_products_usecase.dart';
 import 'package:v_commerce/domain/usecases/product_usecases/get_all_products_usecase.dart';
 import 'package:v_commerce/domain/usecases/product_usecases/get_products_by_category_usecase.dart';
 import 'package:v_commerce/domain/usecases/promotion_usecases/get_all_promotions_usecase.dart';
@@ -68,6 +72,8 @@ Future<void> init() async {
       CategoryRepositoryImpl(sl()));   
   sl.registerLazySingleton<SupplierRepository>(() =>
       SupplierRepositoryImpl(sl())); 
+  sl.registerLazySingleton<Product3DRepository>(() =>
+      Product3DRepositoryImpl(sl())); 
 
   /* data sources */
   sl.registerLazySingleton<AuthenticationRemoteDataSource>(
@@ -86,6 +92,8 @@ Future<void> init() async {
       () => CategoryRemoteDataSourceImpl());  
   sl.registerLazySingleton<SupplierRemoteDataSource>(
       () => SupplierRemoteDataSourceImpl());  
+  sl.registerLazySingleton<Product3DRemoteDataSource>(
+      () => Product3DRemoteDataSourceImpl());  
  
   /* usecases */
   //authentication//
@@ -120,6 +128,9 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetAllProductsUsecase(sl()));
   sl.registerLazySingleton(() => GetSortedProductsUsecase(sl()));
   sl.registerLazySingleton(() => GetProductsByCategoryUsecase(sl()));
+
+  //products 3D//
+  sl.registerLazySingleton(() => GetAll3DProductsUseCase(sl()));
 
   //categories//
   sl.registerLazySingleton(() => GetAllCategoriesUsecase(sl()));

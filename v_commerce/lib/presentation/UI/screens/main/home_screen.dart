@@ -7,6 +7,7 @@ import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/core/styles/text_styles.dart';
 import 'package:v_commerce/core/utils/string_const.dart';
 import 'package:v_commerce/core/utils/svg.dart';
+import 'package:v_commerce/presentation/UI/screens/product/product_screen.dart';
 import 'package:v_commerce/presentation/UI/widgets/products_item.dart';
 import 'package:v_commerce/presentation/UI/widgets/promotion_item.dart';
 import 'package:v_commerce/presentation/UI/widgets/search_input.dart';
@@ -72,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 background: Padding(
                       padding: const EdgeInsets.symmetric(vertical:10,horizontal: 15),
                   child: Builder(
-                    builder: (context) {
+                    builder: (ctx) {
                       return GetBuilder<ProductController>(
                         init: ProductController(),
                         builder: (prdController) {
@@ -85,20 +86,25 @@ class _HomeScreenState extends State<HomeScreen> {
                               SizedBox(height: 20.h,),
                               Text(AppLocalizations.of(context)!.visualize_before_building,style: AppTextStyle.blackTitleTextStyle),
                                  const SizedBox(height: 10,),
-                                 Container(
-                                          width: 120.w,
-                                          height: 35.h,
-                                          decoration: BoxDecoration(color:AppColors.secondary,
-                                                                borderRadius: BorderRadius.circular(30),
-                               
+                                 InkWell(
+                                  onTap: (){
+                                     Navigator.of(context).push(MaterialPageRoute( builder:(_)=>const ProductScreen()));
+                                  },
+                                   child: Container(
+                                            width: 120.w,
+                                            height: 35.h,
+                                            decoration: BoxDecoration(color:AppColors.secondary,
+                                                                  borderRadius: BorderRadius.circular(30),
+                                                                
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                children: [Text(AppLocalizations.of(context)!.visualize,style: AppTextStyle.smallDarkButtonTextStyle,),SvgPicture.string(APPSVG.arIcon,)],),
+                                            ),
                                           ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                              children: [Text(AppLocalizations.of(context)!.visualize,style: AppTextStyle.smallDarkButtonTextStyle,),SvgPicture.string(APPSVG.arIcon,)],),
-                                          ),
-                                        ),
+                                 ),
                             ],
                           );
                         }

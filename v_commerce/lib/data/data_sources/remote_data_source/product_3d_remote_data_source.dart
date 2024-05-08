@@ -13,8 +13,7 @@ abstract class Product3DRemoteDataSource{
 }
 
 class Product3DRemoteDataSourceImpl implements Product3DRemoteDataSource{
-
-   Future<TokenModel>get token async {
+Future<TokenModel>get token async {
     return await AuthenticationLocalDataSourceImpl().getUserInformations();
   }
      Future<String>get locale async {
@@ -42,7 +41,13 @@ class Product3DRemoteDataSourceImpl implements Product3DRemoteDataSource{
   Future<List<Product3DModel>> getAll3DProducts(String product)async {
        try {
       await verifyToken();
-      final response = await dio.get("${ApiConst.allproduct3D}/$product");
+      final response = await dio.get("${ApiConst.allproduct3D}/$product",
+       options: Options(
+           headers: {
+            "authorization": "Bearer ${await token.then((value) => value.token)}",
+          },
+        ),);
+      print('res $response');
       List<dynamic> data = response.data;
       List<Product3DModel> products3d =
           data.map((e) => Product3DModel.fromJson(e)).toList();
@@ -56,7 +61,12 @@ class Product3DRemoteDataSourceImpl implements Product3DRemoteDataSource{
   Future<Product3DModel> getone3DProducts(String productId) async{
       try {
       await verifyToken();
-      final response = await dio.get("${ApiConst.product3D}/$productId");
+      final response = await dio.get("${ApiConst.product3D}/$productId",
+       options: Options(
+           headers: {
+            "authorization": "Bearer ${await token.then((value) => value.token)}",
+          },
+        ),);
      final data = response.data;
       Product3DModel product3d =Product3DModel.fromJson(data);
       return product3d;
