@@ -8,9 +8,12 @@ class AppColors {
   static const hintColor = Color.fromARGB(255, 71, 71, 71);
   static const grey = Color(0xffAAAAAA);
   static const toastColor = Colors.black;
+  static const green = Color.fromARGB(255, 82, 180, 107);
 
   static const background = Colors.white;
   static const lightgrey = Color(0xffF0F0F0);
+    static const lightgrey2 = Color.fromARGB(255, 247, 247, 247);
+
 
   static const darkGrey =  Color.fromARGB(255, 129, 129, 129);
     static const darkGrey2 = Color.fromARGB(255, 110, 110, 110);

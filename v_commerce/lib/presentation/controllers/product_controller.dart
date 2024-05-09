@@ -18,9 +18,12 @@ class ProductController extends GetxController {
   List<Product> productsByCategory=[];
   List<Product3D> productColors=[];
   late Product currentProduct;
+  late Product3D selected3Dproduct;
   String currentProductid="";
+  int quantity=1;
+  UniqueKey textureKey=UniqueKey();
   TextEditingController searchController = TextEditingController(); 
-
+  
 
   Future<List<Product>> getAllProducts()async{ 
     final res = await GetAllProductsUsecase(sl())();
@@ -52,10 +55,16 @@ Future<Product?> getProductsById(String id)async{
      final txtr= await GetAll3DProductsUseCase(sl()).call(id);
     res.fold((l) => null, (r) => currentProduct=r);
     txtr.fold((l) => null, (r) => productColors = r);
-    print(currentProduct);
-    print("colors $productColors");
+     quantity=1;
+    selected3Dproduct=productColors[0];
     return currentProduct;
   }
+
+void selectTexture(Product3D new3DProduct){
+  selected3Dproduct=new3DProduct;
+  textureKey = UniqueKey();
+  update([ControllerID.PRODUCT_TEXTURE]);
+}
 
   void filterProducts(String word){
     List<Product> prd=allProducts;
@@ -68,5 +77,19 @@ Future<Product?> getProductsById(String id)async{
   await getAllProducts();
   productsByCategory=allProducts;
   }
+
+  void incrementQuantity(){
+    if(quantity<selected3Dproduct.quantity){
+   quantity++;
+  update([ControllerID.PRODUCT_TEXTURE]);
+    }
+
+  }
+    void decrementQuantity(){
+  if(quantity>1){
+   quantity--;
+  update([ControllerID.PRODUCT_TEXTURE]);
+    }
 }
 
+}

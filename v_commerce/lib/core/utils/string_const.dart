@@ -68,6 +68,10 @@ class ControllerID{
     static const PRODUCT_FILTER = 'product_filter';
     static const GET_PRODUCT='get_product';
     static const GET_SUPPLIER='get_supplier';
+    static const PRODUCT_TEXTURE='product_Texture';
+
+    static const PRODUCT_SIZE_TOGGLE='product_size_toggle';
+    static const PRODUCT_MATERIALS_TOGGLE='product_materials_toggle';
 
 }
 
