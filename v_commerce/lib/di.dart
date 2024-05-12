@@ -4,6 +4,7 @@ import 'package:v_commerce/data/data_sources/remote_data_source/cart_remote_data
 import 'package:v_commerce/data/data_sources/remote_data_source/category_remote_data_source.dart';
 import 'package:v_commerce/data/data_sources/remote_data_source/product_3d_remote_data_source.dart';
 import 'package:v_commerce/data/data_sources/remote_data_source/product_remote_data_source.dart';
+import 'package:v_commerce/data/data_sources/remote_data_source/rating_remote_data_source.dart';
 import 'package:v_commerce/data/data_sources/remote_data_source/supplier_remote_data_source.dart';
 import 'package:v_commerce/data/data_sources/remote_data_source/wishlist_remote_data_source.dart';
 import 'package:v_commerce/data/repositories/cart_repository_impl.dart';
@@ -11,6 +12,7 @@ import 'package:v_commerce/data/repositories/category_reopsitory.dart';
 import 'package:v_commerce/data/repositories/product_3d_repository_impl.dart';
 import 'package:v_commerce/data/repositories/product_repository_impl.dart';
 import 'package:v_commerce/data/repositories/promotion_repository_impl.dart';
+import 'package:v_commerce/data/repositories/rating_repository_impl.dart';
 import 'package:v_commerce/data/repositories/supplier_repository_impl.dart';
 import 'package:v_commerce/data/repositories/wishlist_repository_impl.dart';
 import 'package:v_commerce/domain/repositories/cart_repository.dart';
@@ -18,6 +20,7 @@ import 'package:v_commerce/domain/repositories/category_repository.dart';
 import 'package:v_commerce/domain/repositories/product3d_repository.dart';
 import 'package:v_commerce/domain/repositories/product_repository.dart';
 import 'package:v_commerce/domain/repositories/promotion_repository.dart';
+import 'package:v_commerce/domain/repositories/rating_repository.dart';
 import 'package:v_commerce/domain/repositories/supplier_repository.dart';
 import 'package:v_commerce/domain/repositories/wishlist_repository.dart';
 import 'package:v_commerce/domain/usecases/authentication_usecases/forget_password_usecase.dart';
@@ -32,6 +35,11 @@ import 'package:v_commerce/domain/usecases/product_3d_usecases/get_all_3d_produc
 import 'package:v_commerce/domain/usecases/product_usecases/get_all_products_usecase.dart';
 import 'package:v_commerce/domain/usecases/product_usecases/get_products_by_category_usecase.dart';
 import 'package:v_commerce/domain/usecases/promotion_usecases/get_all_promotions_usecase.dart';
+import 'package:v_commerce/domain/usecases/rating_usecases/add_rating_usecase.dart';
+import 'package:v_commerce/domain/usecases/rating_usecases/delete_rating_usecase.dart';
+import 'package:v_commerce/domain/usecases/rating_usecases/get_ratings_usecase.dart';
+import 'package:v_commerce/domain/usecases/rating_usecases/get_single_rating_usecase.dart';
+import 'package:v_commerce/domain/usecases/rating_usecases/update_rating_usecase.dart';
 import 'package:v_commerce/domain/usecases/sub_category_usecases/get_all_sub_categories_usecase.dart';
 import 'package:v_commerce/domain/usecases/supplier_usecases/get_supplier_by_ud_usecase.dart';
 
@@ -74,6 +82,8 @@ Future<void> init() async {
       SupplierRepositoryImpl(sl())); 
   sl.registerLazySingleton<Product3DRepository>(() =>
       Product3DRepositoryImpl(sl())); 
+  sl.registerLazySingleton<RatingRepository>(
+    () => RatingRepositoryImpl(sl()));
 
   /* data sources */
   sl.registerLazySingleton<AuthenticationRemoteDataSource>(
@@ -93,7 +103,9 @@ Future<void> init() async {
   sl.registerLazySingleton<SupplierRemoteDataSource>(
       () => SupplierRemoteDataSourceImpl());  
   sl.registerLazySingleton<Product3DRemoteDataSource>(
-      () => Product3DRemoteDataSourceImpl());  
+      () => Product3DRemoteDataSourceImpl()); 
+  sl.registerLazySingleton<RatingRemoteDataSource>(
+      () => RatingRemoteDataSourceImpl()); 
  
   /* usecases */
   //authentication//
@@ -139,4 +151,10 @@ Future<void> init() async {
   //supplier//
   sl.registerLazySingleton(() => GetSupplierByIdUsecase(sl()));
 
+  //rating usecases//
+  sl.registerLazySingleton(() => AddRatingUsecase(sl()));
+  sl.registerLazySingleton(() => GetRatingsUsecase(sl()));
+  sl.registerLazySingleton(() => GetSingleRatingUsecase(sl()));
+  sl.registerLazySingleton(() => UpdateRatingUsecase(sl()));
+  sl.registerLazySingleton(() => DeleteRatingUsecase(sl()));
 }

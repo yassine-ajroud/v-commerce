@@ -23,10 +23,10 @@ class MyButton extends StatelessWidget {
         maxWidth: double.infinity
       ),
                // width: 150.w,
-                child: ElevatedButton(onPressed:click,style: ButtonStyle(backgroundColor:MaterialStateProperty.all(color ??AppColors.primary),shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                child: ElevatedButton(onPressed:click,style: ButtonStyle(backgroundColor:MaterialStateProperty.all(color ??AppColors.secondary),shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0),
-                    side:  BorderSide(color :color??AppColors.primary)
+                    side:  BorderSide(color :color??AppColors.secondary)
                   )
                 )), child: Text(text,style: AppTextStyle.buttonTextStyle)
                 ),

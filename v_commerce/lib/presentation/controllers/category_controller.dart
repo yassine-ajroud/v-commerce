@@ -26,7 +26,6 @@ class CategoryController extends GetxController{
 
   @override
   void onInit() async{
-    // TODO: implement onInit
     super.onInit();
   await getAllCategories();
   }

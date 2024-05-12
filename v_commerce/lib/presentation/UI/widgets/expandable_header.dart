@@ -21,7 +21,7 @@ class ExpandableHeader extends StatelessWidget {
             const Spacer(),
             IconButton(onPressed: onPress, icon: Icon(expanded? Icons.keyboard_arrow_up_outlined:Icons.keyboard_arrow_down_outlined))
         ],),
-        Divider(thickness: 1,)
+       const Divider(thickness: 1,)
       ],
     );
   }

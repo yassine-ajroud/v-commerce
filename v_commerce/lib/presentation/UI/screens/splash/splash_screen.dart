@@ -7,6 +7,7 @@ import 'package:v_commerce/presentation/controllers/authentication_controller.da
 import 'package:v_commerce/presentation/controllers/category_controller.dart';
 import 'package:v_commerce/presentation/controllers/product_controller.dart';
 import 'package:v_commerce/presentation/controllers/settings_controller.dart';
+import 'package:v_commerce/presentation/controllers/wishlist_controller.dart';
 
 import '../../../../core/styles/colors.dart';
 import '../../../../di.dart';
@@ -21,9 +22,11 @@ class SplashScreen extends StatefulWidget {
     Get.put(AuthenticationController()) ;
     Get.put(CategoryController()) ;
     Get.put(ProductController()) ;
+    Get.put(WishListController()) ;
 
     final  SettingsController settingsController = Get.find() ;
     final AuthenticationController authController = Get.find();
+    final WishListController wishListController = Get.find();
 
     final lang = await settingsController.loadLocale();
     settingsController.setLocal(lang);
@@ -39,6 +42,7 @@ class SplashScreen extends StatefulWidget {
          res = false;
       }, (r)async {
         authController.currentUser = r;
+        final wishlist = await wishListController.getUserWishlist(authController.currentUser.id!);
       });
    
     });

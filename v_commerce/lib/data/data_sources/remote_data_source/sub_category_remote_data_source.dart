@@ -47,8 +47,8 @@ class SubCategoryRemoteDataSourceImpl implements SubCategoryRemoteDataSource {
       final response = await dio.get(
         ApiConst.subCategories,
         options: Options(
-          headers: {
-            "authorization": "Bearer ${await token}",
+           headers: {
+            "authorization": "Bearer ${await token.then((value) => value.token)}",
           },
         ),
       );

@@ -21,7 +21,7 @@ class ApiConst {
   static const String updateCart = "$baseUrl/cart/update";
   static const String deleteCart = "$baseUrl/cart/delete";
 
-   //cart apis
+   //wishlist apis
   static const String addWishlist = "$baseUrl/wishlist/add";
   static const String getWishlist = "$baseUrl/wishlist/get";
   static const String updateWishlist = "$baseUrl/wishlist/update";
@@ -45,6 +45,11 @@ class ApiConst {
 
   //fournisseur apis 
   static const String supplier = "$baseUrl/supplier";
+
+  //rating apis
+  static const String ratings = "$baseUrl/ratings";
+  static const String productRatings = "$baseUrl/products";
+
 
 /*
   //static const String paiement = "$baseUrl/payment";

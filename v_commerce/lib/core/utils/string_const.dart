@@ -69,9 +69,11 @@ class ControllerID{
     static const GET_PRODUCT='get_product';
     static const GET_SUPPLIER='get_supplier';
     static const PRODUCT_TEXTURE='product_Texture';
-
+    static const GET_RATING='get_rating';
+    static const GET_SIMILAR_PRODUCTS='get_similar_products';
     static const PRODUCT_SIZE_TOGGLE='product_size_toggle';
     static const PRODUCT_MATERIALS_TOGGLE='product_materials_toggle';
+    static const LIKE_PRODUCT='like_product';
 
 }
 

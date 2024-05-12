@@ -90,8 +90,8 @@ class WishListRemoteDataSourceImpl implements WishListRemoteDataSource {
    try {
        await dio.put(
         ApiConst.updateWishlist,
-        data: {"userId": wishlist.userId,
-              "products": wishlist.productsId.map((e) => {"productId":e})
+        data: {"id": wishlist.id,
+              "products": wishlist.productsId
               },
         options: Options(
           headers: {

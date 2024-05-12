@@ -9,7 +9,7 @@ class AppColors {
   static const grey = Color(0xffAAAAAA);
   static const toastColor = Colors.black;
   static const green = Color.fromARGB(255, 82, 180, 107);
-
+  static const extraLightBlueColor = Color.fromARGB(255, 230, 234, 250);
   static const background = Colors.white;
   static const lightgrey = Color(0xffF0F0F0);
     static const lightgrey2 = Color.fromARGB(255, 247, 247, 247);

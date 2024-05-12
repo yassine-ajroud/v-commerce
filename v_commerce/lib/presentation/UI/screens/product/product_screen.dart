@@ -8,16 +8,22 @@ import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/core/styles/text_styles.dart';
 import 'package:v_commerce/core/utils/string_const.dart';
 import 'package:v_commerce/core/utils/svg.dart';
+import 'package:v_commerce/presentation/UI/widgets/button.dart';
 import 'package:v_commerce/presentation/UI/widgets/expandable_header.dart';
 import 'package:v_commerce/presentation/UI/widgets/product_size_section.dart';
+import 'package:v_commerce/presentation/UI/widgets/products_item.dart';
 import 'package:v_commerce/presentation/UI/widgets/quantity_button.dart';
+import 'package:v_commerce/presentation/UI/widgets/rating_section.dart';
 import 'package:v_commerce/presentation/UI/widgets/texture_item.dart';
 import 'package:v_commerce/presentation/controllers/product_controller.dart';
 import 'package:v_commerce/presentation/controllers/product_ui_controller.dart';
 import 'package:v_commerce/presentation/controllers/promotion_controller.dart';
+import 'package:v_commerce/presentation/controllers/rating_controller.dart';
 import 'package:v_commerce/presentation/controllers/supplier_controller.dart';
 import 'package:expandable/expandable.dart';
 import 'package:o3d/o3d.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:v_commerce/presentation/controllers/wishlist_controller.dart';
 
 class ProductScreen extends StatelessWidget {
   const ProductScreen({super.key});
@@ -49,10 +55,24 @@ class ProductScreen extends StatelessWidget {
                     backgroundColor: Colors.white,
                     surfaceTintColor: Colors.white,
                    shadowColor: Colors.grey,
-                      actions: [IconButton(
-                                            padding: EdgeInsets.zero,
+                      actions: [GetBuilder(
+                        init: ProductController(),
+                        id:ControllerID.PRODUCT_TEXTURE,
+                        builder: (context) {
+                          return GetBuilder(
+                            init: WishListController(),
+                            id:ControllerID.LIKE_PRODUCT,
+                            builder: (wishListController) {
+                              return IconButton(
+                                                    padding: EdgeInsets.zero,
 
-                        onPressed: (){}, icon: Icon(Icons.favorite_border,size: 30,))],
+                                onPressed: ()async{
+                               await   wishListController.toggleLikedTexture(pc.selected3Dproduct);
+                                }, icon: Icon(wishListController.likedProduct(pc.selected3Dproduct.id) ? Icons.favorite : Icons.favorite_border,size: 30,));
+                            }
+                          );
+                        }
+                      )],
                       pinned: true,
                       floating: true,
                       snap: true,
@@ -95,7 +115,7 @@ class ProductScreen extends StatelessWidget {
                                                           children: [
                                   O3D.network(
                                     key: controller3d.textureKey,
-                                    backgroundColor: AppColors.lightgrey,
+                                   // backgroundColor: AppColors.lightgrey,
                                    src:controller3d.selected3Dproduct.model3D,
                                                       ),
                                                       Positioned(
@@ -117,7 +137,7 @@ class ProductScreen extends StatelessWidget {
    children: [
      Container(
       color: AppColors.lightgrey2,
-      height: 70.h,
+      height: 65.h,
       width: 180.w,
        child: ListView.builder(
                                   padding:const EdgeInsets.symmetric(horizontal:7,vertical: 5),
@@ -177,10 +197,9 @@ class ProductScreen extends StatelessWidget {
                   ),
                 Text(pc.currentProduct.name,style: AppTextStyle.boldBlackTitleTextStyle,),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  padding: const EdgeInsets.symmetric(vertical: 12.0),
                   child: Text(pc.currentProduct.description,style: AppTextStyle.descriptionTextStyle,),
                 ),
-                const SizedBox(height: 10,),
                 GetBuilder<ProductUiController>(
                   init: ProductUiController(),
                   id: ControllerID.PRODUCT_SIZE_TOGGLE,
@@ -207,6 +226,125 @@ class ProductScreen extends StatelessWidget {
                                         );
                   }
                 ),
+                const SizedBox(height: 10,),
+                GetBuilder<ProductUiController>(
+                  init: ProductUiController(),
+                  id: ControllerID.PRODUCT_MATERIALS_TOGGLE,
+                  builder: (materialController) {
+                    return ExpandableHeader(
+                      title: "Used material",
+                      icon: APPSVG.materialIcon,
+                      onPress: (){
+                        materialController.toggleMaterialsExpandable(!materialController.expandedMaterials);
+                      },
+                      expanded: materialController.expandedMaterials,
+                    );
+                  }
+                ),
+                GetBuilder<ProductUiController>(
+                  init: ProductUiController(),
+                  id: ControllerID.PRODUCT_MATERIALS_TOGGLE,
+                  builder: (materialController) {
+                    return ExpandablePanel(
+                                        controller: ExpandableController()..expanded=materialController.expandedMaterials,
+                                        collapsed: Container(),
+                                        expanded:
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(pc.currentProduct.materials,style: AppTextStyle.descriptionTextStyle,),
+                                        )
+                                        );
+                  }
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 12.0),
+                  child: GetBuilder<RatingController>(
+                    init:RatingController(),
+                    builder: (controller) {
+                      return FutureBuilder(
+                        future: controller.getRating(pc.currentProductid),
+                        builder: (context, snapshot) {
+                          if(snapshot.hasData){
+                            return const RatingSection();
+                          }else{
+                            return const CircularProgressIndicator();
+                          }
+
+                          
+                        }
+                      );
+                    }
+                  ),
+                ),
+                 Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 12.0),
+
+                   child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                           
+                                children: [
+                               const Expanded(child: Divider(color: AppColors.black,thickness: 1)),
+                                ElevatedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(AppColors.backgroundWhite),
+                                    foregroundColor:MaterialStateProperty.all(AppColors.secondary), 
+                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                     RoundedRectangleBorder(
+                       borderRadius: BorderRadius.circular(18.0),
+                       side:const BorderSide(color:AppColors.secondary,width: 2)
+                     )
+                   )
+                 ),
+                                  onPressed: (){}, child:Text.rich( TextSpan(children:[TextSpan(text:'See reviews'),WidgetSpan(child: Icon(Icons.arrow_forward),alignment: PlaceholderAlignment.middle,) ]),textAlign: TextAlign.center,),
+                        ),
+                                  const Expanded(child: Divider(color: AppColors.black,thickness: 1)),
+                 
+                              ],),
+                 ),
+                 Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 20.0),
+                   child: MyButton(text: 'Add to cart', click: (){}),
+                 ),
+                 Row(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [Text('Similar products',style: AppTextStyle.blackTitleTextStyle,),Text(AppLocalizations.of(context)!.see_all,style: AppTextStyle.hintTextStyle,),
+                                ]),
+                                 SizedBox(
+                                                                   height:   250.h,
+
+                                   child: FutureBuilder(
+                                                         future: pc.getProductsBySubCategory(pc.currentProduct.category,pc.currentProduct.subCategory,pc.currentProductid),
+                                                         builder: (context, snapshot) {
+                                                           if(snapshot.hasData&&pc.similarProducts.isNotEmpty){ 
+                                                             return ListView.builder(
+                                                             padding:const EdgeInsets.symmetric(horizontal:7,vertical: 5),
+                                                             scrollDirection: Axis.horizontal,
+                                                             itemCount: pc.similarProducts.length,
+                                                             itemBuilder: (context, index) {
+                                                               return InkWell(
+                                                                 
+                                                                 child: ProductItem(image:pc.similarProducts[index].image,
+                                                                 name:pc.similarProducts[index].name ,
+                                                                 price: pc.similarProducts[index].price,
+                                                                 promo:pc.similarProducts[index].promotion ,
+                                                                 id:pc.similarProducts[index].id! ,
+                                                                 rating: pc.similarProducts[index].rate,
+                                                                 ),
+                                                               );
+                                                             },
+                                                           );
+                                                           }else if(snapshot.connectionState==ConnectionState.waiting)  {
+                                    return const Center(child:CircularProgressIndicator());
+                                         
+                                                           }else{
+                                                           return Center(child: const Text('Aucun produit similaire'));
+                                                          }             
+                                                         }
+                                                       ),
+                                 ),
                           ],
                         ),
                       ) ,

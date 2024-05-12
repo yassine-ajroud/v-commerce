@@ -9,8 +9,9 @@ class AppTextStyle {
   //static TextStyle greyTitleTextStyle = TextStyle(fontWeight: FontWeight.normal, fontSize: 15.sp, color: AppColors.darkGrey);
     
     static TextStyle blackTitleTextStyle = TextStyle(fontWeight: FontWeight.w500, fontSize: 16.sp, color: AppColors.black,fontFamily: 'Montserrat');
-    static TextStyle boldBlackTitleTextStyle = TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp, color: AppColors.black,fontFamily: 'Montserrat');
+    static TextStyle boldBlackTitleTextStyle = TextStyle(fontWeight: FontWeight.w600, fontSize: 18.sp, color: AppColors.black,fontFamily: 'Montserrat');
     static TextStyle descriptionTextStyle = TextStyle(fontWeight: FontWeight.w500, fontSize: 12.sp, color: AppColors.darkGrey2,fontFamily: 'Montserrat');
+    static TextStyle largeBlackTextStyle = TextStyle(fontWeight: FontWeight.w600, fontSize: 22.sp, color: AppColors.black,fontFamily: 'Montserrat');
 
     static TextStyle smallBlackTitleTextStyle = TextStyle(fontWeight: FontWeight.w600, fontSize: 12.sp, color: AppColors.black,fontFamily: 'Montserrat');
     static TextStyle smallDarkButtonTextStyle = TextStyle(fontWeight: FontWeight.normal, fontSize: 12.sp, color: AppColors.white,fontFamily: 'Montserrat');
