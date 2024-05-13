@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/core/utils/svg.dart';
+import 'package:v_commerce/presentation/UI/widgets/nav_bar_item.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({super.key});
@@ -25,11 +26,11 @@ class BottomNavBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               //mainAxisSize: MainAxisSize.max,
               children: [
-                  SvgPicture.string(APPSVG.homeIcon,),
-                  SvgPicture.string(APPSVG.categoryIcon),
+               const NavBarItem(icon: APPSVG.homeIcon, index: 0,selectedIcon: APPSVG.selectedHomeIcon,),
+               const NavBarItem(icon: APPSVG.categoryIcon, index: 1,selectedIcon: APPSVG.selectedCategoryIcon,),
                     CircleAvatar(backgroundColor: AppColors.secondary,radius: 40,child: SvgPicture.string(APPSVG.arIcon,width: 30) ,),
-                   SvgPicture.string(APPSVG.serviceIcon,),
-                  SvgPicture.string(APPSVG.favourite),
+               const NavBarItem(icon: APPSVG.serviceIcon, index: 2,selectedIcon: APPSVG.selectedServiceIcon,),
+               const NavBarItem(icon: APPSVG.wishlistIcon, index: 3,selectedIcon: APPSVG.selectedWishlistIcon,),
               ],
             ),
           ),

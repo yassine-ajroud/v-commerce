@@ -7,7 +7,9 @@ import 'package:v_commerce/presentation/UI/screens/main/main_screen.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
 import 'package:v_commerce/presentation/controllers/category_controller.dart';
 import 'package:v_commerce/presentation/controllers/drawerController.dart';
+import 'package:v_commerce/presentation/controllers/main_screen_controller.dart';
 import 'package:v_commerce/presentation/controllers/product_controller.dart';
+import 'package:v_commerce/presentation/controllers/promotion_controller.dart';
 import 'package:v_commerce/presentation/controllers/settings_controller.dart';
 import 'package:v_commerce/presentation/controllers/wishlist_controller.dart';
 
@@ -22,10 +24,8 @@ class SplashScreen extends StatefulWidget {
   static Future<void> init(BuildContext context, int duration) async {
     Get.put(SettingsController()) ;
     Get.put(AuthenticationController()) ;
-    Get.put(CategoryController()) ;
-    Get.put(ProductController()) ;
+    
     Get.put(WishListController()) ;
-    Get.put(MyDrawerController()) ;
 
     final  SettingsController settingsController = Get.find() ;
     final AuthenticationController authController = Get.find();
@@ -46,12 +46,18 @@ class SplashScreen extends StatefulWidget {
       }, (r)async {
         authController.currentUser = r;
         final wishlist = await wishListController.getUserWishlist(authController.currentUser.id!);
+                        Get.put(MyDrawerController()) ;
+Get.put(CategoryController()) ;
+    Get.put(ProductController()) ;
+    Get.put(PromotionController());
+
       });
    
     });
+
     Future.delayed( Duration(seconds: duration), () {
 
-      
+
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(

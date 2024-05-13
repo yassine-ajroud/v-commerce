@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 class MyDrawerController extends GetxController{
   int groupeValue=0;
-            var scaffoldKey = GlobalKey<ScaffoldState>();
+            final scaffoldKey = GlobalKey<ScaffoldState>();
 
   selectDrawerItem(int index){
     groupeValue = index;

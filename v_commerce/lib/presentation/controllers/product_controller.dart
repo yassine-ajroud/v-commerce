@@ -13,6 +13,7 @@ import 'package:v_commerce/domain/usecases/product_usecases/get_products_by_subc
 import 'package:v_commerce/domain/usecases/product_usecases/get_sorted_products_usecase.dart';
 
 import 'package:v_commerce/domain/entities/product3d.dart';
+import 'package:v_commerce/presentation/controllers/promotion_controller.dart';
 import 'package:v_commerce/presentation/controllers/wishlist_controller.dart';
 
 class ProductController extends GetxController {
@@ -106,6 +107,14 @@ void selectTexture(Product3D new3DProduct){
    quantity--;
   update([ControllerID.PRODUCT_TEXTURE]);
     }
+}
+
+double getPrice(Product product){
+  PromotionController promoController= Get.find();
+  if(product.promotion){
+  return  promoController.promotionsList.firstWhere((element) => element.product==product.id).newPrice;
+  }
+  return product.price;
 }
 
 }

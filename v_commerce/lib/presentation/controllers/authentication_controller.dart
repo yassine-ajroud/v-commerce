@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:v_commerce/core/styles/colors.dart';
@@ -22,6 +24,11 @@ import 'package:v_commerce/domain/usecases/authentication_usecases/verify_otp_us
 import 'package:v_commerce/presentation/UI/screens/auth/login_screen.dart';
 import 'package:v_commerce/presentation/UI/screens/auth/otp_screen.dart';
 import 'package:v_commerce/presentation/UI/screens/auth/reset_password_screen.dart';
+import 'package:v_commerce/presentation/UI/screens/main/main_screen.dart';
+import 'package:v_commerce/presentation/controllers/category_controller.dart';
+import 'package:v_commerce/presentation/controllers/drawerController.dart';
+import 'package:v_commerce/presentation/controllers/product_controller.dart';
+import 'package:v_commerce/presentation/controllers/promotion_controller.dart';
 import '../../di.dart';
 import '../../domain/entities/token.dart';
 import '../../domain/usecases/authentication_usecases/clear_user_image.dart';
@@ -117,10 +124,16 @@ class AuthenticationController extends GetxController{
                           textColor: AppColors.white,
                           fontSize: 16.0), 
                           (r) async{
+                                                    Get.put(MyDrawerController()) ;
+Get.put(CategoryController()) ;
+    Get.put(ProductController()) ;
+        Get.put(PromotionController());
+
+
                             token = r;
                             email.clear();
                             password.clear();
-                            await getCurrentUser(r.userId).then((value) => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>const ProfileScreen())));
+                            await getCurrentUser(r.userId).then((value) => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>const MainScreen())));
                           });
                                    isLoading = false;
     update();

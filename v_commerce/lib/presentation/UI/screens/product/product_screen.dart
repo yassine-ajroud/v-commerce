@@ -68,7 +68,7 @@ class ProductScreen extends StatelessWidget {
 
                                 onPressed: ()async{
                                await   wishListController.toggleLikedTexture(pc.selected3Dproduct);
-                                }, icon: Icon(wishListController.likedProduct(pc.selected3Dproduct.id) ? Icons.favorite : Icons.favorite_border,size: 30,));
+                                }, icon:  SvgPicture.string((wishListController.likedProduct(pc.selected3Dproduct.id) ?APPSVG.selectedWishlistIcon: APPSVG.wishlistIcon)));
                             }
                           );
                         }

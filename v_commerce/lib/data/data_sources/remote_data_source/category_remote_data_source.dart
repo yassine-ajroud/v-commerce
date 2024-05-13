@@ -22,12 +22,17 @@ class CategoryRemoteDataSourceImpl implements CategoryRemoteDataSource {
   }
 
     Future<void> verifyToken () async {
-     return await token.then((value) async{
+      try{
+      return await token.then((value) async{
       if(value.expiryDate.isBefore(DateTime.now())){
         final newToken =await AuthenticationRemoteDataSourceImpl().refreshToken(value.refreshToken,value.userId);
         await AuthenticationLocalDataSourceImpl().saveUserInformations(newToken);
       }
     });
+      }catch(e){
+
+      }
+    
   }
 
    final dio = Dio(BaseOptions(

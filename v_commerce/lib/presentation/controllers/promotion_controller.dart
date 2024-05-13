@@ -18,4 +18,10 @@ class PromotionController extends GetxController {
   }
  return promotionsList.firstWhere((element) => element.product==prodId).newPrice;
   }
+
+   @override
+  void onInit() async{
+    super.onInit();
+  await getAllPromotions();
+  }
 }

@@ -29,6 +29,7 @@ Future<void> updateUserWishlist(WishList newWishList)async{
 }
 
 Future<List<Product3D>> getWishlistTextures()async{
+  wishlistModel=[];
   for (var element in currentWishlist.productsId) {
    final  res = await Get3DProductsByIdUseCase(sl())(element);
    res.fold((l) => null, (r) => wishlistModel.add(r)); 

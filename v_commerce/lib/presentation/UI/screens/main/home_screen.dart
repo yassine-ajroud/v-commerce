@@ -31,10 +31,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-        var scaffoldKey = GlobalKey<ScaffoldState>();
     return SafeArea(
       child: Scaffold(
-        key: scaffoldKey,
         backgroundColor: Colors.white,
         body: RefreshIndicator(
           color: AppColors.secondary,
@@ -335,13 +333,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 ]:[
                        SliverAppBar(
                     automaticallyImplyLeading: false,
-                    leading:Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: InkWell(
-                        onTap: (){
-                          scaffoldKey.currentState!.openDrawer();
-                        },
-                        child: SvgPicture.string(APPSVG.menuIcon)),
+                     leading:GetBuilder(
+                      init: MyDrawerController(),
+                      builder: (drawerController) {
+                        return Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: InkWell(
+                            onTap: (){
+                              drawerController.toggleDrawer();
+                            },
+                            child: SvgPicture.string(APPSVG.menuIcon)),
+                        );
+                      }
                     ) ,
                     backgroundColor: Colors.white,
                     surfaceTintColor: Colors.white,

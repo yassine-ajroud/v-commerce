@@ -50,12 +50,13 @@ class ApiConst {
   static const String ratings = "$baseUrl/ratings";
   static const String productRatings = "$baseUrl/products";
 
+  //review apis
+  static const String reviews = "$baseUrl/reviews";
 
 /*
   //static const String paiement = "$baseUrl/payment";
 
-  //review apis
-  static const String reviews = "$baseUrl/reviews";
+
 
   //rating apis
   static const String ratings = "$baseUrl/ratings";
