@@ -3,8 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:v_commerce/presentation/UI/screens/auth/login_screen.dart';
 import 'package:v_commerce/presentation/UI/screens/main/home_screen.dart';
+import 'package:v_commerce/presentation/UI/screens/main/main_screen.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
 import 'package:v_commerce/presentation/controllers/category_controller.dart';
+import 'package:v_commerce/presentation/controllers/drawerController.dart';
 import 'package:v_commerce/presentation/controllers/product_controller.dart';
 import 'package:v_commerce/presentation/controllers/settings_controller.dart';
 import 'package:v_commerce/presentation/controllers/wishlist_controller.dart';
@@ -23,6 +25,7 @@ class SplashScreen extends StatefulWidget {
     Get.put(CategoryController()) ;
     Get.put(ProductController()) ;
     Get.put(WishListController()) ;
+    Get.put(MyDrawerController()) ;
 
     final  SettingsController settingsController = Get.find() ;
     final AuthenticationController authController = Get.find();
@@ -52,7 +55,7 @@ class SplashScreen extends StatefulWidget {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (context) => res ? const HomeScreen():const LoginScreen()));
+              builder: (context) => res ? const MainScreen():const LoginScreen()));
     });
   }
   @override

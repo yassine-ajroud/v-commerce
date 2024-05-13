@@ -13,6 +13,7 @@ import 'package:v_commerce/presentation/UI/widgets/promotion_item.dart';
 import 'package:v_commerce/presentation/UI/widgets/search_input.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:v_commerce/presentation/controllers/category_controller.dart';
+import 'package:v_commerce/presentation/controllers/drawerController.dart';
 import 'package:v_commerce/presentation/controllers/product_controller.dart';
 import 'package:v_commerce/presentation/controllers/promotion_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -35,7 +36,6 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
-        drawer:const Drawer(),
         body: RefreshIndicator(
           color: AppColors.secondary,
           onRefresh: () async{
@@ -53,13 +53,18 @@ class _HomeScreenState extends State<HomeScreen> {
                  
                   SliverAppBar(
                     automaticallyImplyLeading: false,
-                    leading:Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: InkWell(
-                        onTap: (){
-                          scaffoldKey.currentState!.openDrawer();
-                        },
-                        child: SvgPicture.string(APPSVG.menuIcon)),
+                    leading:GetBuilder(
+                      init: MyDrawerController(),
+                      builder: (drawerController) {
+                        return Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: InkWell(
+                            onTap: (){
+                              drawerController.toggleDrawer();
+                            },
+                            child: SvgPicture.string(APPSVG.menuIcon)),
+                        );
+                      }
                     ) ,
                     backgroundColor: Colors.white,
                     surfaceTintColor: Colors.white,
@@ -321,8 +326,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     }
                   ),
-                )
-                  
+                ),
+                const  SliverToBoxAdapter(
+                    child: SizedBox(height: 90),
+                  )
                   ////////////////////////////////////////////
         
                 ]:[
@@ -406,10 +413,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                   physics:const NeverScrollableScrollPhysics(),
         
                               )
-                       
-                    
-                
-                )
+                ),
+                  const  SliverToBoxAdapter(
+                    child: SizedBox(height: 90),
+                  )
                 ]
               );
             }

@@ -70,7 +70,6 @@ Future<Product?> getProductsById(String id)async{
     txtr.fold((l) => null, (r) => productColors = r);
      quantity=1;
     selected3Dproduct=productColors[0];
-    // wishlist.getWishlistTextures();
     return currentProduct;
   }
 
