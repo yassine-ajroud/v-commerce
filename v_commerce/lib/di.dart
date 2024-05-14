@@ -43,6 +43,7 @@ import 'package:v_commerce/domain/usecases/rating_usecases/delete_rating_usecase
 import 'package:v_commerce/domain/usecases/rating_usecases/get_ratings_usecase.dart';
 import 'package:v_commerce/domain/usecases/rating_usecases/get_single_rating_usecase.dart';
 import 'package:v_commerce/domain/usecases/rating_usecases/update_rating_usecase.dart';
+import 'package:v_commerce/domain/usecases/review_usecases/add_review_image_usecase.dart';
 import 'package:v_commerce/domain/usecases/review_usecases/add_review_usecase.dart';
 import 'package:v_commerce/domain/usecases/review_usecases/get_all_reviews_usecase.dart';
 import 'package:v_commerce/domain/usecases/review_usecases/remove_review.dart';
@@ -174,4 +175,6 @@ Future<void> init() async {
   sl.registerLazySingleton(() => AddReviewUsecase(sl()));
   sl.registerLazySingleton(() => UpdateReviewUsecase(sl()));
   sl.registerLazySingleton(() => RemoveReviewUsecase(sl()));
+  sl.registerLazySingleton(() => AddReviewImageUsecase(sl()));
+
 }

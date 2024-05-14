@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:v_commerce/core/errors/failures/failures.dart';
 import 'package:v_commerce/data/data_sources/remote_data_source/review_remote_data_source.dart';
@@ -53,6 +55,16 @@ class ReviewRepositoryImpl implements ReviewRepository {
       try {
       ReviewModel reviewModel=ReviewModel(userID: review.userID, productID: review.productID, comment: review.comment, image: review.image, id: review.id);
       await reviewRemoteDataSource.updateReview(reviewModel);
+      return const Right(unit);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> addReviewImage({required String reviewId, required File file}) async{
+       try {
+      await reviewRemoteDataSource.addReviewImage(reviewId,file);
       return const Right(unit);
     } on ServerException {
       return Left(ServerFailure());

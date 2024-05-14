@@ -52,6 +52,8 @@ class ApiConst {
 
   //review apis
   static const String reviews = "$baseUrl/reviews";
+  static const String uploadReviewImage = "$baseUrl/updateReviewimage";
+
 
 /*
   //static const String paiement = "$baseUrl/payment";

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:v_commerce/core/utils/date.dart';
+import 'package:v_commerce/presentation/UI/widgets/comment_input.dart';
 import 'package:v_commerce/presentation/UI/widgets/review_item.dart';
 import 'package:v_commerce/presentation/controllers/rating_controller.dart';
 import 'package:v_commerce/presentation/controllers/review_controller.dart';
@@ -11,6 +13,9 @@ class ReviewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     RatingController ratingController = Get.find();
     return SafeArea(child: Scaffold(
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+
+      floatingActionButton: const CommentInput(),
       body: GetBuilder(
         init: ReviewController(),
         builder: (controller) {
@@ -18,7 +23,6 @@ class ReviewScreen extends StatelessWidget {
             future: controller.getProductReviews(),
             builder: (context, snapshot) {
               if(snapshot.hasData){
-                print('snapshot ${snapshot.data}');
  return CustomScrollView(
                 slivers: [
                     SliverAppBar(
@@ -38,12 +42,16 @@ class ReviewScreen extends StatelessWidget {
                                   
                           ),  
           
-                            snapshot.data!.length>0?  SliverList.builder(
-                                itemCount:  snapshot.data!.length,
-                                itemBuilder: (_,index)=>ReviewItem(review:  snapshot.data![index], userRate: ratingController.getUserRating(snapshot.data![index].productID, snapshot.data![index].userID))):
+                        controller.allreviews.isNotEmpty?  SliverList.builder(
+                          
+                                itemCount:   controller.allreviews.length,
+                                itemBuilder: (_,index)=>ReviewItem(review:   controller.allreviews[index], userRate: ratingController.getUserRating( controller.allreviews[index].productID,  controller.allreviews[index].userID),date:DateParser.getDateDifference( controller.allreviews[index].date!).toString(),lastItem: index==  controller.allreviews.length-1,)):
                                      const  SliverToBoxAdapter(
                             child: Center(child: Text("Empty reviews")),
-                          )
+                          ),
+                                   const  SliverToBoxAdapter(
+                    child: SizedBox(height: 90),
+                  )
                 ],
               );
               }else if(snapshot.connectionState==ConnectionState.waiting){

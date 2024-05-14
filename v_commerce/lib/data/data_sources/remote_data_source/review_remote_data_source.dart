@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'package:http_parser/http_parser.dart';
+
 import 'package:dio/dio.dart';
 import 'package:v_commerce/core/utils/api_const.dart';
 import 'package:v_commerce/data/data_sources/local_data_sorce/authentication_local_data_source.dart';
@@ -13,6 +16,7 @@ abstract class ReviewRemoteDataSource {
   Future<List<ReviewModel>> getAllReviews(String prodId);
   Future<void> updateReview(ReviewModel review);
   Future<void> removeReview(String id);
+  Future<void> addReviewImage(String reviewId,File file);
 }
 
 class ReviewRemoteDataSourceImpl implements ReviewRemoteDataSource {
@@ -60,7 +64,6 @@ class ReviewRemoteDataSourceImpl implements ReviewRemoteDataSource {
   @override
   Future<List<ReviewModel>> getAllReviews(String prodId) async {
     try {
-      print('prod id $prodId');
       final response = await dio.get("${ApiConst.products}/$prodId/reviews",
               options: Options(
           headers: {
@@ -68,13 +71,11 @@ class ReviewRemoteDataSourceImpl implements ReviewRemoteDataSource {
           },
         ),);
       List<dynamic> data = response.data;
-              print('data $data');
-
       List<ReviewModel> reviews =
           data.map((e) => ReviewModel.fromJson(e)).toList();
-          print('parsed review $reviews');
       return reviews;
     } catch (e) {
+      print(e.toString());
       throw ServerException();
     }
   }
@@ -105,6 +106,22 @@ class ReviewRemoteDataSourceImpl implements ReviewRemoteDataSource {
         ),);
     } catch (e) {
       throw ServerException();
+    }
+  }
+  
+  @override
+  Future<void> addReviewImage(String reviewId, File file) async{
+     try {
+String fileName = file.path.split('/').last;
+    FormData formData = FormData.fromMap({
+        'id':reviewId,
+        "file":
+            await MultipartFile.fromFile(file.path, filename:fileName,contentType: MediaType("image","jpeg")),
+    });
+
+      await dio.put(ApiConst.uploadReviewImage, data: formData);
+    } catch (e) {
+      throw ServerException(message: 'cannot update image');
     }
   }
 }

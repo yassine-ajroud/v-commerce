@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:v_commerce/presentation/UI/screens/main/home_screen.dart';
 import 'package:v_commerce/presentation/UI/screens/splash/splash_screen.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
 import 'package:v_commerce/presentation/controllers/settings_controller.dart';
