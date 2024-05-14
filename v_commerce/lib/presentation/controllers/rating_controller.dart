@@ -79,4 +79,9 @@ Future<bool> getRating(String prodID) async {
     localRate = userRate!.rate;
     return true;
   }
+
+  int getUserRating(String prodID,String userID){
+    return productRating.ratings.firstWhere((element) => element.product==prodID&&element.user==userID).rate;
+  }
+  
 }

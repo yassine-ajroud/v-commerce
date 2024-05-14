@@ -60,6 +60,7 @@ class ReviewRemoteDataSourceImpl implements ReviewRemoteDataSource {
   @override
   Future<List<ReviewModel>> getAllReviews(String prodId) async {
     try {
+      print('prod id $prodId');
       final response = await dio.get("${ApiConst.products}/$prodId/reviews",
               options: Options(
           headers: {
@@ -67,8 +68,11 @@ class ReviewRemoteDataSourceImpl implements ReviewRemoteDataSource {
           },
         ),);
       List<dynamic> data = response.data;
+              print('data $data');
+
       List<ReviewModel> reviews =
           data.map((e) => ReviewModel.fromJson(e)).toList();
+          print('parsed review $reviews');
       return reviews;
     } catch (e) {
       throw ServerException();

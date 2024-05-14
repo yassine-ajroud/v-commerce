@@ -298,7 +298,7 @@ class ProductScreen extends StatelessWidget {
                    )
                  ),
                                   onPressed: (){
-                                    Navigator.of(context).push(MaterialPageRoute(builder: (_)=>ReviewScreen()));
+                                    Navigator.of(context).push(MaterialPageRoute(builder: (_)=>const ReviewScreen()));
 
                                   }, child:Text.rich( TextSpan(children:[TextSpan(text:'See reviews'),WidgetSpan(child: Icon(Icons.arrow_forward),alignment: PlaceholderAlignment.middle,) ]),textAlign: TextAlign.center,),
                         ),

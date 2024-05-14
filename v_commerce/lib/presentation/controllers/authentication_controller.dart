@@ -247,6 +247,17 @@ Get.put(CategoryController()) ;
                           });
   }
 
+   Future<User> getUserById(String userId)async{
+    late final User user;
+      final res = await GetUserUsecase(sl())(userId);
+      res.fold((l){},
+                          (r) {
+                           user=r;
+                          });
+                          return user;
+  }
+  
+
   Future<void> updateProfile({required String address,required TextEditingController email,required TextEditingController firstName,required TextEditingController lastName,required TextEditingController phone,required id,required String birthDate,required String gender ,required BuildContext context})async{
     String message='';
     print(currentUser.id);
