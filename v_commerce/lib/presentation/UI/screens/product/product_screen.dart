@@ -8,6 +8,7 @@ import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/core/styles/text_styles.dart';
 import 'package:v_commerce/core/utils/string_const.dart';
 import 'package:v_commerce/core/utils/svg.dart';
+import 'package:v_commerce/presentation/UI/screens/product/review_screen.dart';
 import 'package:v_commerce/presentation/UI/widgets/button.dart';
 import 'package:v_commerce/presentation/UI/widgets/expandable_header.dart';
 import 'package:v_commerce/presentation/UI/widgets/product_size_section.dart';
@@ -296,7 +297,10 @@ class ProductScreen extends StatelessWidget {
                      )
                    )
                  ),
-                                  onPressed: (){}, child:Text.rich( TextSpan(children:[TextSpan(text:'See reviews'),WidgetSpan(child: Icon(Icons.arrow_forward),alignment: PlaceholderAlignment.middle,) ]),textAlign: TextAlign.center,),
+                                  onPressed: (){
+                                    Navigator.of(context).push(MaterialPageRoute(builder: (_)=>ReviewScreen()));
+
+                                  }, child:Text.rich( TextSpan(children:[TextSpan(text:'See reviews'),WidgetSpan(child: Icon(Icons.arrow_forward),alignment: PlaceholderAlignment.middle,) ]),textAlign: TextAlign.center,),
                         ),
                                   const Expanded(child: Divider(color: AppColors.black,thickness: 1)),
                  
