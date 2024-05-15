@@ -96,6 +96,7 @@ class ReviewRemoteDataSourceImpl implements ReviewRemoteDataSource {
 
   @override
   Future<void> updateReview(ReviewModel review) async {
+    print(review);
     try {
       await dio.put("${ApiConst.reviews}/${review.id}",
           data: review.toJson(),
