@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/core/utils/svg.dart';
 import 'package:v_commerce/presentation/UI/widgets/favourite_item.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
@@ -17,6 +18,7 @@ class WishListScreen extends StatelessWidget {
     final AuthenticationController authenticationController=Get.find();
     final ProductController productController=Get.find();
     return SafeArea(child: Scaffold(
+      backgroundColor: AppColors.backgroundWhite,
       body: GetBuilder(
         init: WishListController(),
         builder: (controller) {

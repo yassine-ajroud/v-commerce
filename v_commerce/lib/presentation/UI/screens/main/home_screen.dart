@@ -7,7 +7,8 @@ import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/core/styles/text_styles.dart';
 import 'package:v_commerce/core/utils/string_const.dart';
 import 'package:v_commerce/core/utils/svg.dart';
-import 'package:v_commerce/presentation/UI/screens/product/product_screen.dart';
+import 'package:v_commerce/presentation/UI/screens/augmented_reality/ar_objects_screen.dart';
+import 'package:v_commerce/presentation/UI/widgets/empty_wishlist_dialog.dart';
 import 'package:v_commerce/presentation/UI/widgets/products_item.dart';
 import 'package:v_commerce/presentation/UI/widgets/promotion_item.dart';
 import 'package:v_commerce/presentation/UI/widgets/search_input.dart';
@@ -17,6 +18,7 @@ import 'package:v_commerce/presentation/controllers/drawerController.dart';
 import 'package:v_commerce/presentation/controllers/product_controller.dart';
 import 'package:v_commerce/presentation/controllers/promotion_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:v_commerce/presentation/controllers/wishlist_controller.dart';
 
 class HomeScreen extends StatefulWidget {
    const HomeScreen({super.key});
@@ -91,7 +93,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                  const SizedBox(height: 10,),
                                  InkWell(
                                   onTap: (){
-                                     Navigator.of(context).push(MaterialPageRoute( builder:(_)=>const ProductScreen()));
+                                    WishListController wishListController=Get.find();
+                                   if(wishListController.wishlistModel.isEmpty){
+                                    showDialog(context: context, builder: (_)=>const EmptyWishlistDialog());
+                                   }
+                                   else{
+                                    Navigator.of(context).push(MaterialPageRoute( builder:(_)=>ObjectGesturesWidget(models:wishListController.wishlistModel,)));
+
+                                   }
                                   },
                                    child: Container(
                                             width: 120.w,
@@ -174,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ) ,
                          SliverToBoxAdapter(
                   child: SizedBox(
-                    height: 250.h,
+                    height: 260.h,
                     child: GetBuilder<ProductController>(
                       init:ProductController(),
                       builder:(productController)=> FutureBuilder(

@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:v_commerce/presentation/UI/screens/auth/login_screen.dart';
-import 'package:v_commerce/presentation/UI/screens/main/home_screen.dart';
 import 'package:v_commerce/presentation/UI/screens/main/main_screen.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
 import 'package:v_commerce/presentation/controllers/category_controller.dart';
 import 'package:v_commerce/presentation/controllers/drawerController.dart';
-import 'package:v_commerce/presentation/controllers/main_screen_controller.dart';
 import 'package:v_commerce/presentation/controllers/product_controller.dart';
 import 'package:v_commerce/presentation/controllers/promotion_controller.dart';
 import 'package:v_commerce/presentation/controllers/settings_controller.dart';
@@ -45,7 +43,7 @@ class SplashScreen extends StatefulWidget {
          res = false;
       }, (r)async {
         authController.currentUser = r;
-        final wishlist = await wishListController.getUserWishlist(authController.currentUser.id!);
+        await wishListController.getUserWishlist(authController.currentUser.id!);
                         Get.put(MyDrawerController()) ;
 Get.put(CategoryController()) ;
     Get.put(ProductController()) ;

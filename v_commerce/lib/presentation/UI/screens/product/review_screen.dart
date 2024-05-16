@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/core/utils/date.dart';
 import 'package:v_commerce/presentation/UI/widgets/comment_input.dart';
 import 'package:v_commerce/presentation/UI/widgets/review_item.dart';
@@ -13,6 +14,7 @@ class ReviewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     RatingController ratingController = Get.find();
     return SafeArea(child: Scaffold(
+      backgroundColor: AppColors.backgroundWhite,
           floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
       floatingActionButton: const CommentInput(),

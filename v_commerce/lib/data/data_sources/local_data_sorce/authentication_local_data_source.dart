@@ -28,7 +28,7 @@ class AuthenticationLocalDataSourceImpl
   Future<TokenModel> getUserInformations() async {
     try {
       final sp = await SharedPreferences.getInstance();
-      if( sp.getString(StringConst.SP_TOKEN_KEY)==''){
+      if( sp.getString(StringConst.SP_TOKEN_KEY)=='' || sp.getString(StringConst.SP_TOKEN_KEY)==null ){
        return TokenModel.fromJson({
     "message": "login successful",
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFqZWphQGdtYWlsLmNvbSIsImlhdCI6MTcxNTMzMTk4MCwiZXhwIjoxNzE1MzMyODgwfQ.PxitiEv-iSiob2fzgJ991y1m0JDhVYLWLj5cQfJF3Nk",

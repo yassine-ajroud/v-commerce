@@ -53,6 +53,8 @@
 	<string>Take photo from camera.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Used to capture audio from image picker plugin.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Save photo to gallery.</string>
     <key>io.flutter.embedded_views_preview</key>
     <true/>
 </dict>

@@ -124,16 +124,17 @@ class AuthenticationController extends GetxController{
                           textColor: AppColors.white,
                           fontSize: 16.0), 
                           (r) async{
-                                                    Get.put(MyDrawerController()) ;
+                            token = r;
+                            email.clear();
+                            password.clear();
+                            await getCurrentUser(r.userId).then((value) {
+                                                                                  Get.put(MyDrawerController()) ;
 Get.put(CategoryController()) ;
     Get.put(ProductController()) ;
         Get.put(PromotionController());
 
-
-                            token = r;
-                            email.clear();
-                            password.clear();
-                            await getCurrentUser(r.userId).then((value) => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>const MainScreen())));
+                              return Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>const MainScreen()));
+                            });
                           });
                                    isLoading = false;
     update();

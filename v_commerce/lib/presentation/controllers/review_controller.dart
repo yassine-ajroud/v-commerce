@@ -11,7 +11,6 @@ import 'package:v_commerce/core/styles/text_styles.dart';
 import 'package:v_commerce/core/utils/svg.dart';
 import 'package:v_commerce/di.dart';
 import 'package:v_commerce/domain/entities/review.dart';
-import 'package:v_commerce/domain/usecases/rating_usecases/update_rating_usecase.dart';
 import 'package:v_commerce/domain/usecases/review_usecases/add_review_image_usecase.dart';
 import 'package:v_commerce/domain/usecases/review_usecases/add_review_usecase.dart';
 import 'package:v_commerce/domain/usecases/review_usecases/get_all_reviews_usecase.dart';

@@ -8,6 +8,7 @@ import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/core/styles/text_styles.dart';
 import 'package:v_commerce/core/utils/string_const.dart';
 import 'package:v_commerce/core/utils/svg.dart';
+import 'package:v_commerce/presentation/UI/screens/augmented_reality/ar_objects_screen.dart';
 import 'package:v_commerce/presentation/UI/screens/product/review_screen.dart';
 import 'package:v_commerce/presentation/UI/widgets/button.dart';
 import 'package:v_commerce/presentation/UI/widgets/expandable_header.dart';
@@ -125,7 +126,9 @@ class ProductScreen extends StatelessWidget {
                                                         child: FloatingActionButton(
                                                           backgroundColor: AppColors.primary,
                                                           shape:const CircleBorder(),
-                                                          onPressed: (){},
+                                                          onPressed: (){
+                                                            Navigator.of(context).push(MaterialPageRoute(builder: (_)=>ObjectGesturesWidget(models: [controller3d.selected3Dproduct],isSingleProduct: true,)));
+                                                          },
                                                           child:  SvgPicture.string(APPSVG.arIcon,width: 20.r,),))
                                                           ],
                                                         ), ),
@@ -289,6 +292,8 @@ class ProductScreen extends StatelessWidget {
                                 ElevatedButton(
                                   style: ButtonStyle(
                                     backgroundColor: MaterialStateProperty.all(AppColors.backgroundWhite),
+                                    overlayColor: MaterialStateProperty.all(AppColors.backgroundWhite),
+                                    surfaceTintColor: MaterialStateProperty.all(AppColors.backgroundWhite),
                                     foregroundColor:MaterialStateProperty.all(AppColors.secondary), 
                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                      RoundedRectangleBorder(
@@ -317,7 +322,7 @@ class ProductScreen extends StatelessWidget {
                           children: [Text('Similar products',style: AppTextStyle.blackTitleTextStyle,),Text(AppLocalizations.of(context)!.see_all,style: AppTextStyle.hintTextStyle,),
                                 ]),
                                  SizedBox(
-                                                                   height:   250.h,
+                                                                   height:   260.h,
 
                                    child: FutureBuilder(
                                                          future: pc.getProductsBySubCategory(pc.currentProduct.category,pc.currentProduct.subCategory,pc.currentProductid),

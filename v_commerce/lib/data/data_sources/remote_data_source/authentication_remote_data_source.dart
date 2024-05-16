@@ -292,6 +292,7 @@ class AuthenticationRemoteDataSourceImpl
       await verifyToken();
       return token;
     } catch (e) {
+      print(e);
      rethrow;
     } 
   }

@@ -14,7 +14,7 @@ class RateProgressWidget extends StatelessWidget {
         Text(label,style: AppTextStyle.descriptionTextStyle,),
        const SizedBox(width: 10,),
         SizedBox(
-          width: 130,
+          width: 120,
           child: LinearProgressIndicator(
               value: value,
               color: AppColors.secondary,
