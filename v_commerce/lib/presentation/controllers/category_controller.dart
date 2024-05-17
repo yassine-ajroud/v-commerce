@@ -13,23 +13,25 @@ class CategoryController extends GetxController{
    List<Category> filtredCategoriesList=[];
  late  Category selectedCategory;
    TextEditingController searchController = TextEditingController(); 
-
+final all=const Category(id: "all", title: "tous", image: 'https://www.sm-devis.tn/wp-content/uploads/2019/11/Prix-de-la-pose-de-carrelage-en-Tunisie.jpg');
 
   Future<List<Category>> getAllCategories()async{ 
     final res = await GetAllCategoriesUsecase(sl())();
     res.fold((l) => null, (r) {
         filtredCategoriesList=r;
-      return categoriesList=r;
+       categoriesList=r;
     });
 
-    categoriesList.insert(0,const Category(id: "all", title: "tous", image: 'https://www.sm-devis.tn/wp-content/uploads/2019/11/Prix-de-la-pose-de-carrelage-en-Tunisie.jpg'));
+    categoriesList.insert(0,all);
     selectedCategory = categoriesList[0];
+
+
     return categoriesList;
   }
 
 void filterCategories(String word){
       List<Category> prd=categoriesList;
-    print(filtredCategoriesList);
+    print('filtred $filtredCategoriesList');
     filtredCategoriesList= prd.where((element) => (element.title.toUpperCase().contains(word.toUpperCase()))).toList();
     update([ControllerID.CATEGORY_FILTER]);
 }

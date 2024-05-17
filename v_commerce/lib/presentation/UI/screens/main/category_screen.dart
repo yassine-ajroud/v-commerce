@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/core/utils/string_const.dart';
 import 'package:v_commerce/core/utils/svg.dart';
+import 'package:v_commerce/presentation/UI/screens/product/filtered_product_screen.dart';
 import 'package:v_commerce/presentation/UI/widgets/category_item.dart';
 import 'package:v_commerce/presentation/UI/widgets/search_input.dart';
 import 'package:v_commerce/presentation/controllers/category_controller.dart';
 import 'package:v_commerce/presentation/controllers/drawerController.dart';
+import 'package:v_commerce/presentation/controllers/product_controller.dart';
 
 class CategoryScreen extends StatelessWidget {
   const CategoryScreen({super.key});
@@ -73,6 +76,7 @@ class CategoryScreen extends StatelessWidget {
                   init: CategoryController(),
                   id: ControllerID.CATEGORY_FILTER,
                   builder: (controller) {
+                   controller.filtredCategoriesList.remove(controller.all);
                     return SliverGrid(
                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
@@ -82,7 +86,13 @@ class CategoryScreen extends StatelessWidget {
                           ),
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
-                        return CategoryItem(category: controller.filtredCategoriesList[index]);
+                        return InkWell(
+                          onTap:() async{
+                                final ProductController productController=Get.find();
+                            final prods=await productController.getProductsByCategory( controller.filtredCategoriesList[index].id);
+                          Navigator.of(context).push(MaterialPageRoute(builder: (_)=>FilteredProductScreen(products:prods)));
+                          },
+                          child: CategoryItem(category: controller.filtredCategoriesList[index]));
                       },
                       childCount: controller.filtredCategoriesList.length,
                     ),

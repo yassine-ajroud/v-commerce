@@ -8,6 +8,7 @@ import 'package:v_commerce/core/styles/text_styles.dart';
 import 'package:v_commerce/core/utils/string_const.dart';
 import 'package:v_commerce/core/utils/svg.dart';
 import 'package:v_commerce/presentation/UI/screens/augmented_reality/ar_objects_screen.dart';
+import 'package:v_commerce/presentation/UI/screens/product/filtered_product_screen.dart';
 import 'package:v_commerce/presentation/UI/widgets/empty_wishlist_dialog.dart';
 import 'package:v_commerce/presentation/UI/widgets/products_item.dart';
 import 'package:v_commerce/presentation/UI/widgets/promotion_item.dart';
@@ -177,7 +178,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [Text(AppLocalizations.of(context)!.top_sales,style: AppTextStyle.blackTitleTextStyle,),Text(AppLocalizations.of(context)!.see_all,style: AppTextStyle.hintTextStyle,),
+                          children: [Text(AppLocalizations.of(context)!.top_sales,style: AppTextStyle.blackTitleTextStyle,),
+                          InkWell(
+                            onTap:(){
+                           Navigator.of(context).push(MaterialPageRoute(builder: (_)=>FilteredProductScreen(products:pc.sortedProducts)));
+                            },
+                            child: Text(AppLocalizations.of(context)!.see_all,style: AppTextStyle.hintTextStyle,)),
                                 ]),
                                      ),
                       ) ,

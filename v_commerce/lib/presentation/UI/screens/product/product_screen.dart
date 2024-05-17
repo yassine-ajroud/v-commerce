@@ -9,6 +9,7 @@ import 'package:v_commerce/core/styles/text_styles.dart';
 import 'package:v_commerce/core/utils/string_const.dart';
 import 'package:v_commerce/core/utils/svg.dart';
 import 'package:v_commerce/presentation/UI/screens/augmented_reality/ar_objects_screen.dart';
+import 'package:v_commerce/presentation/UI/screens/product/filtered_product_screen.dart';
 import 'package:v_commerce/presentation/UI/screens/product/review_screen.dart';
 import 'package:v_commerce/presentation/UI/widgets/button.dart';
 import 'package:v_commerce/presentation/UI/widgets/expandable_header.dart';
@@ -319,7 +320,11 @@ class ProductScreen extends StatelessWidget {
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [Text('Similar products',style: AppTextStyle.blackTitleTextStyle,),Text(AppLocalizations.of(context)!.see_all,style: AppTextStyle.hintTextStyle,),
+                          children: [Text('Similar products',style: AppTextStyle.blackTitleTextStyle,),InkWell(
+                              onTap:(){
+                           Navigator.of(context).push(MaterialPageRoute(builder: (_)=>FilteredProductScreen(products:pc.similarProducts)));
+                            },
+                            child: Text(AppLocalizations.of(context)!.see_all,style: AppTextStyle.hintTextStyle,)),
                                 ]),
                                  SizedBox(
                                                                    height:   260.h,
