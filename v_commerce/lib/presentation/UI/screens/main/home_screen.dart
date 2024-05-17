@@ -228,29 +228,28 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: SizedBox(
                     height: 40.h,
                     child: GetBuilder<CategoryController>(
+                                            id:ControllerID.SELECT_CATEGORY,
+
                       init:CategoryController(),
                       builder:(categoryController)=> FutureBuilder(
                         future: categoryController.getAllCategories(),
                         builder: (context, snapshot) {
                           if(snapshot.hasData){ 
-                            return GetBuilder<CategoryController>(
-                                              init:CategoryController(),
-                      id:ControllerID.SELECT_CATEGORY,
+                            return
         
-                              builder: (controller) {
-                                return ListView.builder(
+                                 ListView.builder(
                                 padding:const EdgeInsets.symmetric(horizontal:12,vertical: 5),
                                 scrollDirection: Axis.horizontal,
-                                itemCount: controller.categoriesList.length,
+                                itemCount: categoryController.categoriesList.length,
                                 itemBuilder: (context, index) {
                                   return Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 3.0),
                                     child: GestureDetector(
                                       onTap:(){
-                                        controller.selectCategory(controller.categoriesList[index]);
+                                        categoryController.selectCategory(categoryController.categoriesList[index]);
                                       },
                                       child: Container(
-                                        decoration:controller.selectedCategory.id==controller.categoriesList[index].id? BoxDecoration(
+                                        decoration:categoryController.selectedCategory.id==categoryController.categoriesList[index].id? BoxDecoration(
                                           color: AppColors.secondary,
                                           borderRadius:BorderRadius.circular(20)
                                         ):BoxDecoration(
@@ -263,8 +262,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ) ,
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(horizontal:15,vertical: 8.0),
-                                          child: Text( controller.categoriesList[index].title,style:
-                                          controller.selectedCategory.id==controller.categoriesList[index].id?
+                                          child: Text( categoryController.categoriesList[index].title,style:
+                                          categoryController.selectedCategory.id==categoryController.categoriesList[index].id?
                                            AppTextStyle.smallDarkButtonTextStyle:  AppTextStyle.smallLightButtonTextStyle,),
                                         ),
                                       ),
@@ -272,8 +271,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   );
                                 },
                           );
-                              }
-                            );
+                              
+                            
                           }else if(snapshot.connectionState==ConnectionState.waiting)  {
                                   return const Center(child:CircularProgressIndicator());
         
