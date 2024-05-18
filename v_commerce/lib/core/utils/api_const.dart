@@ -54,24 +54,19 @@ class ApiConst {
   static const String reviews = "$baseUrl/reviews";
   static const String uploadReviewImage = "$baseUrl/updateReviewimage";
 
+  //sales
+  static const String addSale = "$baseUrl/sales/create";
+  static const String oneSale = "$baseUrl/sales/one";
+  static const String allSales = "$baseUrl/sales";
 
 /*
   //static const String paiement = "$baseUrl/payment";
-
-
 
   //rating apis
   static const String ratings = "$baseUrl/ratings";
 
   //promotions apis
   static const String getPromotions = "$baseUrl/";
-
-  //cart apis
-  static const String cart = "$baseUrl/carts";
-  static const String getCart = "$baseUrl/carts/find";
-  
-
-
 
  //category apis
   static const String sales = "$baseUrl/sales";

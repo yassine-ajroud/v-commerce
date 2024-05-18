@@ -1,25 +1,21 @@
-import 'dart:io';
-import 'package:http_parser/http_parser.dart';
-
 import 'package:dio/dio.dart';
 import 'package:v_commerce/core/utils/api_const.dart';
 import 'package:v_commerce/data/data_sources/local_data_sorce/authentication_local_data_source.dart';
 import 'package:v_commerce/data/data_sources/local_data_sorce/settings_local_data_source.dart';
 import 'package:v_commerce/data/data_sources/remote_data_source/authentication_remote_data_source.dart';
-import 'package:v_commerce/data/models/review_model.dart';
+import 'package:v_commerce/data/models/sales_model.dart';
 import 'package:v_commerce/data/models/token_model.dart';
-
 import '../../../core/errors/exceptions/exceptions.dart';
 
-abstract class ReviewRemoteDataSource {
-  Future<ReviewModel> addReview(ReviewModel reviewModel);
-  Future<List<ReviewModel>> getAllReviews(String prodId);
-  Future<void> updateReview(ReviewModel review);
-  Future<void> removeReview(String id);
-  Future<void> addReviewImage(String reviewId,File file);
+abstract class SalesRemoteDataSource{
+  Future<List<SalesModel>> getAllSales(String userId);
+  Future<SalesModel> getSingleSales(String id);
+  Future<void> deleteSales(String id);
+  Future<SalesModel> addSale(SalesModel newSale);
+Future<void> updateSale(SalesModel updateSale);
 }
 
-class ReviewRemoteDataSourceImpl implements ReviewRemoteDataSource {
+class SalesRemoteDataSourceImp implements SalesRemoteDataSource{
  Future<TokenModel>get token async {
     return await AuthenticationLocalDataSourceImpl().getUserInformations();
   }
@@ -46,59 +42,59 @@ class ReviewRemoteDataSourceImpl implements ReviewRemoteDataSource {
 ));
 
   @override
-  Future<ReviewModel> addReview(ReviewModel review) async {
-    try {
-   final res = await dio.post("${ApiConst.products}/${review.productID}/reviews",
-          data: review.toJson(),
-            options: Options(
+  Future<SalesModel> addSale(SalesModel newSale) async {
+      try {
+      final res = await dio.post(ApiConst.addSale, data: newSale.toJson(),
+       options: Options(
           headers: {
             "authorization": "Bearer ${await token.then((value) => value.token)}",
           },
         ),);
-        return ReviewModel.fromJson(res.data['review']);
+     return SalesModel.fromJson(res.data['sale']); 
     } catch (e) {
       throw ServerException();
     }
   }
 
   @override
-  Future<List<ReviewModel>> getAllReviews(String prodId) async {
-    try {
-      final response = await dio.get("${ApiConst.products}/$prodId/reviews",
-              options: Options(
+  Future<List<SalesModel>> getAllSales(String userId) async{
+     try {
+      final response = await dio.get('${ApiConst.allSales}/$userId',
+       options: Options(
           headers: {
             "authorization": "Bearer ${await token.then((value) => value.token)}",
           },
         ),);
       List<dynamic> data = response.data;
-      List<ReviewModel> reviews =
-          data.map((e) => ReviewModel.fromJson(e)).toList();
-      return reviews;
+      List<SalesModel> sales =
+          data.map((e) => SalesModel.fromJson(e)).toList();
+      return sales;
     } catch (e) {
       throw ServerException();
     }
   }
 
   @override
-  Future<void> removeReview(String prodId) async {
-    try {
-      await dio.delete("${ApiConst.reviews}/$prodId",
-              options: Options(
+  Future<SalesModel> getSingleSales(String id) async{
+       try {
+      final response = await dio.get('${ApiConst.oneSale}/$id',
+       options: Options(
           headers: {
             "authorization": "Bearer ${await token.then((value) => value.token)}",
           },
-        ));
+        ),);
+      final data = response.data;
+      return SalesModel.fromJson(data);
     } catch (e) {
       throw ServerException();
     }
   }
-
+  
   @override
-  Future<void> updateReview(ReviewModel review) async {
-    try {
-      await dio.put("${ApiConst.reviews}/${review.id}",
-          data: review.toJson(),
-                  options: Options(
+  Future<void> deleteSales(String id) async{
+     try {
+       await dio.delete('${ApiConst.oneSale}$id',
+        options: Options(
           headers: {
             "authorization": "Bearer ${await token.then((value) => value.token)}",
           },
@@ -109,18 +105,17 @@ class ReviewRemoteDataSourceImpl implements ReviewRemoteDataSource {
   }
   
   @override
-  Future<void> addReviewImage(String reviewId, File file) async{
-     try {
-String fileName = file.path.split('/').last;
-    FormData formData = FormData.fromMap({
-        'id':reviewId,
-        "file":
-            await MultipartFile.fromFile(file.path, filename:fileName,contentType: MediaType("image","jpeg")),
-    });
-
-      await dio.put(ApiConst.uploadReviewImage, data: formData);
+  Future<void> updateSale(SalesModel updateSale) async{
+    try {
+    await dio.put("${ApiConst.oneSale}/${updateSale.id}",
+          data: updateSale.toJson(),
+                 options: Options(
+          headers: {
+            "authorization": "Bearer ${await token.then((value) => value.token)}",
+          },
+        ),);
     } catch (e) {
-      throw ServerException(message: 'cannot update image');
+      throw ServerException();
     }
   }
-}
+} 

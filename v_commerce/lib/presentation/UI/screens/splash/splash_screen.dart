@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:v_commerce/presentation/UI/screens/auth/login_screen.dart';
 import 'package:v_commerce/presentation/UI/screens/main/main_screen.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
+import 'package:v_commerce/presentation/controllers/cart_controller.dart';
 import 'package:v_commerce/presentation/controllers/category_controller.dart';
 import 'package:v_commerce/presentation/controllers/drawerController.dart';
 import 'package:v_commerce/presentation/controllers/product_controller.dart';
@@ -22,12 +23,13 @@ class SplashScreen extends StatefulWidget {
   static Future<void> init(BuildContext context, int duration) async {
     Get.put(SettingsController()) ;
     Get.put(AuthenticationController()) ;
-    
+    Get.put(CartController());
     Get.put(WishListController()) ;
 
     final  SettingsController settingsController = Get.find() ;
     final AuthenticationController authController = Get.find();
     final WishListController wishListController = Get.find();
+    final CartController cartController = Get.find();
 
     final lang = await settingsController.loadLocale();
     settingsController.setLocal(lang);
@@ -44,6 +46,8 @@ class SplashScreen extends StatefulWidget {
       }, (r)async {
         authController.currentUser = r;
         await wishListController.getUserWishlist(authController.currentUser.id!);
+        await cartController.getUserCart(authController.currentUser.id!);
+        
                         Get.put(MyDrawerController()) ;
 Get.put(CategoryController()) ;
     Get.put(ProductController()) ;
