@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/core/styles/text_styles.dart';
 import 'package:v_commerce/core/utils/enums.dart';
 import 'package:v_commerce/core/utils/svg.dart';
-import 'package:v_commerce/presentation/UI/screens/main/home_screen.dart';
 import 'package:v_commerce/presentation/UI/screens/main/main_screen.dart';
 import 'package:v_commerce/presentation/UI/screens/payment/payment_online_screen.dart';
 import 'package:v_commerce/presentation/UI/widgets/button.dart';
@@ -59,6 +59,16 @@ class PaymentMethodScreen extends StatelessWidget {
                 
                                             if(controller.paymentMethod==PaymentMethod.cash){
                                              final res=  await controller.createOrder();
+                                             if(res){
+                                              Fluttertoast.showToast(
+                          msg: 'commande ajoutée',
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: AppColors.toastColor,
+                          textColor: AppColors.white,
+                          fontSize: 16.0);
+                                             }
                                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>const MainScreen()));
                                                                                          
                                             }else{

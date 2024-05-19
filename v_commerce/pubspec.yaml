@@ -93,6 +93,10 @@ flutter:
     - assets/images/facebook.png
     - assets/images/google.png
     - assets/svg/menu.svg
+    - assets/images/poste.png
+    - assets/images/visa.png
+    - assets/images/mastercard.png
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

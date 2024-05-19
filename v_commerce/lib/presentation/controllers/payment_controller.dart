@@ -15,8 +15,18 @@ class PaymentController extends GetxController{
    String ville='';
    String code='';
    String phone='';
+   String month='1';
+   String year='2024';
    PaymentMethod paymentMethod=PaymentMethod.cash;
 
+void setMonth(String m){
+  month = m;
+  update();
+}
+void setYear(String y){
+  year = y;
+  update();
+}
   void getUserAddress(String address,String gouvernorat,String ville,String code,String phone,){
     adres=address;
     gov=gouvernorat;
@@ -56,5 +66,13 @@ class PaymentController extends GetxController{
   }
 
   return ref;
+}
+bool validCardNumber(String number){
+  for(int i=0;i<number.length;i++){
+    if(!"0123456789".contains(number[i])){
+      return false;
+    }
+  }
+  return true;
 }
 }
