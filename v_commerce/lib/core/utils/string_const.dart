@@ -76,6 +76,7 @@ class ControllerID{
     static const PRODUCT_MATERIALS_TOGGLE='product_materials_toggle';
     static const LIKE_PRODUCT='like_product';
     static const SALE_QUANTITY='sale_quantity';
+    static const PAYMENT_METHOD='paymentmethod';
 
 }
 

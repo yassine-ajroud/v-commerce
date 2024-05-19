@@ -10,6 +10,7 @@ import 'package:v_commerce/core/utils/svg.dart';
 import 'package:v_commerce/presentation/UI/screens/augmented_reality/ar_objects_screen.dart';
 import 'package:v_commerce/presentation/UI/screens/cart/cart_screen.dart';
 import 'package:v_commerce/presentation/UI/screens/product/filtered_product_screen.dart';
+import 'package:v_commerce/presentation/UI/screens/product/product_screen.dart';
 import 'package:v_commerce/presentation/UI/widgets/empty_wishlist_dialog.dart';
 import 'package:v_commerce/presentation/UI/widgets/products_item.dart';
 import 'package:v_commerce/presentation/UI/widgets/promotion_item.dart';
@@ -320,7 +321,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                   //  height:  50,
                                     child: ClipRRect(
                                       borderRadius:BorderRadius.circular(15),
-                                      child: Image.network(productController.productsByCategory[index].image,fit: BoxFit.cover,)),
+                                      child: InkWell(
+                                        onTap:(){
+                                          pc.setProductId=productController.productsByCategory[index].id!;
+            Navigator.of(context).push(MaterialPageRoute( builder:(_)=>const ProductScreen()));
+                                        },
+                                        child: Image.network(productController.productsByCategory[index].image,fit: BoxFit.cover,))),
                                   ),
                                   itemCount: productController.productsByCategory.length,
                                   shrinkWrap: true,
@@ -426,7 +432,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                   //  height:  50,
                                     child: ClipRRect(
                                       borderRadius:BorderRadius.circular(15),
-                                      child: Image.network(pc.filtredProducts[index].image,fit: BoxFit.cover,)),
+                                      child: InkWell(
+                                        
+                                          onTap:(){
+                                          pc.setProductId=pc.filtredProducts[index].id!;
+            Navigator.of(context).push(MaterialPageRoute( builder:(_)=>const ProductScreen()));
+                                        
+                                        },
+                                        child: Image.network(pc.filtredProducts[index].image,fit: BoxFit.cover,))),
                                   ),
                                   itemCount: pc.filtredProducts.length,
                                   shrinkWrap: true,

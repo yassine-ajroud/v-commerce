@@ -32,14 +32,14 @@ class AppTextStyle {
 
 
 
-    static TextStyle secondaryBlackTitleTextStyle = TextStyle(fontWeight: FontWeight.normal, fontSize: 18.sp, color: AppColors.black);
-    static TextStyle smallblackTextStyle = TextStyle(fontWeight: FontWeight.normal, fontSize: 12.sp, color: AppColors.black);
-    static TextStyle smallblackTextButtonStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp, color: AppColors.black);
-  static TextStyle blackTextStyle = TextStyle(fontWeight: FontWeight.normal, fontSize: 15.sp, color: AppColors.black);
+    static TextStyle secondaryBlackTitleTextStyle = TextStyle(fontWeight: FontWeight.normal, fontSize: 18.sp, color: AppColors.black,fontFamily: 'Montserrat');
+    static TextStyle smallblackTextStyle = TextStyle(fontWeight: FontWeight.normal, fontSize: 12.sp, color: AppColors.black,fontFamily: 'Montserrat');
+    static TextStyle smallblackTextButtonStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp, color: AppColors.black,fontFamily: 'Montserrat');
+  static TextStyle blackTextStyle = TextStyle(fontWeight: FontWeight.normal, fontSize: 15.sp, color: AppColors.black,fontFamily: 'Montserrat');
 
     static TextStyle disabledTitleTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp, color: AppColors.hintColor);
 
-  static TextStyle buttonTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp, color: AppColors.white);
+  static TextStyle buttonTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp, color: AppColors.white,fontFamily: 'Montserrat');
   static TextStyle blueTextButtonTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp, color: AppColors.primary);
     static TextStyle incorrectTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp, color: AppColors.red);
 

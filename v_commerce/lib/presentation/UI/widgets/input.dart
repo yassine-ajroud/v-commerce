@@ -36,29 +36,18 @@ class _InputTextState extends State<InputText> {
     obscureText: obs ,
     keyboardType: widget.type ?? TextInputType.text,
       decoration: InputDecoration(
+        contentPadding:const EdgeInsets.symmetric(horizontal: 30,vertical: 20),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(35),borderSide: BorderSide.none),
+
+        fillColor: AppColors.lightgrey,
+        filled: true,
         hintText:widget.hint,
-        prefixIcon: Icon(widget.leading,color: AppColors.black,),
+        prefixIcon:widget.leading==null?null: Icon(widget.leading,color: AppColors.black,),
             suffixIcon: widget.isPassword??false ?InkWell(onTap:(){setState(() {
               obs=!obs;
               icon=Icon(obs?Icons.visibility:Icons.visibility_off);
             });}, child:icon):null,
-            focusedBorder: const  UnderlineInputBorder(
-             // borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(color: AppColors.black,
-              width: 1)
-            ),
-            border:const  UnderlineInputBorder(
-             // borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(color: AppColors.black,
-              width: 1)
-            ),
-            enabledBorder:const UnderlineInputBorder(
-                 // borderRadius: BorderRadius.circular(10.0),
-                  borderSide:  BorderSide(
-                    color: AppColors.black,
-                    width: 1,
-                  ),
-          ),
+          
     ));
   }
 }

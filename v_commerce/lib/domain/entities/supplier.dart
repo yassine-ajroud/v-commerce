@@ -7,6 +7,7 @@ class Supplier extends Equatable {
   final String userID;
   final String id;
   final String image;
+  final String rib;
   final String marque;
   final String? webSite; 
 
@@ -18,6 +19,7 @@ class Supplier extends Equatable {
     required this.userID,
     required this.image,
     required this.marque,
+    required this.rib,
     required this.webSite
   });
 
@@ -30,6 +32,7 @@ class Supplier extends Equatable {
         userID,
         image,
         webSite,
-        marque
+        marque,
+        rib
       ];
 }

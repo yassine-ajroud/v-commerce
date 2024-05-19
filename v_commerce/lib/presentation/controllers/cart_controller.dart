@@ -20,6 +20,8 @@ class CartController extends GetxController{
 late  Cart currentCart;
 List<Sales> cartSales=[];
 List<Product3D> cartProducts=[];
+double totalPrice=0.0;
+var shipping_fee=40.0;
 
 
 Future<Cart> getUserCart(String userId)async{
@@ -28,6 +30,7 @@ Future<Cart> getUserCart(String userId)async{
  res.fold((l) => null, (r) =>currentCart=r );
  await getCartSales();
  await getCartProducts();
+ getReclamationPrice();
  return currentCart;
 }
 
@@ -47,6 +50,7 @@ final Sales sale=cartSales.firstWhere((element) => element.id==saleId);
     sale.totalPrice=double.parse( (productController.getPrice(productController.allProducts.firstWhere((element) => element.id==sale.productId))*sale.quantity).toStringAsFixed(2)) ;
   await UpdateSaleUsecase(sl())(sale);
   }
+   getReclamationPrice();
   update([ControllerID.SALE_QUANTITY]);
 }
 Future<void> decrimentSaleQuantity(String saleId)async{
@@ -58,6 +62,8 @@ final Sales sale=cartSales.firstWhere((element) => element.id==saleId);
     sale.totalPrice=double.parse( (productController.getPrice(productController.allProducts.firstWhere((element) => element.id==sale.productId))*sale.quantity).toStringAsFixed(2)) ;
   await UpdateSaleUsecase(sl())(sale);
   }
+   getReclamationPrice();
+
   update([ControllerID.SALE_QUANTITY]);
 }
 
@@ -104,12 +110,12 @@ Future<List<Sales>> getCartSales()async{
   await getUserCart(newSale.userId);
  }
 
-double getReclamationPrice(){
+void getReclamationPrice(){
   double sum=0.0;
   for (var sale in cartSales) {
    sum+=sale.totalPrice;
   }
-  return sum;
+  totalPrice= sum+shipping_fee;
 }
 
 Future _updateSailes()async{
