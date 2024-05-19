@@ -3,16 +3,17 @@ import 'package:equatable/equatable.dart';
 class Reclamation extends Equatable {
   final String? id;
   final String user;
+  final String address;
   final List<String> sales;
   final String reference;
   final double price;
-  final String status;
-  final DateTime date;
+  final DateTime? date;
+  final bool? verified;
+  final bool? completed;
 
-
- const Reclamation({this.id,required this.date, required this.user, required this.sales, required this.reference,required this.price, required this.status});
+ const Reclamation({this.id, this.completed, this.verified,  this.date, required this.user, required this.sales, required this.reference,required this.price,required this.address});
  
   @override
-  List<Object?> get props =>[id,user,sales,reference,price,date,status];
+  List<Object?> get props =>[id,user,sales,reference,price,date,verified,completed,address];
   
 }

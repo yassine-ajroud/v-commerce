@@ -12,7 +12,7 @@ import 'package:v_commerce/domain/usecases/cart_usecases/update_cart_usecase.dar
 import 'package:v_commerce/domain/usecases/product_3d_usecases/get_3d_product_by_id_usecase.dart';
 import 'package:v_commerce/domain/usecases/sales_usecases/add_sale_usecase.dart';
 import 'package:v_commerce/domain/usecases/sales_usecases/delete_sale_usecase.dart';
-import 'package:v_commerce/domain/usecases/sales_usecases/get_all_sales_usecase.dart';
+import 'package:v_commerce/domain/usecases/sales_usecases/get_single_sale_usecase.dart';
 import 'package:v_commerce/domain/usecases/sales_usecases/update_sale_usecase.dart';
 import 'package:v_commerce/presentation/controllers/product_controller.dart';
 
@@ -77,10 +77,13 @@ Future<void> updateUserCart(Cart newCart)async{
 
 Future<List<Sales>> getCartSales()async{
   cartSales=[];
-   final  res = await GetAllSalesUsecase(sl())(currentCart.userId);
+  for (var element in currentCart.productsId) {
+       final  res = await GetSingleSalesUsecase(sl())(element);
    res.fold((l) => null, (r) {
-     return cartSales=r;
+     cartSales.add(r);
    }); 
+  }
+
   return cartSales;
 }
 
@@ -94,7 +97,7 @@ Future<List<Sales>> getCartSales()async{
     final addsale = await AddSaleUsecase(sl()).call(newSale);
     addsale.fold((l) => null, (r) async{
       cartSales.add(r);
-      currentCart.productsId=getCartSalesId;
+      print(cartSales);
       await _updateSailes();
     });
   }else{
@@ -120,7 +123,7 @@ void getReclamationPrice(){
 
 Future _updateSailes()async{
           currentCart.productsId=getCartSalesId;
-
+  print('update cart ${currentCart.productsId}');
   final rs = await UpdateCartUsecase(sl()).call(cart: currentCart);
     rs.fold((l) => null, (r)  async {
     });
@@ -136,5 +139,9 @@ Future deleteSale(String saleId)async{
   update();
 }
 
+Future clearCart()async{
+ cartSales=[];
+ await _updateSailes();
+}
 
 }

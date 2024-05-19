@@ -80,6 +80,7 @@ Future<TokenModel>get token async {
   @override
   Future<void> addNewReclamations(ReclamationModel newReclamation) async{
       try {
+        print('rec ${newReclamation.toJson()}');
       await dio.post(ApiConst.reclamations, data: newReclamation.toJson(),
       options: Options(
           headers: {
@@ -87,6 +88,7 @@ Future<TokenModel>get token async {
           },
         ),);
     } catch (e) {
+      print(e);
       throw ServerException();
     }
   }

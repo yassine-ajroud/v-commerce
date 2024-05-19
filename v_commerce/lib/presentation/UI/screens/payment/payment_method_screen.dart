@@ -4,6 +4,9 @@ import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/core/styles/text_styles.dart';
 import 'package:v_commerce/core/utils/enums.dart';
 import 'package:v_commerce/core/utils/svg.dart';
+import 'package:v_commerce/presentation/UI/screens/main/home_screen.dart';
+import 'package:v_commerce/presentation/UI/screens/main/main_screen.dart';
+import 'package:v_commerce/presentation/UI/screens/payment/payment_online_screen.dart';
 import 'package:v_commerce/presentation/UI/widgets/button.dart';
 import 'package:v_commerce/presentation/UI/widgets/payment_method_item.dart';
 import 'package:v_commerce/presentation/controllers/payment_controller.dart';
@@ -52,9 +55,16 @@ class PaymentMethodScreen extends StatelessWidget {
                                    const PaymentMethodItem(method: PaymentMethod.digital, icon: APPSVG.commandIcon, label: 'Paiement en ligne'),
 
                                           const SizedBox(height:60),
-                                        MyButton(text: 'Continue', click: (){
-                                           
-                                          //  Navigator.of(context).push(MaterialPageRoute(builder: (_)=>const PaymentMethodScreen()));
+                                        MyButton(text: 'Continue', click: ()async{
+                
+                                            if(controller.paymentMethod==PaymentMethod.cash){
+                                             final res=  await controller.createOrder();
+                                             Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>const MainScreen()));
+                                                                                         
+                                            }else{
+                                             Navigator.of(context).push(MaterialPageRoute(builder: (_)=>const PaymentOnlineScreen()));
+
+                                            }
                                           
                                      })
 

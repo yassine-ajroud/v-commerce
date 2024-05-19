@@ -15,7 +15,7 @@ class ReclamationsRepositoryImpl implements ReclamationRepository{
   @override
   Future<Either<Failure, Unit>> addReclamation(Reclamation newReclamation) async{
        try {
-      final ReclamationModel reclamation = ReclamationModel(date: newReclamation.date, user: newReclamation.user, sales: newReclamation.sales, reference: newReclamation.reference, price: newReclamation.price, status: newReclamation.status); 
+      final ReclamationModel reclamation = ReclamationModel(address: newReclamation.address, date: newReclamation.date, user: newReclamation.user, sales: newReclamation.sales, reference: newReclamation.reference, price: newReclamation.price, verified: newReclamation.verified,completed: newReclamation.completed); 
       await reclamationRemoteDataSource.addNewReclamations(reclamation);
       return const Right(unit);
     } on ServerException {

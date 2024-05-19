@@ -88,10 +88,11 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
   @override
   Future<void> updateCart({required CartModel cart}) async{
    try {
+    print('my cart ${cart.toJson()}');
        await dio.put(
         ApiConst.updateCart,
-        data: {"userId": cart.userId,
-              "sales": cart.productsId.map((e) => {"productId":e})
+        data: {"id": cart.id,
+              "sales": cart.productsId
               },
         options: Options(
           headers: {
@@ -99,6 +100,7 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
           },
         ),);
     } catch (e) {
+      print("cart error ${e.toString()}");
         throw ServerException(message:"error");
     }
   }

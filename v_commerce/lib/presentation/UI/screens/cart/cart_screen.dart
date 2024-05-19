@@ -71,7 +71,10 @@ class CartScreen extends StatelessWidget {
                         ],),
                        const SizedBox(height: 10,),
                         CheckoutButton( click: (){
+                          if(controller.currentCart.productsId.isNotEmpty){
                           Navigator.of(context).push(MaterialPageRoute(builder: (_)=>const PaymentAddressScreen()));
+
+                          }
 
                         })
                                     ]),
