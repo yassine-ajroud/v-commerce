@@ -64,7 +64,6 @@ class ProductController extends GetxController {
 set setProductId(String id)=>currentProductid =id;
   
 Future<Product?> getProductsById(String id)async{ 
-
      final res = await GetOneProductsUsecase(sl())(id);
      final txtr= await GetAll3DProductsUseCase(sl()).call(id);
     res.fold((l) => null, (r) => currentProduct=r);

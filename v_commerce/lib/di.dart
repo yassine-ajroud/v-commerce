@@ -5,6 +5,7 @@ import 'package:v_commerce/data/data_sources/remote_data_source/category_remote_
 import 'package:v_commerce/data/data_sources/remote_data_source/product_3d_remote_data_source.dart';
 import 'package:v_commerce/data/data_sources/remote_data_source/product_remote_data_source.dart';
 import 'package:v_commerce/data/data_sources/remote_data_source/rating_remote_data_source.dart';
+import 'package:v_commerce/data/data_sources/remote_data_source/reclamations_remote_data_source.dart';
 import 'package:v_commerce/data/data_sources/remote_data_source/review_remote_data_source.dart';
 import 'package:v_commerce/data/data_sources/remote_data_source/sales_remote_data_source.dart';
 import 'package:v_commerce/data/data_sources/remote_data_source/supplier_remote_data_source.dart';
@@ -15,6 +16,7 @@ import 'package:v_commerce/data/repositories/product_3d_repository_impl.dart';
 import 'package:v_commerce/data/repositories/product_repository_impl.dart';
 import 'package:v_commerce/data/repositories/promotion_repository_impl.dart';
 import 'package:v_commerce/data/repositories/rating_repository_impl.dart';
+import 'package:v_commerce/data/repositories/reclamations_repository_impl.dart';
 import 'package:v_commerce/data/repositories/review_repository_impl.dart';
 import 'package:v_commerce/data/repositories/sales_repository_impl.dart';
 import 'package:v_commerce/data/repositories/supplier_repository_impl.dart';
@@ -25,6 +27,7 @@ import 'package:v_commerce/domain/repositories/product3d_repository.dart';
 import 'package:v_commerce/domain/repositories/product_repository.dart';
 import 'package:v_commerce/domain/repositories/promotion_repository.dart';
 import 'package:v_commerce/domain/repositories/rating_repository.dart';
+import 'package:v_commerce/domain/repositories/reclamation_repository.dart';
 import 'package:v_commerce/domain/repositories/review_repository.dart';
 import 'package:v_commerce/domain/repositories/sales_repository.dart';
 import 'package:v_commerce/domain/repositories/supplier_repository.dart';
@@ -46,6 +49,9 @@ import 'package:v_commerce/domain/usecases/rating_usecases/delete_rating_usecase
 import 'package:v_commerce/domain/usecases/rating_usecases/get_ratings_usecase.dart';
 import 'package:v_commerce/domain/usecases/rating_usecases/get_single_rating_usecase.dart';
 import 'package:v_commerce/domain/usecases/rating_usecases/update_rating_usecase.dart';
+import 'package:v_commerce/domain/usecases/reclamation_usecases/add_reclamation_usecase.dart';
+import 'package:v_commerce/domain/usecases/reclamation_usecases/get_all_reclamations_usecase.dart';
+import 'package:v_commerce/domain/usecases/reclamation_usecases/get_single_reclamation.dart';
 import 'package:v_commerce/domain/usecases/review_usecases/add_review_image_usecase.dart';
 import 'package:v_commerce/domain/usecases/review_usecases/add_review_usecase.dart';
 import 'package:v_commerce/domain/usecases/review_usecases/get_all_reviews_usecase.dart';
@@ -104,6 +110,8 @@ Future<void> init() async {
     () => ReviewRepositoryImpl(sl()));
   sl.registerLazySingleton<SalesRepository>(
     () => SalesRepositoryImpl(sl()));
+  sl.registerLazySingleton<ReclamationRepository>(
+    () => ReclamationsRepositoryImpl(sl()));
 
 
   /* data sources */
@@ -131,6 +139,8 @@ Future<void> init() async {
       () => ReviewRemoteDataSourceImpl()); 
   sl.registerLazySingleton<SalesRemoteDataSource>(
     () => SalesRemoteDataSourceImp());
+  sl.registerLazySingleton<ReclamtionsRemoteDataSource>(
+    () => ReclamationRemoteDataSourceImpl());
     
  
   /* usecases */
@@ -197,5 +207,10 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetSingleSalesUsecase(sl()));
   sl.registerLazySingleton(() => UpdateSaleUsecase(sl()));
   sl.registerLazySingleton(() => DeleteSaleUsecase(sl()));
+
+  //reclamations usecases//
+  sl.registerLazySingleton(() => AddReclamationsUsecase(sl()));
+  sl.registerLazySingleton(() => GetAllReclamationsUsecase(sl()));
+  sl.registerLazySingleton(() => GetSingleReclamationUsecase(sl()));
 
 }

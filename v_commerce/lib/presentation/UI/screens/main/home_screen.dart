@@ -8,6 +8,7 @@ import 'package:v_commerce/core/styles/text_styles.dart';
 import 'package:v_commerce/core/utils/string_const.dart';
 import 'package:v_commerce/core/utils/svg.dart';
 import 'package:v_commerce/presentation/UI/screens/augmented_reality/ar_objects_screen.dart';
+import 'package:v_commerce/presentation/UI/screens/cart/cart_screen.dart';
 import 'package:v_commerce/presentation/UI/screens/product/filtered_product_screen.dart';
 import 'package:v_commerce/presentation/UI/widgets/empty_wishlist_dialog.dart';
 import 'package:v_commerce/presentation/UI/widgets/products_item.dart';
@@ -70,7 +71,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     backgroundColor: Colors.white,
                     surfaceTintColor: Colors.white,
                shadowColor: Colors.grey,
-                      actions: [IconButton(onPressed: (){}, icon: SvgPicture.string(APPSVG.cartIcon))],
+                      actions: [IconButton(onPressed: (){
+                      Navigator.of(context).push(MaterialPageRoute( builder:(_)=>const CartScreen()));
+
+                      }, icon: SvgPicture.string(APPSVG.cartIcon))],
                       expandedHeight: 210.h,
                       pinned: true,
                       floating: true,

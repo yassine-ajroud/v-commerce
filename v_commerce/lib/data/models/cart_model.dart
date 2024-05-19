@@ -9,7 +9,7 @@ class CartModel extends Cart {
       id: json['_id'],
       userId: json['userId'],
       productsId:
-          (json['sales'] as List).map((e) => e['_id'].toString()).toList());
+          (json['sales'] as List).map((e) => e.toString()).toList());
 
   Map<String, dynamic> toJson() => {
     "_id":id,

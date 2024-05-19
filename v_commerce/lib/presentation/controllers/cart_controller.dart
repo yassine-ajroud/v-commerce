@@ -1,26 +1,64 @@
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get.dart';
 import 'package:v_commerce/core/styles/colors.dart';
+import 'package:v_commerce/core/utils/string_const.dart';
 import 'package:v_commerce/di.dart';
 import 'package:v_commerce/domain/entities/cart.dart';
+import 'package:v_commerce/domain/entities/product3d.dart';
 import 'package:v_commerce/domain/entities/sales.dart';
 import 'package:v_commerce/domain/usecases/cart_usecases/create_cart_usecase.dart';
 import 'package:v_commerce/domain/usecases/cart_usecases/get_cart_usecase.dart';
 import 'package:v_commerce/domain/usecases/cart_usecases/update_cart_usecase.dart';
+import 'package:v_commerce/domain/usecases/product_3d_usecases/get_3d_product_by_id_usecase.dart';
 import 'package:v_commerce/domain/usecases/sales_usecases/add_sale_usecase.dart';
 import 'package:v_commerce/domain/usecases/sales_usecases/delete_sale_usecase.dart';
-import 'package:v_commerce/domain/usecases/sales_usecases/get_single_sale_usecase.dart';
+import 'package:v_commerce/domain/usecases/sales_usecases/get_all_sales_usecase.dart';
+import 'package:v_commerce/domain/usecases/sales_usecases/update_sale_usecase.dart';
+import 'package:v_commerce/presentation/controllers/product_controller.dart';
 
 class CartController extends GetxController{
 late  Cart currentCart;
 List<Sales> cartSales=[];
+List<Product3D> cartProducts=[];
+
 
 Future<Cart> getUserCart(String userId)async{
 
  final res= await GetCartUsecase(sl())(userId: userId);
  res.fold((l) => null, (r) =>currentCart=r );
  await getCartSales();
+ await getCartProducts();
  return currentCart;
+}
+
+Future<void> getCartProducts()async{
+  cartProducts=[];
+  for (var element in cartSales) {
+    final res = await Get3DProductsByIdUseCase(sl())(element.modelId);
+    res.fold((l) => null, (r) => cartProducts.add(r));
+  }
+}
+
+Future<void> incrementSaleQuantity(String saleId)async{
+  final ProductController productController = Get.find();
+final Sales sale=cartSales.firstWhere((element) => element.id==saleId);
+  if(sale.quantity<cartProducts.firstWhere((element) => sale.modelId==element.id).quantity){
+  sale.quantity++;
+    sale.totalPrice=double.parse( (productController.getPrice(productController.allProducts.firstWhere((element) => element.id==sale.productId))*sale.quantity).toStringAsFixed(2)) ;
+  await UpdateSaleUsecase(sl())(sale);
+  }
+  update([ControllerID.SALE_QUANTITY]);
+}
+Future<void> decrimentSaleQuantity(String saleId)async{
+  final ProductController productController = Get.find();
+
+final Sales sale=cartSales.firstWhere((element) => element.id==saleId);
+  if(sale.quantity>1){
+  sale.quantity--;
+    sale.totalPrice=double.parse( (productController.getPrice(productController.allProducts.firstWhere((element) => element.id==sale.productId))*sale.quantity).toStringAsFixed(2)) ;
+  await UpdateSaleUsecase(sl())(sale);
+  }
+  update([ControllerID.SALE_QUANTITY]);
 }
 
 Future<void> addUserCart(String userId)async{
@@ -33,36 +71,46 @@ Future<void> updateUserCart(Cart newCart)async{
 
 Future<List<Sales>> getCartSales()async{
   cartSales=[];
-  for (var element in currentCart.productsId) {
-   final  res = await GetSingleSalesUsecase(sl())(element);
-   res.fold((l) => null, (r) => cartSales.add(r)); 
-  }
+   final  res = await GetAllSalesUsecase(sl())(currentCart.userId);
+   res.fold((l) => null, (r) {
+     return cartSales=r;
+   }); 
   return cartSales;
 }
 
 
  List<String> get getCartSalesId=> cartSales.map((e) => e.id!).toList();
+  List<String> get getCartmodelId=> cartSales.map((e) => e.modelId).toList();
 
  
  Future addSale(Sales newSale)async{
-  if(!getCartSalesId.contains(newSale.productId)){
+  if(!getCartmodelId.contains(newSale.modelId)){
     final addsale = await AddSaleUsecase(sl()).call(newSale);
     addsale.fold((l) => null, (r) async{
       cartSales.add(r);
+      currentCart.productsId=getCartSalesId;
       await _updateSailes();
     });
   }else{
      Fluttertoast.showToast(
             msg: 'product already in cart!',
             toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
+            gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             backgroundColor: AppColors.black,
             textColor: AppColors.white,
             fontSize: 16.0);
   }
+  await getUserCart(newSale.userId);
  }
 
+double getReclamationPrice(){
+  double sum=0.0;
+  for (var sale in cartSales) {
+   sum+=sale.totalPrice;
+  }
+  return sum;
+}
 
 Future _updateSailes()async{
           currentCart.productsId=getCartSalesId;
@@ -76,8 +124,9 @@ Future _updateSailes()async{
 Future deleteSale(String saleId)async{
   await DeleteSaleUsecase(sl()).call(saleId); 
   cartSales.removeWhere((element) => element.id==saleId);
+  currentCart.productsId=getCartSalesId;
   await _updateSailes();
-
+  await getUserCart(currentCart.userId);
   update();
 }
 

@@ -54,25 +54,16 @@ class ApiConst {
   static const String reviews = "$baseUrl/reviews";
   static const String uploadReviewImage = "$baseUrl/updateReviewimage";
 
-  //sales
+  //sales apis
   static const String addSale = "$baseUrl/sales/create";
   static const String oneSale = "$baseUrl/sales/one";
   static const String allSales = "$baseUrl/sales";
+ 
+ //reclamation apis
+  static const String reclamations = "$baseUrl/reclamations";
 
 /*
   //static const String paiement = "$baseUrl/payment";
-
-  //rating apis
-  static const String ratings = "$baseUrl/ratings";
-
-  //promotions apis
-  static const String getPromotions = "$baseUrl/";
-
- //category apis
-  static const String sales = "$baseUrl/sales";
-
-  //category apis
-  static const String reclamations = "$baseUrl/reclamations";
 */
   //assets apis
   static const String images = "http://$ipAddress:8000/uploads/images";

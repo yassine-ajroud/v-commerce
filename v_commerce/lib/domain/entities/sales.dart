@@ -5,21 +5,22 @@ class Sales extends Equatable{
   final String? id;
   final String productId;
   final String providerId;
+   final String modelId;
   final String userId;
    int quantity;
-  final List<SaleStatus> status;
+  final List<SaleStatus>? status;
    double totalPrice;
 
-   Sales({ this.id,required this.productId,required this.providerId,required this.userId,required this.quantity,required this.status,required this.totalPrice});
+   Sales({ this.id,required this.modelId,  required this.productId,required this.providerId,required this.userId,required this.quantity, this.status,required this.totalPrice});
   
   @override
-  List<Object?> get props => [id,productId,providerId,userId,quantity,status,totalPrice];
+  List<Object?> get props => [id,productId,providerId,userId,quantity,status,totalPrice,modelId];
 
 
 }
 
 class SaleStatus extends Equatable{
-  final String index;
+  final int index;
   final DateTime? date;
   final int status;
 

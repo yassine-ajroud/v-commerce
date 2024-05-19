@@ -15,7 +15,7 @@ class SalesRepositoryImpl implements SalesRepository{
   @override
   Future<Either<Failure, Sales>> addSale(Sales newSale) async{
      try {
-      final SalesModel sale = SalesModel( productId: newSale.productId, providerId: newSale.providerId, userId: newSale.userId, quantity: newSale.quantity, status: newSale.status, totalPrice: newSale.totalPrice);
+      final SalesModel sale = SalesModel(modelId: newSale.modelId, productId: newSale.productId, providerId: newSale.providerId, userId: newSale.userId, quantity: newSale.quantity, status: newSale.status, totalPrice: newSale.totalPrice);
       final res = await salesRemoteDataSource.addSale(sale);
       return Right(res);
     } on ServerException {
@@ -56,7 +56,7 @@ class SalesRepositoryImpl implements SalesRepository{
   @override
   Future<Either<Failure, Unit>> updateSale(Sales sale) async{
         try {
-      SalesModel salesModel=SalesModel(productId: sale.productId, providerId: sale.providerId, userId: sale.userId, quantity: sale.quantity, status: sale.status, totalPrice: sale.totalPrice);
+      SalesModel salesModel=SalesModel(id: sale.id, modelId: sale.modelId,  productId: sale.productId, providerId: sale.providerId, userId: sale.userId, quantity: sale.quantity, status: sale.status, totalPrice: sale.totalPrice);
       await salesRemoteDataSource.updateSale(salesModel);
       return const Right(unit);
     } on ServerException {

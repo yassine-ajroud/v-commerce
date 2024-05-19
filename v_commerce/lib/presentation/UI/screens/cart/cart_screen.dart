@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:get/instance_manager.dart';
 import 'package:v_commerce/core/styles/colors.dart';
+import 'package:v_commerce/core/styles/text_styles.dart';
+import 'package:v_commerce/presentation/UI/widgets/cart_item.dart';
+import 'package:v_commerce/presentation/UI/widgets/checkout_button.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
 import 'package:v_commerce/presentation/controllers/cart_controller.dart';
 
@@ -43,17 +46,35 @@ class CartScreen extends StatelessWidget {
                   ),
                     controller.cartSales.isNotEmpty?  SliverList.builder(
                         itemCount: controller.cartSales.length,
-                        itemBuilder: (_,index)=>Container(child:Text(index.toString()))):
+                        itemBuilder: (_,index)=> CartItem(sale: controller.cartSales[index], lastItem: index== controller.cartSales.length-1)):
                              const  SliverToBoxAdapter(
                     child: Center(child: Text("Empty Cart")),
                   ),
-                        const  SliverToBoxAdapter(
-                    child: SizedBox(height: 90),
+                          SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal:15.0,vertical: 40),
+                      child: Column(
+                                      children:[   Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                          Text("Frais d'expédition :",style: AppTextStyle.smallBlackTitleTextStyle,),
+                          Text("40DT",style: AppTextStyle.blackTextStyle,),
+                        ],),
+                           Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                          Text("Total :",style: AppTextStyle.smallBlackTitleTextStyle,),
+                          Text('${(controller.getReclamationPrice()+40).toString()}DT',style: AppTextStyle.blackTextStyle,),
+                        ],),
+                       const SizedBox(height: 10,),
+                        CheckoutButton( click: (){})
+                                    ]),
+                    ),
                   )
                 ],
               );
               }else{
-                return const CircularProgressIndicator();
+                return const Center(child:  CircularProgressIndicator());
               }
 
 

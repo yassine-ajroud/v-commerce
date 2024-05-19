@@ -6,6 +6,7 @@ import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/core/utils/string_const.dart';
 import 'package:v_commerce/core/utils/svg.dart';
+import 'package:v_commerce/presentation/UI/screens/cart/cart_screen.dart';
 import 'package:v_commerce/presentation/UI/screens/product/filtered_product_screen.dart';
 import 'package:v_commerce/presentation/UI/widgets/category_item.dart';
 import 'package:v_commerce/presentation/UI/widgets/search_input.dart';
@@ -40,7 +41,9 @@ class CategoryScreen extends StatelessWidget {
                     backgroundColor: Colors.white,
                     surfaceTintColor: Colors.white,
                shadowColor: Colors.grey,
-                      actions: [IconButton(onPressed: (){}, icon: SvgPicture.string(APPSVG.cartIcon))],
+                      actions: [IconButton(onPressed: (){
+                       Navigator.of(context).push(MaterialPageRoute( builder:(_)=>const CartScreen()));
+                      }, icon: SvgPicture.string(APPSVG.cartIcon))],
                       expandedHeight: 133.h,
                       pinned: true,
                       floating: true,

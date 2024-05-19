@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/core/utils/svg.dart';
+import 'package:v_commerce/presentation/UI/screens/cart/cart_screen.dart';
 import 'package:v_commerce/presentation/UI/widgets/favourite_item.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
 import 'package:v_commerce/presentation/controllers/drawerController.dart';
@@ -46,7 +47,9 @@ class WishListScreen extends StatelessWidget {
                             backgroundColor: Colors.white,
                             surfaceTintColor: Colors.white,
                        shadowColor: Colors.grey,
-                              actions: [IconButton(onPressed: (){}, icon: SvgPicture.string(APPSVG.cartIcon))],
+                              actions: [IconButton(onPressed: (){
+                                Navigator.of(context).push(MaterialPageRoute( builder:(_)=>const CartScreen()));
+                              }, icon: SvgPicture.string(APPSVG.cartIcon))],
                               pinned: true,
                               floating: true,
                               snap: true,
@@ -69,7 +72,7 @@ class WishListScreen extends StatelessWidget {
                 ],
               );
               }else{
-                return const CircularProgressIndicator();
+                return const Center(child: CircularProgressIndicator());
               }
 
 

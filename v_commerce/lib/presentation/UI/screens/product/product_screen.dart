@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:v_commerce/core/l10n/plural_strings.dart';
@@ -8,6 +9,7 @@ import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/core/styles/text_styles.dart';
 import 'package:v_commerce/core/utils/string_const.dart';
 import 'package:v_commerce/core/utils/svg.dart';
+import 'package:v_commerce/domain/entities/sales.dart';
 import 'package:v_commerce/presentation/UI/screens/augmented_reality/ar_objects_screen.dart';
 import 'package:v_commerce/presentation/UI/screens/product/filtered_product_screen.dart';
 import 'package:v_commerce/presentation/UI/screens/product/review_screen.dart';
@@ -18,6 +20,8 @@ import 'package:v_commerce/presentation/UI/widgets/products_item.dart';
 import 'package:v_commerce/presentation/UI/widgets/quantity_button.dart';
 import 'package:v_commerce/presentation/UI/widgets/rating_section.dart';
 import 'package:v_commerce/presentation/UI/widgets/texture_item.dart';
+import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
+import 'package:v_commerce/presentation/controllers/cart_controller.dart';
 import 'package:v_commerce/presentation/controllers/product_controller.dart';
 import 'package:v_commerce/presentation/controllers/product_ui_controller.dart';
 import 'package:v_commerce/presentation/controllers/promotion_controller.dart';
@@ -314,7 +318,16 @@ class ProductScreen extends StatelessWidget {
                  ),
                  Padding(
                                     padding: const EdgeInsets.symmetric(vertical: 20.0),
-                   child: MyButton(text: 'Add to cart', click: (){}),
+                   child: GetBuilder(
+                    init: CartController(),
+                     builder: (cartController) {
+                       return MyButton(text: 'Add to cart', click: ()async{
+                        final AuthenticationController authenticationController=Get.find();
+                        cartController.addSale(Sales(status: [], modelId: pc.selected3Dproduct.id, productId: pc.currentProductid, providerId: pc.currentProduct.provider, userId: authenticationController.currentUser.id!,
+                         quantity: pc.quantity, totalPrice: pc.quantity*pc.getPrice(pc.currentProduct)));
+                       });
+                     }
+                   ),
                  ),
                  Row(
                           mainAxisSize: MainAxisSize.max,

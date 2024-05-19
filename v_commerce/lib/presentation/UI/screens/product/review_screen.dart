@@ -59,7 +59,7 @@ class ReviewScreen extends StatelessWidget {
               }else if(snapshot.connectionState==ConnectionState.waiting){
                 return const Center(child: CircularProgressIndicator(),);
               }else{
-                return Text("no reviews");
+                return const Text("no reviews");
               }
 
              

@@ -3,21 +3,21 @@ import 'package:v_commerce/core/utils/api_const.dart';
 import 'package:v_commerce/data/data_sources/local_data_sorce/authentication_local_data_source.dart';
 import 'package:v_commerce/data/data_sources/local_data_sorce/settings_local_data_source.dart';
 import 'package:v_commerce/data/data_sources/remote_data_source/authentication_remote_data_source.dart';
-import 'package:v_commerce/data/models/sales_model.dart';
+import 'package:v_commerce/data/models/reclamation_model.dart';
 import 'package:v_commerce/data/models/token_model.dart';
-
+import 'package:v_commerce/domain/entities/reclamation.dart';
 import '../../../core/errors/exceptions/exceptions.dart';
 
-abstract class SalesRemoteDataSource{
-  Future<List<SalesModel>> getAllSales(String userId);
-  Future<SalesModel> getSingleSales(String id);
-  Future<void> deleteSales(String id);
-  Future<SalesModel> addSale(SalesModel newSale);
-Future<void> updateSale(SalesModel updateSale);
+abstract class ReclamtionsRemoteDataSource{
+  Future<List<Reclamation>> getAllReclamations(String userId);
+  Future<Reclamation> getSingleReclamations(String reclamationId);
+  Future<void> addNewReclamations(ReclamationModel newReclamation);
+
 }
 
-class SalesRemoteDataSourceImp implements SalesRemoteDataSource{
- Future<TokenModel>get token async {
+class ReclamationRemoteDataSourceImpl implements ReclamtionsRemoteDataSource{
+
+Future<TokenModel>get token async {
     return await AuthenticationLocalDataSourceImpl().getUserInformations();
   }
      Future<String>get locale async {
@@ -42,33 +42,19 @@ class SalesRemoteDataSourceImp implements SalesRemoteDataSource{
   },
 ));
 
-  @override
-  Future<SalesModel> addSale(SalesModel newSale) async {
-      try {
-      final res = await dio.post(ApiConst.addSale, data: newSale.toJson(),
-       options: Options(
-          headers: {
-            "authorization": "Bearer ${await token.then((value) => value.token)}",
-          },
-        ),);
-     return SalesModel.fromJson(res.data['sale']); 
-    } catch (e) {
-      throw ServerException();
-    }
-  }
 
   @override
-  Future<List<SalesModel>> getAllSales(String userId) async{
-     try {
-      final response = await dio.get('${ApiConst.allSales}/$userId',
-       options: Options(
+  Future<List<Reclamation>> getAllReclamations(String userId) async{
+    try {
+      final response = await dio.get('${ApiConst.reclamations}/all/$userId',
+      options: Options(
           headers: {
             "authorization": "Bearer ${await token.then((value) => value.token)}",
           },
         ),);
       List<dynamic> data = response.data;
-      List<SalesModel> sales =
-          data.map((e ) => SalesModel.fromJson(e)).toList();
+      List<ReclamationModel> sales =
+          data.map((e) => ReclamationModel.fromJson(e)).toList();
       return sales;
     } catch (e) {
       throw ServerException();
@@ -76,26 +62,26 @@ class SalesRemoteDataSourceImp implements SalesRemoteDataSource{
   }
 
   @override
-  Future<SalesModel> getSingleSales(String id) async{
-       try {
-      final response = await dio.get('${ApiConst.oneSale}/$id',
-       options: Options(
+  Future<Reclamation> getSingleReclamations(String reclamationId) async{
+     try {
+      final response = await dio.get('${ApiConst.reclamations}/$reclamationId',
+      options: Options(
           headers: {
             "authorization": "Bearer ${await token.then((value) => value.token)}",
           },
         ),);
       final data = response.data;
-      return SalesModel.fromJson(data);
+      return ReclamationModel.fromJson(data);
     } catch (e) {
       throw ServerException();
     }
   }
   
   @override
-  Future<void> deleteSales(String id) async{
-     try {
-       await dio.delete('${ApiConst.oneSale}/$id',
-        options: Options(
+  Future<void> addNewReclamations(ReclamationModel newReclamation) async{
+      try {
+      await dio.post(ApiConst.reclamations, data: newReclamation.toJson(),
+      options: Options(
           headers: {
             "authorization": "Bearer ${await token.then((value) => value.token)}",
           },
@@ -104,19 +90,4 @@ class SalesRemoteDataSourceImp implements SalesRemoteDataSource{
       throw ServerException();
     }
   }
-  
-  @override
-  Future<void> updateSale(SalesModel updateSale) async{
-    try {
-    await dio.put("${ApiConst.oneSale}/${updateSale.id}",
-          data: updateSale.toJson(),
-                 options: Options(
-          headers: {
-            "authorization": "Bearer ${await token.then((value) => value.token)}",
-          },
-        ),);
-    } catch (e) {
-      throw ServerException();
-    }
-  }
-} 
+}
