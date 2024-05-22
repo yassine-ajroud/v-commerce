@@ -45,16 +45,12 @@ class WishListRemoteDataSourceImpl implements WishListRemoteDataSource {
   @override
   Future<void> createWishlist({required String userId}) async{
      try {
-        await verifyToken();
        await dio.post(
         ApiConst.addWishlist,
-        data: {"userId": userId,"products":[]},
-        options: Options(
-          headers: {
-            "authorization": "Bearer ${await token.then((value) => value.token)}",
-          },
-        ),);
+        data: {"userId": userId,"products":[]},);
     }  catch (e) {
+            print("wishlist error ${e.toString()}");
+
         throw ServerException(message:"add cart error");
       }
     }

@@ -20,14 +20,13 @@ class DrawerItem extends StatelessWidget {
         onTap: onTap,
         child: Container(
           decoration: BoxDecoration(
-            color: index==groupeIndex?AppColors.secondary:Colors.transparent,
             borderRadius: BorderRadius.circular(25)
           ),
           child: Padding(
             padding:const EdgeInsets.symmetric(horizontal: 8),
             child: ListTile(
-              leading: SvgPicture.string(icon,color:index==groupeIndex?AppColors.white:AppColors.black ,),
-              title: Text(label,style: index == groupeIndex? AppTextStyle.smallWhiteTitleTextStyle:AppTextStyle.smallBlackTitleTextStyle,),
+              leading: SvgPicture.string(icon,),
+              title: Text(label,style:AppTextStyle.smallBlackTitleTextStyle,),
               trailing: tariling,
             ),
           ),

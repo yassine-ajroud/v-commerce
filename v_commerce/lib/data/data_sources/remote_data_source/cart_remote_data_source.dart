@@ -45,16 +45,11 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
   @override
   Future<void> createCart({required String userId}) async{
      try {
-        await verifyToken();
-       await dio.post(
+             await dio.post(
         ApiConst.addCart,
-        data: {"userId": userId,"sales":[]},
-        options: Options(
-          headers: {
-            "authorization": "Bearer ${await token.then((value) => value.token)}",
-          },
-        ),);
+        data: {"userId": userId,"sales":[]},);
     }  catch (e) {
+      print("cart error ${e.toString()}");
         throw ServerException(message:"add cart error");
       }
     }

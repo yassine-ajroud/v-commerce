@@ -239,8 +239,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: SizedBox(
                     height: 40.h,
                     child: GetBuilder<CategoryController>(
-                                            id:ControllerID.SELECT_CATEGORY,
-
+                      id:ControllerID.SELECT_CATEGORY,
                       init:CategoryController(),
                       builder:(categoryController)=> FutureBuilder(
                         future: categoryController.getAllCategories(),
@@ -258,6 +257,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: GestureDetector(
                                       onTap:(){
                                         categoryController.selectCategory(categoryController.categoriesList[index]);
+                                        print(categoryController.categoriesList[index]);
                                       },
                                       child: Container(
                                         decoration:categoryController.selectedCategory.id==categoryController.categoriesList[index].id? BoxDecoration(

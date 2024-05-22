@@ -20,6 +20,8 @@ import 'package:v_commerce/domain/usecases/authentication_usecases/update_passwo
 import 'package:v_commerce/domain/usecases/authentication_usecases/update_profil_usecase.dart';
 import 'package:v_commerce/domain/usecases/authentication_usecases/update_user_image.dart';
 import 'package:v_commerce/domain/usecases/authentication_usecases/verify_otp_usecase.dart';
+import 'package:v_commerce/domain/usecases/cart_usecases/create_cart_usecase.dart';
+import 'package:v_commerce/domain/usecases/wishlist_usecases/create_wishlist_usecase.dart';
 import 'package:v_commerce/presentation/UI/screens/auth/login_screen.dart';
 import 'package:v_commerce/presentation/UI/screens/auth/otp_screen.dart';
 import 'package:v_commerce/presentation/UI/screens/auth/reset_password_screen.dart';
@@ -203,8 +205,10 @@ Get.put(CategoryController()) ;
       String message='';
       res.fold((l) => 
                           message= l.message!,
-                          (r) {
-                            message=AppLocalizations.of(context)!.account_created;
+                          (r) async{
+                                                        message=AppLocalizations.of(context)!.account_created;
+                            await CreateWishListUsecase(sl())(userId: r);
+                            await CreateCartUsecase(sl())(userId: r);
                             email.clear();
                             password.clear();
                             phone.clear();
