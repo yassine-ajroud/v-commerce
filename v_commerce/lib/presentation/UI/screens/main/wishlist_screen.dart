@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/core/utils/svg.dart';
 import 'package:v_commerce/presentation/UI/screens/cart/cart_screen.dart';
@@ -62,8 +62,8 @@ class WishListScreen extends StatelessWidget {
                         itemBuilder: (_,index)=>FavouriteItem(texture:controller.wishlistModel[index] ,image: controller.wishlistModel[index].texture, label:productController.allProducts.firstWhere((element) => element.id== controller.wishlistModel[index].product).name, price: productController.getPrice(productController.allProducts.firstWhere((element) => element.id== controller.wishlistModel[index].product)),
                         liked: controller.getWishlistIds.contains(controller.wishlistModel[index].id),
                         lastItem: index==controller.wishlistModel.length-1,)):
-                             const  SliverToBoxAdapter(
-                    child: Center(child: Text("Empty Wishlist")),
+                               SliverToBoxAdapter(
+                    child: Center(child: Text(AppLocalizations.of(context)!.empty_wishlis)),
                   )
                          ,
                         const  SliverToBoxAdapter(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../core/styles/colors.dart';
 
@@ -6,7 +7,7 @@ import '../../../core/styles/colors.dart';
 class InputText extends StatefulWidget {
   final String hint;
    bool ? isPassword;
-  final IconData? leading; 
+  final String? leading; 
   final String? Function(String?)? validator;
   final TextEditingController? controler;
   final int ? length;
@@ -42,7 +43,11 @@ class _InputTextState extends State<InputText> {
         fillColor: AppColors.lightgrey,
         filled: true,
         hintText:widget.hint,
-        prefixIcon:widget.leading==null?null: Icon(widget.leading,color: AppColors.black,),
+        prefixIcon:widget.leading==null?null:Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: SvgPicture.string(widget.leading!,
+              fit: BoxFit.scaleDown),
+        ) ,
             suffixIcon: widget.isPassword??false ?InkWell(onTap:(){setState(() {
               obs=!obs;
               icon=Icon(obs?Icons.visibility:Icons.visibility_off);

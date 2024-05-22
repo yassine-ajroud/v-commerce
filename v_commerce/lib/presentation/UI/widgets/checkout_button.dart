@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/styles/colors.dart';
 import '../../../core/styles/text_styles.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 class CheckoutButton extends StatelessWidget {
@@ -28,7 +29,7 @@ class CheckoutButton extends StatelessWidget {
                   )
                 )), child:        Row(mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('Checkout',style: AppTextStyle.buttonTextStyle),
+          Text(AppLocalizations.of(context)!.checkout,style: AppTextStyle.buttonTextStyle),
        const   SizedBox(width: 10,),
         const  Icon(Icons.arrow_forward,color: AppColors.white,),
         ],

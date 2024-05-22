@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/core/utils/adaptive.dart';
+import 'package:v_commerce/core/utils/svg.dart';
 import 'package:v_commerce/presentation/UI/screens/auth/forget_password_screen.dart';
 import 'package:v_commerce/presentation/UI/screens/auth/signup_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -75,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             InputText(
                               hint: AppLocalizations.of(context)!.email,
-                              leading: Icons.mail,
+                              leading: APPSVG.emailIcon,
                               type: TextInputType.emailAddress,
                               controler: myController1,
                               validator: (v){
@@ -90,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             InputText(
                                 hint: AppLocalizations.of(context)!.password,
-                                leading: Icons.lock,
+                                leading: APPSVG.lockIcon,
                                 isPassword: true,
                                 controler: myController2,
                                 validator: (v){

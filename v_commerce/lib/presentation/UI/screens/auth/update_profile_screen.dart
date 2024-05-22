@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:v_commerce/core/utils/adaptive.dart';
+import 'package:v_commerce/core/utils/svg.dart';
 import 'package:v_commerce/presentation/UI/Widgets/input.dart';
 import 'package:v_commerce/presentation/UI/widgets/button.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:v_commerce/presentation/controllers/settings_controller.dart';
 
 import '../../../../core/styles/colors.dart';
 import '../../../../core/styles/text_styles.dart';
@@ -28,6 +31,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   final phone = TextEditingController();
   final address = TextEditingController();
   final email = TextEditingController();
+  final SettingsController settingsController = Get.find();
 
   @override
   void initState() {
@@ -61,33 +65,35 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: AppColors.backgroundWhite,
         appBar: AppBar(
-          foregroundColor: AppColors.black,
-          leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const Icon(Icons.arrow_back_ios)),
+         // foregroundColor: AppColors.black,
+          automaticallyImplyLeading: true,
+          backgroundColor: AppColors.backgroundWhite,
           elevation: 0,
-          centerTitle: true,
-          title: Text(
-            AppLocalizations.of(context)!.edit_user_infos,
-            maxLines: 2,
-            softWrap: true,
-            style: AppTextStyle.secondaryBlackTitleTextStyle,
-          ),
+        surfaceTintColor: Colors.transparent
+
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: GetBuilder<AuthenticationController>(
-            init: AuthenticationController(),
-            builder: (controller) {
-              return Form(
-                key: _formKey,
-                child: SingleChildScrollView(
+        body: GetBuilder<AuthenticationController>(
+          init: AuthenticationController(),
+          builder: (controller) {
+            return SingleChildScrollView(
+              child: Padding(
+          padding: const EdgeInsets.all(15.0),
+                child: Form(
+                  key: _formKey,
                   child: Column(
                     children: [
+                          Align(
+                                alignment:Adaptivity.alignmentLeft(settingsController.currentlocale),
+                                child: Text(
+                                    style: AppTextStyle.titleTextStyle,
+                                    AppLocalizations.of(context)!.edit_user_infos)),
+                                     const SizedBox(
+                        height: 20,
+                      ),
                        InputText(
+                        leading: APPSVG.userIcon,
                         hint: AppLocalizations.of(context)!.first_name,
                         controler: firstname,
                         validator: (v) {
@@ -99,9 +105,10 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                         },
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                       InputText(
+                        leading: APPSVG.userIcon,
                         hint: AppLocalizations.of(context)!.last_name,
                         controler: lastname,
                         validator: (v) {
@@ -113,9 +120,10 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                         },
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                     controller.currentUser.oAuth!=null? Container():  InputText(
+                          leading: APPSVG.emailIcon,
                           hint: AppLocalizations.of(context)!.email,
                           type: TextInputType.emailAddress,
                           controler: email,
@@ -126,11 +134,12 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                             }
                             return null;
                           }),
-                 
+                               
                       const SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                       InputText(
+                          leading: APPSVG.phoneIcon,
                           hint: AppLocalizations.of(context)!.phone_number,
                           type: TextInputType.phone,
                           controler: phone,
@@ -143,15 +152,15 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                             return null;
                           }),
                       const SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                      const CityInput(),
                            const SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                         const  DatePickerInput(),
                                const SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                     const  GenderInput(),
                           SizedBox(height: 30.h,),
@@ -160,7 +169,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                               
                                  if(controller.birthDate!=null&&controller.gender!=null && controller.city!=null){
                                    await controller.updateProfile(address: controller.city!, email: email, firstName: firstname, lastName: lastname, phone: phone, id:controller.currentUser.id,birthDate:controller.birthDate!,gender:controller.gender!,context: context);
- 
+                               
                                   }else{
                                     Fluttertoast.showToast(
                           msg: AppLocalizations.of(context)!.missing_data,
@@ -171,16 +180,16 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                           textColor: AppColors.white,
                           fontSize: 16.0);
                                   }
-
-
-
+                              
+                              
+                              
                             }
                           })
                       ]),
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
       ),
     );

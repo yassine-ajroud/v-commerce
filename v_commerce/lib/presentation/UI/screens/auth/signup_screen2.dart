@@ -1,10 +1,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:v_commerce/core/utils/adaptive.dart';
 import 'package:v_commerce/core/utils/string_const.dart';
+import 'package:v_commerce/core/utils/svg.dart';
 import 'package:v_commerce/presentation/UI/screens/auth/login_screen.dart';
 import 'package:v_commerce/presentation/UI/widgets/date_picker.dart';
 import 'package:v_commerce/presentation/UI/widgets/gender_box.dart';
@@ -93,7 +95,7 @@ class _SignupScreen2State extends State<SignupScreen2> {
                   InputText(
                           hint: AppLocalizations.of(context)!.phone_number,
                           type: TextInputType.phone,
-                                                  leading: Icons.phone,
+                                                  leading: APPSVG.phoneIcon,
 
                           controler: phone,
                           length: 8,
@@ -121,14 +123,9 @@ class _SignupScreen2State extends State<SignupScreen2> {
                          padding: const EdgeInsets.all(10.0),
                          child: Row(
                           children: [
-                            const SizedBox(
+                             SizedBox(
                               height: 40,
-                              child: Stack(
-                                children: [
-                                  Icon(Icons.male,size: 30,),
-                                  Positioned(bottom: -2, child: Icon(Icons.female,size:30)),
-                                ],
-                              ),
+                             child: SvgPicture.string(APPSVG.genderIcon),
                             ),
                             Text('gender',style: AppTextStyle.blackTextStyle,)
                           ],

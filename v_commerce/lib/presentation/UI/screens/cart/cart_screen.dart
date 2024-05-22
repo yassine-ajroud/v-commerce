@@ -9,6 +9,7 @@ import 'package:v_commerce/presentation/UI/widgets/cart_item.dart';
 import 'package:v_commerce/presentation/UI/widgets/checkout_button.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
 import 'package:v_commerce/presentation/controllers/cart_controller.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -50,8 +51,8 @@ class CartScreen extends StatelessWidget {
                     controller.cartSales.isNotEmpty?  SliverList.builder(
                         itemCount: controller.cartSales.length,
                         itemBuilder: (_,index)=> CartItem(sale: controller.cartSales[index], lastItem: index== controller.cartSales.length-1)):
-                             const  SliverToBoxAdapter(
-                    child: Center(child: Text("Empty Cart")),
+                               SliverToBoxAdapter(
+                    child: Center(child: Text(AppLocalizations.of(context)!.empty_cart)),
                   ),
                           SliverToBoxAdapter(
                     child: Padding(
@@ -60,14 +61,14 @@ class CartScreen extends StatelessWidget {
                                       children:[   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                          Text("Frais d'expédition :",style: AppTextStyle.smallBlackTitleTextStyle,),
-                          Text("${controller.shipping_fee}DT",style: AppTextStyle.blackTitleTextStyle,),
+                          Text("${AppLocalizations.of(context)!.shipping_fee} :",style: AppTextStyle.smallBlackTitleTextStyle,),
+                          Text("${controller.shipping_fee}${AppLocalizations.of(context)!.dinar}",style: AppTextStyle.blackTitleTextStyle,),
                         ],),
                            Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                          Text("Total :",style: AppTextStyle.smallBlackTitleTextStyle,),
-                          Text('${(controller.totalPrice).toString()}DT',style: AppTextStyle.blackTitleTextStyle,),
+                          Text("${AppLocalizations.of(context)!.total_price} :",style: AppTextStyle.smallBlackTitleTextStyle,),
+                          Text('${(controller.totalPrice).toString()}${AppLocalizations.of(context)!.dinar}',style: AppTextStyle.blackTitleTextStyle,),
                         ],),
                        const SizedBox(height: 10,),
                         CheckoutButton( click: (){

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/core/styles/text_styles.dart';
+import 'package:v_commerce/core/utils/svg.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -32,17 +34,19 @@ class _DatePickerInputState extends State<DatePickerInput> {
               }
                 } ,
           child: Container(
-            height: 35.h,
+            height: 45.h,
             width: double.infinity,
-            decoration: const BoxDecoration(
-               border: Border(
-                bottom: BorderSide(width: 1.0, color: AppColors.black),
-             ),
+            decoration:  BoxDecoration(
+              color: AppColors.lightgrey,
+              border: null,
+               borderRadius: BorderRadius.circular(25)
             ),
-            child: Text.rich(TextSpan(children:[const WidgetSpan(child:Padding(
-              padding: EdgeInsets.symmetric(horizontal:10.0),
-              child: Icon(Icons.calendar_today),
-            ) ),TextSpan(text:controller.birthDate?? AppLocalizations.of(context)!.birth_date,style: AppTextStyle.smallblackTextStyle )])),
+            child: Text.rich(
+              TextSpan(children:[ WidgetSpan(                alignment: PlaceholderAlignment.middle,
+child:Padding(
+              padding:const EdgeInsets.symmetric(horizontal:20.0,vertical: 15),
+              child: SvgPicture.string(APPSVG.calendarIcon),
+            ) ),TextSpan(text:controller.birthDate?? AppLocalizations.of(context)!.birth_date,style: AppTextStyle.smallBlackTitleTextStyle )])),
           ),
         );
       }

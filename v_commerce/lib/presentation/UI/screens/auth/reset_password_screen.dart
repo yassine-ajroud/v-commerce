@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
 import '../../../../core/styles/text_styles.dart';
 import '../../Widgets/input.dart';
@@ -30,8 +31,10 @@ class _ResetPasswordScreen extends State<ResetPasswordScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: AppColors.backgroundWhite,
         appBar: AppBar(
-          backgroundColor: Colors.white10,
+          backgroundColor: AppColors.backgroundWhite,
+                  surfaceTintColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
               onPressed: () {

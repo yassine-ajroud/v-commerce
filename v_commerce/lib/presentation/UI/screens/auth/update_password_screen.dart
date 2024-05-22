@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:v_commerce/core/utils/adaptive.dart';
+import 'package:v_commerce/core/utils/svg.dart';
 import 'package:v_commerce/presentation/UI/Widgets/input.dart';
 import 'package:v_commerce/presentation/UI/widgets/button.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:v_commerce/presentation/controllers/settings_controller.dart';
 
 import '../../../../core/styles/colors.dart';
 import '../../../../core/styles/text_styles.dart';
@@ -23,6 +26,7 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
   final currentPassword = TextEditingController();
   final password = TextEditingController();
   final cpassword = TextEditingController();
+  final SettingsController settingsController = Get.find();
 
 @override
   void dispose() {
@@ -35,24 +39,16 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: AppColors.backgroundWhite,
         appBar: AppBar(
+          backgroundColor: AppColors.backgroundWhite,
           foregroundColor: AppColors.black,
-          leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const Icon(Icons.arrow_back_ios)),
+          automaticallyImplyLeading: true,
+              surfaceTintColor: AppColors.transparent,
           elevation: 0,
-          centerTitle: true,
-          title: Text(
-            AppLocalizations.of(context)!.change_password,
-            maxLines: 2,
-            softWrap: true,
-            style: AppTextStyle.secondaryBlackTitleTextStyle,
-          ),
         ),
         body: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(15.0),
           child: GetBuilder<AuthenticationController>(
             init: AuthenticationController(),
             builder: (controller) {
@@ -61,7 +57,16 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
+                      Align(
+                                alignment:Adaptivity.alignmentLeft(settingsController.currentlocale),
+                                child: Text(
+                                    style: AppTextStyle.titleTextStyle,
+                                    AppLocalizations.of(context)!.change_password)),
+                                        const SizedBox(
+                        height: 20,
+                      ),
                        InputText(
+                        leading: APPSVG.lockIcon,
                         hint: AppLocalizations.of(context)!.current_password,
                         controler: currentPassword,
                         isPassword: true,
@@ -76,6 +81,7 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
                         height: 10,
                       ),
                       InputText(
+                        leading: APPSVG.lockIcon,
                         hint: AppLocalizations.of(context)!.password,
                         controler: password,
                          isPassword: true,
@@ -90,6 +96,7 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
                         height: 10,
                       ),
                       InputText(
+                          leading: APPSVG.lockIcon,
                           hint: AppLocalizations.of(context)!.confirm_password,
                           type: TextInputType.text,
                            isPassword: true,

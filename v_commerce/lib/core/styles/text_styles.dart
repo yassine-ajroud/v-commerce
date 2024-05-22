@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'colors.dart';
 
 class AppTextStyle {
-  static TextStyle titleTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 36.sp, color: AppColors.black);
+  static TextStyle titleTextStyle = TextStyle(fontWeight: FontWeight.w600, fontSize: 20.sp, color: AppColors.black,fontFamily: 'Montserrat');
   static TextStyle secondaryTitleTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 36.sp, color: AppColors.darkGrey2);
   static TextStyle whiteTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp, color: AppColors.white,);
   //static TextStyle greyTitleTextStyle = TextStyle(fontWeight: FontWeight.normal, fontSize: 15.sp, color: AppColors.darkGrey);
@@ -28,9 +28,10 @@ class AppTextStyle {
     static TextStyle oldPriceTextStyle = TextStyle(fontWeight: FontWeight.w600, fontSize: 13.sp, color: AppColors.grey,fontFamily: 'Montserrat',decoration: TextDecoration.lineThrough);
     static TextStyle promotionTextTextStyle= TextStyle(fontWeight: FontWeight.w500, fontSize: 14.sp, color: AppColors.white,fontFamily: 'Montserrat',);
     static TextStyle promotiondiscountTextStyle= TextStyle(fontWeight: FontWeight.w600, fontSize: 22.sp, color: AppColors.primary,fontFamily: 'Montserrat',);
-    static TextStyle greyTitleTextStyle = TextStyle(fontWeight: FontWeight.w600, fontSize: 14.sp, color: AppColors.darkGrey,fontFamily: 'Montserrat');
+    static TextStyle greyTitleTextStyle = TextStyle(fontWeight: FontWeight.w500, fontSize: 12.sp, color: AppColors.darkGrey,fontFamily: 'Montserrat');
 
 
+    static TextStyle appBarTextButtonStyle = TextStyle(fontWeight: FontWeight.w600, fontSize: 14.sp, color: AppColors.black,fontFamily: 'Montserrat');
 
     static TextStyle secondaryBlackTitleTextStyle = TextStyle(fontWeight: FontWeight.normal, fontSize: 18.sp, color: AppColors.black,fontFamily: 'Montserrat');
     static TextStyle smallblackTextStyle = TextStyle(fontWeight: FontWeight.normal, fontSize: 12.sp, color: AppColors.black,fontFamily: 'Montserrat');

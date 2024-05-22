@@ -114,7 +114,16 @@
 "top_sales":"Top sales",
 "see_all":"See all",
 "categories":"Categories",
-"our_promotions":"Our Promotions"
+"our_promotions":"Our Promotions",
+"profile":"Profile",
+"empty_wishlis":"Empty wishlist",
+"empty_cart":"Empty cart",
+"total_price":"Total price",
+"shipping_fee":"Shipping costs",
+"checkout":"Checkout",
+"dinar":"DT"
+
+
 
 
 

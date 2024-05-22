@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:v_commerce/core/utils/adaptive.dart';
+import 'package:v_commerce/core/utils/svg.dart';
 import 'package:v_commerce/presentation/UI/screens/auth/signup_screen2.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
 import 'package:v_commerce/presentation/controllers/settings_controller.dart';
@@ -88,7 +89,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     InputText(
                       hint: AppLocalizations.of(context)!.first_name,
                       controler: firstname,
-                      leading: Icons.person,
+                      leading: APPSVG.userIcon,
                       validator: (v) {
                         if (v!.isEmpty) {
                           return AppLocalizations.of(context)!
@@ -103,7 +104,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     InputText(
                       hint: AppLocalizations.of(context)!.last_name,
                       controler: lastname,
-                      leading: Icons.person,
+                      leading: APPSVG.userIcon,
                       validator: (v) {
                         if (v!.isEmpty) {
                           return AppLocalizations.of(context)!
@@ -118,7 +119,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     InputText(
                         hint: AppLocalizations.of(context)!.email,
                         type: TextInputType.emailAddress,
-                        leading: Icons.mail,
+                        leading: APPSVG.emailIcon,
                         controler: email,
                         validator: (v) {
                           if (!v!.endsWith('@gmail.com') || v.isEmpty) {
@@ -134,7 +135,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         hint: AppLocalizations.of(context)!.password,
                         isPassword: true,
                         controler: password,
-                        leading: Icons.lock,
+                        leading:APPSVG.lockIcon,
                         validator: (v) {
                           if (v!.length < 8) {
                             return AppLocalizations.of(context)!
@@ -148,7 +149,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     InputText(
                         hint: AppLocalizations.of(context)!.confirm_password,
                         isPassword: true,
-                        leading: Icons.lock,
+                        leading: APPSVG.lockIcon,
                         controler: cpassword,
                         validator: (v) {
                           if (v != password.text || v!.isEmpty) {

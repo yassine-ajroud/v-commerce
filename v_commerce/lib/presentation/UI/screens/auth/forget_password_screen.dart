@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:v_commerce/core/styles/colors.dart';
+import 'package:v_commerce/core/utils/svg.dart';
 import 'package:v_commerce/presentation/UI/widgets/input.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
 import '../../../../core/styles/text_styles.dart';
@@ -64,7 +65,7 @@ class _ForgetPasswordScreen extends State<ForgetPasswordScreen> {
                       child: InputText(
                         hint: AppLocalizations.of(context)!.email,
                         type: TextInputType.emailAddress,
-                        leading: Icons.email,
+                        leading: APPSVG.emailIcon,
                         controler: email,
                         validator: (v) {
                           if (!v!.endsWith("@gmail.com") || v.isEmpty) {

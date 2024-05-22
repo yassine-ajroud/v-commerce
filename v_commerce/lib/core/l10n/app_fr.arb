@@ -74,7 +74,7 @@
     "logged_with_facebook":"Connecté avec Facebook",
     "logged_with_google":"Connecté avec Google",
     "birth_date":"Date de naissance",
-    "gender":"Le sexe",
+    "gender":"Genre",
     "male":"Mâle",
     "female":"Femelle",
     "missing_data":"Il faut saisir tous les données requis",
@@ -114,7 +114,20 @@
 "top_sales":"Top ventes",
 "see_all":"Voir tout",
 "categories":"Catégories",
-"our_promotions":"Nos Promotions"
+"our_promotions":"Nos Promotions",
+"profile":"Profil",
+"empty_wishlis":"Liste de favoris vide",
+"empty_cart":"Panier vide",
+"total_price":"Prix ​​total",
+"shipping_fee":"Frais d'expédition",
+"checkout":"Paiement",
+"dinar":"DT"
+
+
+
+
+
+
 
 
 

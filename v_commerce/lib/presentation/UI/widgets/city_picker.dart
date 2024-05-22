@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:v_commerce/core/styles/text_styles.dart';
+import 'package:v_commerce/core/utils/svg.dart';
 
 import '../../../core/styles/colors.dart';
 import '../../controllers/authentication_controller.dart';
@@ -23,32 +25,27 @@ class _CityInputState extends State<CityInput> {
             child: DropdownButtonFormField<String>(
                                     padding: const EdgeInsets.symmetric(horizontal: 0.0),
 
-          decoration:const InputDecoration(
-             focusedBorder:   UnderlineInputBorder(
-             // borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: AppColors.black,
-          width: 1)
-            ),
-            border:  UnderlineInputBorder(
-             // borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: AppColors.black,
-          width: 1)
-            ),
-            enabledBorder: UnderlineInputBorder(
-             // borderRadius: BorderRadius.circular(10.0),
-              borderSide:  BorderSide(
-                color: AppColors.black,
-                width: 1,
-              ),
-          ),
-         prefixIcon: Icon(Icons.location_on,color: AppColors.black,),
-         
-         ),
+         decoration: InputDecoration(
+                    border: const OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius:  BorderRadius.all(
+                         Radius.circular(30.0),
+                        
+                      ),
+                    ),
+                    filled: true,
+                    hintText: AppLocalizations.of(context)!.city,
+                    fillColor:AppColors.lightgrey,
+                    prefixIcon: SvgPicture.string(APPSVG.locationIcon,fit: BoxFit.scaleDown)
+                    ),
                   isExpanded: true,
                   value: controller.city,
-                  hint: Text(
-                    AppLocalizations.of(context)!.city,
-                    style: AppTextStyle.smallblackTextStyle,
+                  hint: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal:30.0),
+                    child: Text(
+                      AppLocalizations.of(context)!.city,
+                      style: AppTextStyle.smallblackTextStyle,
+                    ),
                   ),
                   onChanged: (value) {
                     controller.setCity(value!);

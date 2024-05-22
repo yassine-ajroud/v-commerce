@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:v_commerce/core/styles/text_styles.dart';
+import 'package:v_commerce/core/utils/svg.dart';
 
 import '../../../core/styles/colors.dart';
 import '../../controllers/authentication_controller.dart';
@@ -22,32 +23,45 @@ class _GenderInputState extends State<GenderInput> {
     return  GetBuilder<AuthenticationController>(
       init: AuthenticationController(),
       builder: (controller) {
-        return Container(
-          width: double.infinity,
-          height: 55.h,
-          decoration: BoxDecoration(
-            border:Border.all(width: 2.0,color: AppColors.black),
-            borderRadius: BorderRadius.circular(10)
-         
-          ),
-          child: DropdownButton<String>(
+        return DropdownButtonHideUnderline(
+            child: DropdownButtonFormField<String>(
+                                    padding: const EdgeInsets.symmetric(horizontal: 0.0),
 
-            underline: null,
-                      isExpanded: true,
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-           value: controller.gender,
-           hint: Text(AppLocalizations.of(context)!.gender,style: AppTextStyle.smallblackTextStyle,),
-          onChanged: (value){
-            controller.setGender(value!);
-          },
-          items: [
+         decoration: InputDecoration(
+                    border: const OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius:  BorderRadius.all(
+                         Radius.circular(30.0),
+                        
+                      ),
+                    ),
+                    filled: true,
+                    hintText: AppLocalizations.of(context)!.gender,
+                    fillColor:AppColors.lightgrey,
+                    prefixIcon: SvgPicture.string(APPSVG.genderIcon,fit: BoxFit.scaleDown)
+                    ),
+                  isExpanded: true,
+                  value: controller.gender,
+                  hint: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal:30.0),
+                    child: Text(
+                      AppLocalizations.of(context)!.gender,
+                      style: AppTextStyle.smallblackTextStyle,
+                    ),
+                  ),
+                  onChanged: (value) {
+                    controller.setGender(value!);
+                  },
+          
+                  items: [
             DropdownMenuItem<String>(value: 'male',child: Text(AppLocalizations.of(context)!.male),),
             DropdownMenuItem<String>(value: 'female',child: Text(AppLocalizations.of(context)!.female),)
 
 
           ],
-          )
-        );
+                
+                ),
+          );
       }
     );
   }
