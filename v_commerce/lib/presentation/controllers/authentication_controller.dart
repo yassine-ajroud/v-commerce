@@ -133,6 +133,7 @@ class AuthenticationController extends GetxController{
 Get.put(CategoryController()) ;
     Get.put(ProductController()) ;
         Get.put(PromotionController());
+                         // CategoryController c = CategoryController();
 
                               return Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>const MainScreen()));
                             });

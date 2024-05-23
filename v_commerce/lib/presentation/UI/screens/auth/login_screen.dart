@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/core/utils/adaptive.dart';
 import 'package:v_commerce/core/utils/svg.dart';
@@ -48,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
         appBar: AppBar(
                   backgroundColor: AppColors.backgroundWhite,
           elevation: 0,
-          leading: IconButton(onPressed: (){}, icon:const Icon(Icons.arrow_back,size: 30,)),
+        automaticallyImplyLeading: true,
         ),
         body: Center(
           child: SingleChildScrollView(

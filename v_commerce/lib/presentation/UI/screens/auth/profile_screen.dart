@@ -65,14 +65,14 @@ class ProfileScreen extends StatelessWidget {
                           ),
 
                         SizedBox(height: MediaQuery.sizeOf(context).height*0.05,),
-                       controller.currentUser.oAuth !=null? Container(): ProfileButtonItem(text: AppLocalizations.of(context)!.change_password,icon: APPSVG.userIcon,click: (){
-                         Navigator.of(context).push(MaterialPageRoute(builder: (_)=>const UpdatePasswordScreen()));
+                       controller.currentUser.oAuth !=null? Container(): ProfileButtonItem(text: AppLocalizations.of(context)!.edit_user_infos,icon: APPSVG.userIcon,click: (){                 
+                          Navigator.of(context).push(MaterialPageRoute(builder: (_)=>const UpdateProfileScreen()));
                         },),
                         const SizedBox(height: 20,),
                         ProfileButtonItem(
                           trailing: controller.missingData,
-                          text: AppLocalizations.of(context)!.edit_user_infos,icon: APPSVG.securityIcon2,click: (){
-                          Navigator.of(context).push(MaterialPageRoute(builder: (_)=>const UpdateProfileScreen()));
+                          text: AppLocalizations.of(context)!.change_password,icon: APPSVG.securityIcon2,click: (){
+                             Navigator.of(context).push(MaterialPageRoute(builder: (_)=>const UpdatePasswordScreen()));
               
                         }),
                    

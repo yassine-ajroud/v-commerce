@@ -122,18 +122,61 @@
 "total_price":"الثمن الجملي",
 "shipping_fee":"تكاليف الشحن",
 "checkout":"الدفع",
-"dinar":"دت"
-
-
-
-
-
-
-
-
-
-
-
+"dinar":"دت",
+"delivery_address":"عنوان التسليم",
+"ville":"المدينة",
+"postal_code":"الرمز البريدي",
+"required_city":"الولاية مطلوبة",
+"required_ville":"المدينة مطلوبة",
+"required_postal_code":"الرمز البريدي مطلوب",
+"payment_method":"طريقة الدفع",
+"cash_on_delivery":"الدفع عند الاستلام",
+"online_payment":"الدفع الالكتروني",
+"pay_online":"ادفع عبر الإنترنت",
+"card_number":"رقم البطاقة",
+"expiration_date":"تاريخ نهاية الصلاحية",
+"security_code":"رمز الحماية",
+"name_of_the_holder":"اسم الحائز",
+"first_last_name":"الإسم واللقب",
+"card_number_required":"رقم البطاقة مطلوب",
+"pay":"دفع",
+"order_added":"تمت إضافة الطلب",
+"product_size":"حجم المنتج",
+"height":"الطول",
+"width":"العرض",
+"thickness":"سماكة",
+"cm":"صم",
+"used_materials":"المواد المستخدمة",
+"rate_product":"تقييم المنتج",
+"based_on":"مرتكز على",
+"one_rate":"تقييم واحد",
+"two_rate":"تقييمان",
+"rating":"تقييم",
+"rate":"تقييم",
+"ratings":"تقييمات",
+"star":"نجمة",
+"stars":"نجوم",
+"view_comments":"عرض التعليقات",
+"add_to_cart":"أضف إلى السلة",
+"similar_products":"منتجات مماثلة",
+"minute":"دقيقة",
+"hour":"ساعة",
+"day":"يوم",
+"week":"أسبوع",
+"month":"شهر",
+"year":"سنة",
+"add_comment":"أضف تعليق",
+"no_comments":"لا يوجد تعليقات",
+"no_similar_products":"لا توجد منتجات مماثلة",
+"arr_session_promblem_title":"آسف! لا يمكنك بدء جلسة الواقع المعزز لأن قائمة المنتجات المفضلة فارغة",
+"arr_session_promblem_text":"قم بإضافة بعض المنتجات إلى قائمة المنتجات المفضلة الخاصة بك ثم حاول مرة أخرى",
+"edit":"تعديل",
+"delete":"حذف",
+"logout_confirm":"هل أنت متأكد أنك تريد تسجيل الخروج؟",
+"settings":"الإعدادات",
+"messaging":"المراسلات",
+"my_orders":"طلباتي",
+"notifications":"الإشعارات"
 
 
 

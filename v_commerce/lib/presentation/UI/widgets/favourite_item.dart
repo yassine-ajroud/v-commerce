@@ -9,6 +9,7 @@ import 'package:v_commerce/domain/entities/product3d.dart';
 import 'package:v_commerce/presentation/UI/screens/product/product_screen.dart';
 import 'package:v_commerce/presentation/controllers/product_controller.dart';
 import 'package:v_commerce/presentation/controllers/wishlist_controller.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // ignore: must_be_immutable
 class FavouriteItem extends StatelessWidget {
@@ -61,7 +62,7 @@ class FavouriteItem extends StatelessWidget {
                   children: [
                     Text(label,style: AppTextStyle.smallBlackTitleTextStyle,overflow: TextOverflow.visible,),
                     const SizedBox(height: 10,),
-                    Text('${price.toString()}DT',style: AppTextStyle.blackTitleTextStyle,overflow: TextOverflow.visible,),
+                    Text('${price.toString()}${AppLocalizations.of(context)!.dinar}',style: AppTextStyle.blackTitleTextStyle,overflow: TextOverflow.visible,),
 
                   ],
                 ))

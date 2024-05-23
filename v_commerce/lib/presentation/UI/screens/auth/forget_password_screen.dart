@@ -34,11 +34,7 @@ class _ForgetPasswordScreen extends State<ForgetPasswordScreen> {
         appBar: AppBar(
         backgroundColor: AppColors.backgroundWhite,
           elevation: 0,
-          leading: IconButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-             icon:const Icon(Icons.arrow_back,size: 30,)),
+          automaticallyImplyLeading: true,
         ),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -52,6 +48,10 @@ class _ForgetPasswordScreen extends State<ForgetPasswordScreen> {
                     child: Text(
                         style: AppTextStyle.titleTextStyle, AppLocalizations.of(context)!.get_verification_code),
                   ),
+                   SizedBox(
+                    height: 10.h,
+                  ),
+                  
                     Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -60,6 +60,7 @@ class _ForgetPasswordScreen extends State<ForgetPasswordScreen> {
                    SizedBox(
                     height: 30.h,
                   ),
+                  
                   Form(
                       key: _formKey,
                       child: InputText(
@@ -76,7 +77,7 @@ class _ForgetPasswordScreen extends State<ForgetPasswordScreen> {
                         },
                       )),
                    SizedBox(
-                    height: 30.h,
+                    height: 40.h,
                   ),
                   GetBuilder<AuthenticationController>(
                     init: AuthenticationController(),

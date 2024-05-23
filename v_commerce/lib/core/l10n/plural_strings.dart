@@ -28,4 +28,26 @@ class PluralStrings {
     }
     return res;
   }
+
+    static String ratings(int number, BuildContext context) {
+    String res;
+    switch (number) {
+      case 1:
+        res =AppLocalizations.of(context)!.one_rate;
+        break;
+      case 2:
+        res = AppLocalizations.of(context)!.two_rate;
+        break;  
+      case >1 && <10:
+        res ='$number ${AppLocalizations.of(context)!.ratings}';
+        break;
+        case>9:
+            res ='$number ${AppLocalizations.of(context)!.rate}';
+        break;
+      default:
+        res = '$number ${AppLocalizations.of(context)!.rate}';
+        break;
+    }
+    return res;
+  }
 }

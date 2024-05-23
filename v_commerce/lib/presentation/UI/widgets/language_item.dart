@@ -40,7 +40,7 @@ class LanguageItem extends StatelessWidget {
             ),
            
                Radio<String>(
-                      activeColor: AppColors.primary,
+                      activeColor: AppColors.secondary,
                       value: value,
                       groupValue: gvalue,
                       onChanged:onChanged

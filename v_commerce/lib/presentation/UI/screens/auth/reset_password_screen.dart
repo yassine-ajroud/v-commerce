@@ -36,14 +36,7 @@ class _ResetPasswordScreen extends State<ResetPasswordScreen> {
           backgroundColor: AppColors.backgroundWhite,
                   surfaceTintColor: Colors.transparent,
           elevation: 0,
-          leading: IconButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              icon: const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-              )),
+         automaticallyImplyLeading: true,
         ),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -96,7 +89,7 @@ class _ResetPasswordScreen extends State<ResetPasswordScreen> {
                         ],
                       )),
                   const SizedBox(
-                    height: 20,
+                    height: 40,
                   ),
                  GetBuilder<AuthenticationController>(
                    init: AuthenticationController(),

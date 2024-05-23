@@ -8,6 +8,7 @@ import 'package:v_commerce/presentation/UI/widgets/button.dart';
 import 'package:v_commerce/presentation/UI/widgets/input.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
 import 'package:v_commerce/presentation/controllers/payment_controller.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PaymentAddressScreen extends StatefulWidget {
   const PaymentAddressScreen({super.key});
@@ -58,7 +59,7 @@ class _PaymentAddressScreenState extends State<PaymentAddressScreen> {
           return CustomScrollView(
             slivers: [
                 SliverAppBar(
-                  title: Text('Adresse de livraison',style: AppTextStyle.blackTitleTextStyle,),
+                  title: Text(AppLocalizations.of(context)!.delivery_address,style: AppTextStyle.appBarTextButtonStyle,),
                   centerTitle: true,
                                 automaticallyImplyLeading: false,
                                 leading:IconButton(
@@ -82,46 +83,46 @@ class _PaymentAddressScreenState extends State<PaymentAddressScreen> {
                                   key:_formKey,
                                   child: Column(
                                     children: [
-                                      InputText(hint: 'Address',controler: address,validator: (v){
+                                      InputText(hint: AppLocalizations.of(context)!.address,controler: address,validator: (v){
                                         if(v!.isEmpty){
-                                          return 'adresse obligatoir';
+                                          return AppLocalizations.of(context)!.address_required;
                                         }
                                         return null;
                                       },),
                                       const SizedBox(height:20),
-                                      InputText(hint: 'Gouvernorat',controler: gov,
+                                      InputText(hint: AppLocalizations.of(context)!.city,controler: gov,
                                       validator: (v){
                                         if(v!.isEmpty){
-                                          return 'Gouvernorat obligatoir';
+                                         return AppLocalizations.of(context)!.required_city;
                                         }
                                         return null;
                                       },),
                                       const SizedBox(height:20),
-                                      InputText(hint: 'Ville',controler: ville,
+                                      InputText(hint:  AppLocalizations.of(context)!.ville,controler: ville,
                                        validator: (v){
                                         if(v!.isEmpty){
-                                          return 'ville obligatoir';
+                                         return AppLocalizations.of(context)!.required_ville;
                                         }
                                         return null;
                                       },),
                                         const SizedBox(height:20),
-                                      InputText(hint: 'Code Postal',type: TextInputType.number,length: 4,controler: code,
+                                      InputText(hint: AppLocalizations.of(context)!.postal_code,type: TextInputType.number,length: 4,controler: code,
                                        validator: (v){
                                         if(v!.length!=4){
-                                          return 'code postal invalid';
+                                          return AppLocalizations.of(context)!.required_postal_code;
                                         }
                                         return null;
                                       },),
                                         const SizedBox(height:20),
-                                      InputText(hint: 'Numéro de téléphone',type: TextInputType.number,length: 8,controler: phone,
+                                      InputText(hint: AppLocalizations.of(context)!.phone_number,type: TextInputType.number,length: 8,controler: phone,
                                        validator: (v){
                                         if(v!.isEmpty){
-                                          return 'Numéro de téléphone invalid';
+                                          return AppLocalizations.of(context)!.phone_number;
                                         }
                                         return null;
                                       },),
                                             const SizedBox(height:40),
-                                          MyButton(text: 'Continue', click: (){
+                                          MyButton(text: AppLocalizations.of(context)!.next, click: (){
                                              if(_formKey.currentState!.validate()){
                                               controller.getUserAddress(address.text, gov.text, ville.text, code.text, phone.text);
                                               Navigator.of(context).push(MaterialPageRoute(builder: (_)=>const PaymentMethodScreen()));

@@ -6,6 +6,7 @@ import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/core/styles/text_styles.dart';
 import 'package:v_commerce/core/utils/svg.dart';
 import 'package:v_commerce/presentation/controllers/review_controller.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CommentInput extends StatelessWidget {
   const CommentInput({super.key});
@@ -59,7 +60,7 @@ class CommentInput extends StatelessWidget {
                   enabledBorder: InputBorder.none,
                   errorBorder: InputBorder.none,
                   disabledBorder: InputBorder.none,
-                      hintText: "write your comment",
+                      hintText: AppLocalizations.of(context)!.add_comment,
                       hintStyle: AppTextStyle.hintTextStyle,
                       suffixIcon: Row(
                         mainAxisSize: MainAxisSize.min,

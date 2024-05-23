@@ -75,6 +75,7 @@ class ReviewRemoteDataSourceImpl implements ReviewRemoteDataSource {
           data.map((e) => ReviewModel.fromJson(e)).toList();
       return reviews;
     } catch (e) {
+      print(e.toString());
       throw ServerException();
     }
   }

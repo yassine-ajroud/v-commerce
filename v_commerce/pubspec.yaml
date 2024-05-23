@@ -61,6 +61,7 @@ dependencies:
   ar_flutter_plugin: 
     path: C:\plugins\ar_flutter_plugin-main\ar_flutter_plugin-main
   image_gallery_saver: ^2.0.3
+  otp_text_field_v2: ^1.0.3
 
 
 

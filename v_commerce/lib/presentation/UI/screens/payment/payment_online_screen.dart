@@ -11,6 +11,7 @@ import 'package:v_commerce/presentation/UI/widgets/button.dart';
 import 'package:v_commerce/presentation/UI/widgets/input.dart';
 import 'package:v_commerce/presentation/controllers/cart_controller.dart';
 import 'package:v_commerce/presentation/controllers/payment_controller.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PaymentOnlineScreen extends StatefulWidget {
   const PaymentOnlineScreen({super.key});
@@ -54,7 +55,7 @@ class _PaymentOnlineScreenState extends State<PaymentOnlineScreen> {
                       padding: const EdgeInsets.symmetric(horizontal:15.0),
                       child: SvgPicture.string(APPSVG.securityIcon),
                     )],
-                      title: Text('Payer en ligne',style: AppTextStyle.blackTitleTextStyle,),
+                      title: Text(AppLocalizations.of(context)!.pay_online,style: AppTextStyle.appBarTextButtonStyle,),
                       centerTitle: true,
                                     automaticallyImplyLeading: false,
                                     leading:IconButton(
@@ -88,16 +89,16 @@ class _PaymentOnlineScreenState extends State<PaymentOnlineScreen> {
                                       ],
                                     ),
                                     const SizedBox(height: 20,),
-                                    Text('Numéro de carte',style: AppTextStyle.blackTextStyle,),
+                                    Text(AppLocalizations.of(context)!.card_number,style: AppTextStyle.blackTextStyle,),
                                     const SizedBox(height: 10,),
                                     InputText(hint: "**** **** **** ****",type: TextInputType.number,length: 16,isPassword: true,validator: (v){
                                       if(!controller.validCardNumber(v!)||v.length!=16){
-                                        return 'invalid card number';
+                                        return AppLocalizations.of(context)!.card_number_required;
                                       }return null;
                                       
                                     },),
                                     const SizedBox(height: 20,),
-                                    Text("Date d’expiration",style: AppTextStyle.blackTextStyle,),
+                                    Text(AppLocalizations.of(context)!.expiration_date,style: AppTextStyle.blackTextStyle,),
                                                                         const SizedBox(height: 10,),
 
                                     Row(
@@ -174,31 +175,31 @@ class _PaymentOnlineScreenState extends State<PaymentOnlineScreen> {
 
                                     ],),
                                      const SizedBox(height: 20,),
-                                    Text('Code de sûreté',style: AppTextStyle.blackTextStyle,),
+                                    Text(AppLocalizations.of(context)!.security_code,style: AppTextStyle.blackTextStyle,),
                                     const SizedBox(height: 10,),
                                     InputText(hint: "***",length: 3,type: TextInputType.number,isPassword: true,validator: (v){
-                                      if(!controller.validCardNumber(v!)){
-                                        return 'invalid code';
+                                      if(!controller.validCardNumber(v!)||v.length!=3){
+                                        return AppLocalizations.of(context)!.code_invalid;
                                       }return null;
                                       
                                     },),
  const SizedBox(height: 20,),
-                                    Text('Nom du détenteur',style: AppTextStyle.blackTextStyle,),
+                                    Text(AppLocalizations.of(context)!.name_of_the_holder,style: AppTextStyle.blackTextStyle,),
                                     const SizedBox(height: 10,),
-                                    InputText(hint: "Nom et Prénom", validator: (v){
+                                    InputText(hint: AppLocalizations.of(context)!.first_last_name, validator: (v){
                                       if(v!.isEmpty){
-                                        return 'required field';
+                                        return AppLocalizations.of(context)!.first_name_required;
                                       }return null;
                                       
                                     },),                                     const SizedBox(height: 40,),
 
-                                                         MyButton(text: "Payer ${cartController.totalPrice}DT", click: ()async{
+                                                         MyButton(text: "${AppLocalizations.of(context)!.pay} ${cartController.totalPrice}${AppLocalizations.of(context)!.dinar}", click: ()async{
                                                           if(_formKey.currentState!.validate()){
                                                           //  final date = DateTime.now();
                                                               final res=  await controller.createOrder();
                                              if(res){
                                               Fluttertoast.showToast(
-                          msg: 'commande ajoutée',
+                          msg: AppLocalizations.of(context)!.order_added,
                           toastLength: Toast.LENGTH_SHORT,
                           gravity: ToastGravity.BOTTOM,
                           timeInSecForIosWeb: 1,

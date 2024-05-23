@@ -6,6 +6,7 @@ import 'package:v_commerce/core/styles/text_styles.dart';
 import 'package:v_commerce/domain/entities/review.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
 import 'package:v_commerce/presentation/controllers/review_controller.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ReviewItem extends StatelessWidget {
   final Review review;
@@ -35,13 +36,13 @@ class ReviewItem extends StatelessWidget {
                               enableFeedback: true,
                               enabled: review.userID ==
                                  authenticationController.currentUser.id,
-                              itemBuilder: ((context) => const [
+                              itemBuilder: ((context) =>  [
                                     PopupMenuItem(
                                       value: "/update",
-                                      child: Text('update'),
+                                      child: Text(AppLocalizations.of(context)!.edit),
                                     ),
                                     PopupMenuItem(
-                                        value: "/delete", child: Text('delete'))]),
+                                        value: "/delete", child: Text(AppLocalizations.of(context)!.delete))]),
           child: Column(children: [
             FutureBuilder(
               future: authenticationController.getUserById(review.userID),

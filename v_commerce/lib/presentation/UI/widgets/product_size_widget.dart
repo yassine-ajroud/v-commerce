@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/core/styles/text_styles.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProductSizeWidget extends StatelessWidget {
   final String icon;
@@ -32,7 +33,7 @@ class ProductSizeWidget extends StatelessWidget {
             children: [
               SvgPicture.string(icon),
               const SizedBox(height: 5,),
-              Text("${formatter.format(value)} cm",style: AppTextStyle.smallDarkButtonTextStyle,),
+              Text("${formatter.format(value)} ${AppLocalizations.of(context)!.cm}",style: AppTextStyle.smallDarkButtonTextStyle,),
             ],
          
                  ),

@@ -10,6 +10,7 @@ import 'package:v_commerce/presentation/UI/screens/payment/payment_online_screen
 import 'package:v_commerce/presentation/UI/widgets/button.dart';
 import 'package:v_commerce/presentation/UI/widgets/payment_method_item.dart';
 import 'package:v_commerce/presentation/controllers/payment_controller.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PaymentMethodScreen extends StatelessWidget {
   const PaymentMethodScreen({super.key});
@@ -24,7 +25,7 @@ class PaymentMethodScreen extends StatelessWidget {
           return CustomScrollView(
             slivers: [
                 SliverAppBar(
-                  title: Text('Méthode de paiment',style: AppTextStyle.blackTitleTextStyle,),
+                  title: Text(AppLocalizations.of(context)!.payment_method,style: AppTextStyle.appBarTextButtonStyle,),
                   centerTitle: true,
                                 automaticallyImplyLeading: false,
                                 leading:IconButton(
@@ -47,21 +48,21 @@ class PaymentMethodScreen extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     const SizedBox(height: 20,),
-                                   const PaymentMethodItem(method: PaymentMethod.cash, icon: APPSVG.cashIcon, label: 'Paiement à la livraison'),
+                                    PaymentMethodItem(method: PaymentMethod.cash, icon: APPSVG.cashIcon, label: AppLocalizations.of(context)!.cash_on_delivery),
                                 const Padding(
                 padding:  EdgeInsets.symmetric(vertical: 10.0),
                 child:  Divider(),
               ),
-                                   const PaymentMethodItem(method: PaymentMethod.digital, icon: APPSVG.commandIcon, label: 'Paiement en ligne'),
+                                    PaymentMethodItem(method: PaymentMethod.digital, icon: APPSVG.commandIcon, label: AppLocalizations.of(context)!.online_payment),
 
                                           const SizedBox(height:60),
-                                        MyButton(text: 'Continue', click: ()async{
+                                        MyButton(text: AppLocalizations.of(context)!.next, click: ()async{
                 
                                             if(controller.paymentMethod==PaymentMethod.cash){
                                              final res=  await controller.createOrder();
                                              if(res){
                                               Fluttertoast.showToast(
-                          msg: 'commande ajoutée',
+                          msg: AppLocalizations.of(context)!.order_added,
                           toastLength: Toast.LENGTH_SHORT,
                           gravity: ToastGravity.BOTTOM,
                           timeInSecForIosWeb: 1,

@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:v_commerce/core/l10n/plural_strings.dart';
 import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/core/styles/text_styles.dart';
@@ -166,16 +165,16 @@ class ProductScreen extends StatelessWidget {
                                             future:promoController.getPromotionPrice(pc.currentProduct.id!) ,
                                             builder: (context, snapshot) {
                                               if(snapshot.hasData){
-                                               return Text("${snapshot.data.toString()}DT",style: AppTextStyle.mainPriceTextStyle,);
+                                               return Text("${snapshot.data.toString()}${AppLocalizations.of(context)!.dinar}",style: AppTextStyle.mainPriceTextStyle,);
                                               }return const SizedBox();
                                             }
                                           ),
                                           const SizedBox(width: 10,),
-                                          Text('${pc.currentProduct.price}DT',style: AppTextStyle.oldPriceTextStyle,)
+                                          Text('${pc.currentProduct.price}${AppLocalizations.of(context)!.dinar}',style: AppTextStyle.oldPriceTextStyle,)
                                           ],);
                                            
                                         }
-                                      ):Expanded(child: Center(child: Text('${pc.currentProduct.price}DT',style: AppTextStyle.mainPriceTextStyle,))),
+                                      ):Expanded(child: Center(child: Text('${pc.currentProduct.price}${AppLocalizations.of(context)!.dinar}',style: AppTextStyle.mainPriceTextStyle,))),
 
    ],
  ),
@@ -214,7 +213,7 @@ class ProductScreen extends StatelessWidget {
                   id: ControllerID.PRODUCT_SIZE_TOGGLE,
                   builder: (sizeController) {
                     return ExpandableHeader(
-                      title: "Product size",
+                      title: AppLocalizations.of(context)!.product_size,
                       icon: APPSVG.sizeIcon,
                       onPress: (){
                         sizeController.toggleSizeExpandable(!sizeController.expandedSize);
@@ -241,7 +240,7 @@ class ProductScreen extends StatelessWidget {
                   id: ControllerID.PRODUCT_MATERIALS_TOGGLE,
                   builder: (materialController) {
                     return ExpandableHeader(
-                      title: "Used material",
+                      title: AppLocalizations.of(context)!.used_materials,
                       icon: APPSVG.materialIcon,
                       onPress: (){
                         materialController.toggleMaterialsExpandable(!materialController.expandedMaterials);
@@ -310,7 +309,7 @@ class ProductScreen extends StatelessWidget {
                                   onPressed: (){
                                     Navigator.of(context).push(MaterialPageRoute(builder: (_)=>const ReviewScreen()));
 
-                                  }, child:Text.rich( TextSpan(children:[TextSpan(text:'See reviews'),WidgetSpan(child: Icon(Icons.arrow_forward),alignment: PlaceholderAlignment.middle,) ]),textAlign: TextAlign.center,),
+                                  }, child:Text.rich( TextSpan(children:[TextSpan(text:AppLocalizations.of(context)!.view_comments,style: AppTextStyle.smallBlueTitleTextStyle),WidgetSpan(child: Icon(Icons.arrow_forward),alignment: PlaceholderAlignment.middle,) ]),textAlign: TextAlign.center,),
                         ),
                                   const Expanded(child: Divider(color: AppColors.black,thickness: 1)),
                  
@@ -321,7 +320,7 @@ class ProductScreen extends StatelessWidget {
                    child: GetBuilder(
                     init: CartController(),
                      builder: (cartController) {
-                       return MyButton(text: 'Add to cart', click: ()async{
+                       return MyButton(text: AppLocalizations.of(context)!.add_to_cart, click: ()async{
                         final AuthenticationController authenticationController=Get.find();
                         cartController.addSale(Sales(status: [], modelId: pc.selected3Dproduct.id, productId: pc.currentProductid, providerId: pc.currentProduct.provider, userId: authenticationController.currentUser.id!,
                          quantity: pc.quantity, totalPrice: pc.quantity*pc.getPrice(pc.currentProduct)));
@@ -333,7 +332,7 @@ class ProductScreen extends StatelessWidget {
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [Text('Similar products',style: AppTextStyle.blackTitleTextStyle,),InkWell(
+                          children: [Text(AppLocalizations.of(context)!.similar_products,style: AppTextStyle.blackTitleTextStyle,),InkWell(
                               onTap:(){
                            Navigator.of(context).push(MaterialPageRoute(builder: (_)=>FilteredProductScreen(products:pc.similarProducts)));
                             },
@@ -367,7 +366,7 @@ class ProductScreen extends StatelessWidget {
                                     return const Center(child:CircularProgressIndicator());
                                          
                                                            }else{
-                                                           return Center(child: const Text('Aucun produit similaire'));
+                                                           return  Center(child:  Text(AppLocalizations.of(context)!.no_similar_products));
                                                           }             
                                                          }
                                                        ),

@@ -11,6 +11,7 @@ import 'package:v_commerce/presentation/UI/screens/product/product_screen.dart';
 import 'package:v_commerce/presentation/UI/widgets/quantity_button.dart';
 import 'package:v_commerce/presentation/controllers/cart_controller.dart';
 import 'package:v_commerce/presentation/controllers/product_controller.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CartItem extends StatelessWidget {
   final Sales sale;
@@ -58,7 +59,7 @@ class CartItem extends StatelessWidget {
                       children: [
                         Text(productController.allProducts.firstWhere((element) => element.id==sale.productId).name,style: AppTextStyle.smallBlackTitleTextStyle,overflow: TextOverflow.visible,),
                         const SizedBox(height: 10,),
-                        Text('${sale.totalPrice}DT',style: AppTextStyle.blackTitleTextStyle,overflow: TextOverflow.visible,),
+                        Text('${sale.totalPrice}${AppLocalizations.of(context)!.dinar}',style: AppTextStyle.blackTitleTextStyle,overflow: TextOverflow.visible,),
                       ],
                     )),
                                             QuantityButton(backgroundColor: AppColors.lightgrey, icon: Icons.remove, onPress: ()async{

@@ -6,6 +6,7 @@ import 'package:v_commerce/presentation/UI/widgets/comment_input.dart';
 import 'package:v_commerce/presentation/UI/widgets/review_item.dart';
 import 'package:v_commerce/presentation/controllers/rating_controller.dart';
 import 'package:v_commerce/presentation/controllers/review_controller.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ReviewScreen extends StatelessWidget {
   const ReviewScreen({super.key});
@@ -47,9 +48,9 @@ class ReviewScreen extends StatelessWidget {
                         controller.allreviews.isNotEmpty?  SliverList.builder(
                           
                                 itemCount:   controller.allreviews.length,
-                                itemBuilder: (_,index)=>ReviewItem(review:   controller.allreviews[index], userRate: ratingController.getUserRating( controller.allreviews[index].productID,  controller.allreviews[index].userID),date:DateParser.getDateDifference( controller.allreviews[index].date!).toString(),lastItem: index==  controller.allreviews.length-1,)):
-                                     const  SliverToBoxAdapter(
-                            child: Center(child: Text("Empty reviews")),
+                                itemBuilder: (_,index)=>ReviewItem(review:   controller.allreviews[index], userRate: ratingController.getUserRating( controller.allreviews[index].productID,  controller.allreviews[index].userID),date:DateParser.getDateDifference( controller.allreviews[index].date!,context).toString(),lastItem: index==  controller.allreviews.length-1,)):
+                                       SliverToBoxAdapter(
+                            child: Center(child: Text(AppLocalizations.of(context)!.no_comments)),
                           ),
                                    const  SliverToBoxAdapter(
                     child: SizedBox(height: 90),

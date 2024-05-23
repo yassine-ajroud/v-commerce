@@ -6,6 +6,7 @@ import 'package:v_commerce/core/styles/text_styles.dart';
 import 'package:v_commerce/presentation/UI/screens/product/product_screen.dart';
 import 'package:v_commerce/presentation/controllers/product_controller.dart';
 import 'package:v_commerce/presentation/controllers/promotion_controller.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProductItem extends StatelessWidget {
   final String id;
@@ -85,16 +86,16 @@ class ProductItem extends StatelessWidget {
                                             future:promoController.getPromotionPrice(id) ,
                                             builder: (context, snapshot) {
                                               if(snapshot.hasData){
-                                               return Text("${snapshot.data.toString()}DT",style: AppTextStyle.priceTextStyle,);
+                                               return Text("${snapshot.data.toString()}${AppLocalizations.of(context)!.dinar}",style: AppTextStyle.priceTextStyle,);
                                               }return const SizedBox();
                                             }
                                           ),
                                           const SizedBox(width: 10,),
-                                          Text('${price}DT',style: AppTextStyle.oldPriceTextStyle,)
+                                          Text('$price${AppLocalizations.of(context)!.dinar}',style: AppTextStyle.oldPriceTextStyle,)
                                           ],);
                                            
                                         }
-                                      ):Text('${price}DT',style: AppTextStyle.priceTextStyle,),
+                                      ):Text('$price${AppLocalizations.of(context)!.dinar}',style: AppTextStyle.priceTextStyle,),
                                     
                                  )
         

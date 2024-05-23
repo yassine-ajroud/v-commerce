@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:otp_text_field_v2/otp_field_v2.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
 import '../../../../core/styles/text_styles.dart';
-import '../../Widgets/input.dart';
 import '../../widgets/button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -16,6 +17,7 @@ class OTPScreen extends StatefulWidget {
 class _OTPScreen extends State<OTPScreen> {
   final _formKey = GlobalKey<FormState>();
   final otp = TextEditingController();
+  final OtpFieldControllerV2 controllerV2 = OtpFieldControllerV2();
 
   @override
   void dispose() {
@@ -30,14 +32,7 @@ class _OTPScreen extends State<OTPScreen> {
         appBar: AppBar(
           backgroundColor: Colors.white10,
           elevation: 0,
-          leading: IconButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              icon: const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-              )),
+          automaticallyImplyLeading: true,
         ),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -51,6 +46,9 @@ class _OTPScreen extends State<OTPScreen> {
                       style: AppTextStyle.titleTextStyle,
                       AppLocalizations.of(context)!.verification),
                 ),
+                 const SizedBox(
+                  height: 10,
+                ),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -62,20 +60,27 @@ class _OTPScreen extends State<OTPScreen> {
                 ),
                 Form(
                     key: _formKey,
-                    child: InputText(
-                      hint: AppLocalizations.of(context)!.code,
-                      type: TextInputType.number,
-                      length: 4,
-                      controler: otp,
-                      validator: (v) {
-                        if (v!.length != 4) {
-                          return AppLocalizations.of(context)!.code_invalid;
-                        }
-                        return null;
-                      },
-                    )),
+                    child:Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 0.0),
+                      child: OTPTextFieldV2(
+                                controller: controllerV2,
+                                length: 4,
+                                width: 250.w,
+                                textFieldAlignment: MainAxisAlignment.spaceAround,
+                                fieldWidth: 45,
+                                fieldStyle: FieldStyle.box,
+                                outlineBorderRadius: 15,
+                                style: AppTextStyle.blackTextStyle,
+                                onChanged: (pin) {
+                                  otp.text=pin;
+                                },
+                                onCompleted: (pin) {
+                                  print("Completed: " + pin);
+                                },
+                    ),
+                    ),),
                 const SizedBox(
-                  height: 20,
+                  height: 40,
                 ),
                      GetBuilder<AuthenticationController>(
                       init: AuthenticationController(),
@@ -83,6 +88,7 @@ class _OTPScreen extends State<OTPScreen> {
                         return MyButton(
                           text: AppLocalizations.of(context)!.send,
                           click: () async {
+                            
                             if (_formKey.currentState!.validate()) {
                              await controller.verifyOTP(otp, context);
                             }

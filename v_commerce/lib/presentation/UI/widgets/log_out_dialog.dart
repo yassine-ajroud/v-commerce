@@ -15,7 +15,7 @@ class LogoutDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     AuthenticationController controller = Get.find();
     return  AlertDialog(
-  title: const Text("Êtes-vous sûr de vouloir vous déconnecter?"),
+  title:  Text(AppLocalizations.of(context)!.logout_confirm),
    titleTextStyle: const TextStyle(fontWeight: FontWeight.bold,color:Colors.black,fontSize: 20),
   backgroundColor: Colors.white,
   shape:const  RoundedRectangleBorder(
