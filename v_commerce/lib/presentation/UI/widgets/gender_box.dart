@@ -31,12 +31,12 @@ class _GenderBoxState extends State<GenderBox> {
         height:90.h,
         width: 90.w,
         decoration: BoxDecoration(
-            border: Border.all(width: 1, color:(widget.isMale&&controller.gender=='male') || (!widget.isMale&&controller.gender=='female')?AppColors.primary:AppColors.black),
+            border: Border.all(width: 1, color:(widget.isMale&&controller.gender=='male') || (!widget.isMale&&controller.gender=='female')?AppColors.secondary:AppColors.black),
             borderRadius: BorderRadius.circular(15)),
         child:  Icon(
           widget.icon,
           size: 50,
-          color: (widget.isMale&&controller.gender=='male') || (!widget.isMale&&controller.gender=='female')?AppColors.primary:AppColors.black,
+          color: (widget.isMale&&controller.gender=='male') || (!widget.isMale&&controller.gender=='female')?AppColors.secondary:AppColors.black,
         ),
       ),
     );

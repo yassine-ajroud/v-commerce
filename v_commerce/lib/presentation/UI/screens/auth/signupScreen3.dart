@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:v_commerce/core/utils/adaptive.dart';
 import 'package:v_commerce/core/utils/string_const.dart';
@@ -16,7 +17,14 @@ import '../../widgets/button.dart';
 import '../../widgets/input.dart';
 
 class SignupScreen3 extends StatefulWidget {
-  const SignupScreen3({super.key});
+    final TextEditingController firstname ;
+  final TextEditingController lastname ;
+   final TextEditingController email ;
+  final TextEditingController password;
+    final TextEditingController cpassword;
+    final TextEditingController phone;
+
+  const SignupScreen3({super.key,required this.firstname,required this.lastname,required this.email,required this.password,required this.cpassword,required this.phone});
 
   @override
   State<SignupScreen3> createState() => _SignupScreenState();
@@ -27,6 +35,7 @@ class _SignupScreenState extends State<SignupScreen3> {
   final experience = TextEditingController();
   final description = TextEditingController();
   late final SettingsController settingsController;
+  late final AuthenticationController authenticationController;
 
   @override
   void initState() {
@@ -154,13 +163,46 @@ class _SignupScreenState extends State<SignupScreen3> {
                           click: () async {
                             if (_formKey.currentState!.validate()) {
 
-                              // Navigator.of(context).push(MaterialPageRoute(builder: (_)=>SignupScreen2(
-                              //   firstname: firstname,
-                              //   lastname: lastname,
-                              //   email: email,
-                              //   password: password,
-                              //   cpassword: cpassword,
-                              // )));             
+                              if(controller.termsAccepted){
+                                if(controller.birthDate!=null&&controller.gender!=null && controller.city!=null){
+                                await controller.createAccount(
+                                  cpassword: widget.cpassword,
+                                  address: controller.city!,
+                                  email: widget.email,
+                                  phone: widget.phone,
+                                  birthDate: controller.birthDate!,
+                                  gender: controller.gender!,
+                                  firstName: widget.firstname,
+                                  lastName: widget.lastname,
+                                  password: widget.password,
+                                  description: description,
+                                  experience: experience,
+                                  isPro: true,
+                                  context: context).then((value) => null);
+                                }else{
+                                  Fluttertoast.showToast(
+                        msg: AppLocalizations.of(context)!.missing_data,
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: AppColors.toastColor,
+                        textColor: AppColors.white,
+                        fontSize: 16.0);
+                                }
+                                }
+                              else{
+
+                                 Fluttertoast.showToast(
+                        msg: AppLocalizations.of(context)!.terms_and_conditions_required,
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: AppColors.toastColor,
+                        textColor: AppColors.white,
+                        fontSize: 16.0);
+                        
+                            
+                    }          
                             }
                           },
                         );

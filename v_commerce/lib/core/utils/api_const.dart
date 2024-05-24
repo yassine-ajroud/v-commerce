@@ -64,6 +64,9 @@ class ApiConst {
 
   //service
   static const String serviceCategory="$baseUrl/service_category";
+  static const String addService="$baseUrl/service/add";
+  static const String service="$baseUrl/service";
+  static const String allService="$baseUrl/service/all";
 /*
   //static const String paiement = "$baseUrl/payment";
 */

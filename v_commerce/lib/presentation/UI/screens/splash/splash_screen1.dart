@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:v_commerce/core/styles/text_styles.dart';
 import 'package:v_commerce/presentation/UI/screens/main/main_screen.dart';
+import 'package:v_commerce/presentation/UI/screens/services/professional_home_screen.dart';
 import 'package:v_commerce/presentation/UI/screens/splash/splash_screen2.dart';
 
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
@@ -24,6 +25,8 @@ class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
   static Future<void> init(BuildContext context, int duration) async {
+            bool isPro=false;
+
     Get.put(SettingsController()) ;
     Get.put(AuthenticationController()) ;
     Get.put(CartController());
@@ -48,13 +51,18 @@ class SplashScreen extends StatefulWidget {
          res = false;
       }, (r)async {
         authController.currentUser = r;
+        if(r.role=="user"){
         await wishListController.getUserWishlist(authController.currentUser.id!);
         await cartController.getUserCart(authController.currentUser.id!);
         
-                        Get.put(MyDrawerController()) ;
 Get.put(CategoryController()) ;
     Get.put(ProductController()) ;
     Get.put(PromotionController());
+        }else{
+          isPro=true;
+        }
+                        Get.put(MyDrawerController()) ;
+
 
       });
    
@@ -66,7 +74,7 @@ Get.put(CategoryController()) ;
       Navigator.pushReplacement(
           context,
           CupertinoPageRoute(
-              builder:(_)=>res ? const MainScreen():const SplashScreen2()));
+              builder:(_)=>res ? isPro?const ProfessionalHomeScreen() : const MainScreen():const SplashScreen2()));
     });
   }
   @override

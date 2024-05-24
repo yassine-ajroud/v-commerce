@@ -9,6 +9,7 @@ import 'package:v_commerce/data/data_sources/remote_data_source/reclamations_rem
 import 'package:v_commerce/data/data_sources/remote_data_source/review_remote_data_source.dart';
 import 'package:v_commerce/data/data_sources/remote_data_source/sales_remote_data_source.dart';
 import 'package:v_commerce/data/data_sources/remote_data_source/service_category_remote_data_source.dart';
+import 'package:v_commerce/data/data_sources/remote_data_source/service_remote_data_source.dart';
 import 'package:v_commerce/data/data_sources/remote_data_source/supplier_remote_data_source.dart';
 import 'package:v_commerce/data/data_sources/remote_data_source/wishlist_remote_data_source.dart';
 import 'package:v_commerce/data/repositories/cart_repository_impl.dart';
@@ -21,6 +22,7 @@ import 'package:v_commerce/data/repositories/reclamations_repository_impl.dart';
 import 'package:v_commerce/data/repositories/review_repository_impl.dart';
 import 'package:v_commerce/data/repositories/sales_repository_impl.dart';
 import 'package:v_commerce/data/repositories/service_category_repository_impl.dart';
+import 'package:v_commerce/data/repositories/service_repository_impl.dart';
 import 'package:v_commerce/data/repositories/supplier_repository_impl.dart';
 import 'package:v_commerce/data/repositories/wishlist_repository_impl.dart';
 import 'package:v_commerce/domain/repositories/cart_repository.dart';
@@ -33,6 +35,7 @@ import 'package:v_commerce/domain/repositories/reclamation_repository.dart';
 import 'package:v_commerce/domain/repositories/review_repository.dart';
 import 'package:v_commerce/domain/repositories/sales_repository.dart';
 import 'package:v_commerce/domain/repositories/service_category_repository.dart';
+import 'package:v_commerce/domain/repositories/service_repository.dart';
 import 'package:v_commerce/domain/repositories/supplier_repository.dart';
 import 'package:v_commerce/domain/repositories/wishlist_repository.dart';
 import 'package:v_commerce/domain/usecases/authentication_usecases/forget_password_usecase.dart';
@@ -66,6 +69,10 @@ import 'package:v_commerce/domain/usecases/sales_usecases/get_all_sales_usecase.
 import 'package:v_commerce/domain/usecases/sales_usecases/get_single_sale_usecase.dart';
 import 'package:v_commerce/domain/usecases/sales_usecases/update_sale_usecase.dart';
 import 'package:v_commerce/domain/usecases/service_category_usecases/get_servive_categories.dart';
+import 'package:v_commerce/domain/usecases/service_usecases/add_service_usecase.dart';
+import 'package:v_commerce/domain/usecases/service_usecases/get_all_services_usecase.dart';
+import 'package:v_commerce/domain/usecases/service_usecases/get_service_by_id_usecase.dart';
+import 'package:v_commerce/domain/usecases/service_usecases/update_service_usecase.dart';
 import 'package:v_commerce/domain/usecases/sub_category_usecases/get_all_sub_categories_usecase.dart';
 import 'package:v_commerce/domain/usecases/supplier_usecases/get_supplier_by_ud_usecase.dart';
 
@@ -118,6 +125,8 @@ Future<void> init() async {
     () => ReclamationsRepositoryImpl(sl()));
   sl.registerLazySingleton<ServiceCategoryRepository>(
     () => ServiceCategoryRepositoryImpl(sl()));
+     sl.registerLazySingleton<ServiceRepository>(
+    () => ServiceRepositoryImpl(sl()));
 
   /* data sources */
   sl.registerLazySingleton<AuthenticationRemoteDataSource>(
@@ -148,6 +157,8 @@ Future<void> init() async {
     () => ReclamationRemoteDataSourceImpl());
   sl.registerLazySingleton<ServiceCategoryRemoteDataSource>(
     () => ServiceCategoryRemoteDataSourceImpl());
+  sl.registerLazySingleton<ServiceRemoteDataSource>(
+    () => ServiceRemoteDataSourceImpl());
  
   /* usecases */
   //authentication//
@@ -219,7 +230,12 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetAllReclamationsUsecase(sl()));
   sl.registerLazySingleton(() => GetSingleReclamationUsecase(sl()));
 
-  //service categories//
+  //service categories usecases//
   sl.registerLazySingleton(() => GetAllServiceCategoriesUsecase(sl()));
 
+  //service usecases//
+  sl.registerLazySingleton(() => AddServiceUsecase(sl()));
+  sl.registerLazySingleton(() => GetAllServicesUsecase(sl()));
+  sl.registerLazySingleton(() => GetServiceByIdUsecase(sl()));
+  sl.registerLazySingleton(() => UpdateServiceUsecase(sl()));
 }

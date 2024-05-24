@@ -125,7 +125,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 text: AppLocalizations.of(context)!.login,
                                 click: () async{
                                  if( _formKey.currentState!.validate()){
-                                    await controller.login(myController1, myController2,context);
+                                  SplashController splashController=Get.find();
+                                    await controller.login(myController1, myController2,context,isPro:splashController.role==UserRole.vendor);
                                  }
                                   
                                 },

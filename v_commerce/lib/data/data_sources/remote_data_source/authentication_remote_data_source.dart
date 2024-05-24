@@ -18,7 +18,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 abstract class AuthenticationRemoteDataSource {
-  Future<String> createAccount({required String? address,required email,required firstName,required lastName,required password,required phone,required String? image,required String? oauth,required String? gender, required String? birthDate});
+  Future<String> createAccount({required String role, required String? address,required email,required firstName,required lastName,required password,required phone,required String? image,required String? oauth,required String? gender, required String? birthDate});
   Future<TokenModel> login(String email, String password);
   Future<Map<String,dynamic>> googleLogin();
   Future<Map<String,dynamic>> facebookLogin();
@@ -67,11 +67,11 @@ class AuthenticationRemoteDataSourceImpl
 ));
 
   @override
-  Future<String> createAccount({required String? address,required email,required firstName,required lastName,required password,required phone,required String? image,required String? oauth,required String? gender, required String? birthDate}) async {
+  Future<String> createAccount({required String? address,required email,required firstName,required lastName,required password,required phone,required String? image,required String? oauth,required String? gender, required String? birthDate,required String role}) async {
     try {
     AppLocalizations t = await AppLocalizations.delegate.load(Locale(await locale));
       UserModel userModel = UserModel(
-          role: 'user',
+          role: role,
           oAuth: oauth,
           gender: gender,
           birthDate: birthDate,

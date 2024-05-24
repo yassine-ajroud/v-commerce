@@ -1,6 +1,6 @@
-import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
+import 'package:v_commerce/domain/entities/service.dart';
 import 'package:v_commerce/domain/repositories/service_repository.dart';
 import '../../../core/errors/failures/failures.dart';
 
@@ -9,5 +9,5 @@ class GetServiceByIdUsecase{
 
   GetServiceByIdUsecase(this.repository);
 
-  Future<Either<Failure,Service>> call(String serviceId)async=>await repository.getServiceById(serviceId);
+  Future<Either<Failure,MyService>> call(String serviceId)async=>await repository.getServiceById(serviceId);
 }

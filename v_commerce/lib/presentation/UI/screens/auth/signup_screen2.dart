@@ -190,8 +190,15 @@ class _SignupScreen2State extends State<SignupScreen2> {
                           text:splashController.role==UserRole.vendor?AppLocalizations.of(context)!.next : AppLocalizations.of(context)!.signUp,
                           click: () async {
                             if (_formKey.currentState!.validate()) {
-                              if(splashController.role==UserRole.vendor){
-                                Navigator.of(context).push(MaterialPageRoute(builder: (_)=>const SignupScreen3()));
+                              if(splashController.role==UserRole.vendor&&controller.birthDate!=null&&controller.gender!=null && controller.city!=null){
+                                Navigator.of(context).push(MaterialPageRoute(builder: (_)=> SignupScreen3(
+                                  firstname: widget.firstname,
+                                  lastname: widget.lastname,
+                                   cpassword: widget.cpassword,
+                                  email: widget.email,
+                                  phone: phone,
+                                  password: widget.password,
+                                )));
                               }else{
                               if(controller.termsAccepted){
                                 if(controller.birthDate!=null&&controller.gender!=null && controller.city!=null){

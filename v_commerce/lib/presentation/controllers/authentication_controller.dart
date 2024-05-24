@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/core/utils/string_const.dart';
+import 'package:v_commerce/domain/entities/service.dart';
 import 'package:v_commerce/domain/entities/user.dart';
 import 'package:v_commerce/domain/usecases/authentication_usecases/create_account_usecase.dart';
 import 'package:v_commerce/domain/usecases/authentication_usecases/facebook_login_usecase.dart';
@@ -21,11 +22,13 @@ import 'package:v_commerce/domain/usecases/authentication_usecases/update_profil
 import 'package:v_commerce/domain/usecases/authentication_usecases/update_user_image.dart';
 import 'package:v_commerce/domain/usecases/authentication_usecases/verify_otp_usecase.dart';
 import 'package:v_commerce/domain/usecases/cart_usecases/create_cart_usecase.dart';
+import 'package:v_commerce/domain/usecases/service_usecases/add_service_usecase.dart';
 import 'package:v_commerce/domain/usecases/wishlist_usecases/create_wishlist_usecase.dart';
 import 'package:v_commerce/presentation/UI/screens/auth/login_screen.dart';
 import 'package:v_commerce/presentation/UI/screens/auth/otp_screen.dart';
 import 'package:v_commerce/presentation/UI/screens/auth/reset_password_screen.dart';
 import 'package:v_commerce/presentation/UI/screens/main/main_screen.dart';
+import 'package:v_commerce/presentation/UI/screens/services/professional_home_screen.dart';
 import 'package:v_commerce/presentation/controllers/category_controller.dart';
 import 'package:v_commerce/presentation/controllers/drawerController.dart';
 import 'package:v_commerce/presentation/controllers/product_controller.dart';
@@ -34,7 +37,6 @@ import '../../di.dart';
 import '../../domain/entities/token.dart';
 import '../../domain/usecases/authentication_usecases/clear_user_image.dart';
 import '../../domain/usecases/authentication_usecases/forget_password_usecase.dart';
-import '../UI/screens/auth/profile_screen.dart';
 // ignore: depend_on_referenced_packages
 import 'package:path/path.dart';
 
@@ -118,7 +120,7 @@ class AuthenticationController extends GetxController{
                           
   }
 
-  Future<void> login(TextEditingController email,TextEditingController password,BuildContext context)async{
+  Future<void> login(TextEditingController email,TextEditingController password,BuildContext context,{bool isPro=false})async{
     isLoading = true;
     update();
       final res = await LoginUsecase(sl())(email: email.text, password: password.text);
@@ -135,13 +137,20 @@ class AuthenticationController extends GetxController{
                             email.clear();
                             password.clear();
                             await getCurrentUser(r.userId).then((value) {
-                                                                                  Get.put(MyDrawerController()) ;
-Get.put(CategoryController()) ;
-    Get.put(ProductController()) ;
-        Get.put(PromotionController());
+                              if(!isPro){
+                                   Get.put(MyDrawerController()) ;
+                                   Get.put(CategoryController()) ;
+                                   Get.put(ProductController()) ;
+                                   Get.put(PromotionController()); 
+                              return Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>const MainScreen()));
+
+                              }else{
+                              return Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>const ProfessionalHomeScreen()));
+
+                              }
+
                          // CategoryController c = CategoryController();
 
-                              return Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>const MainScreen()));
                             });
                           });
                                    isLoading = false;
@@ -208,9 +217,10 @@ Get.put(CategoryController()) ;
   }
 
   Future<String> createAccount({required String  address,required TextEditingController email,required TextEditingController firstName,required TextEditingController lastName,required TextEditingController password,required TextEditingController cpassword,required TextEditingController phone,String? image, required String birthDate,required String gender ,required BuildContext context,bool isPro=false,
-  TextEditingController? description,TextEditingController? eperience
+  TextEditingController? description,TextEditingController? experience
   })async{
-          final res = await CreateAccountUsecase(sl()).call(email: email.text, password: password.text,address: address,phone: phone.text,firstName: firstName.text,lastName: lastName.text,image: image??'',oauth: null,birthdate: birthDate,gender: gender);
+
+          final res = await CreateAccountUsecase(sl()).call(role: isPro?'vendor':'user', email: email.text, password: password.text,address: address,phone: phone.text,firstName: firstName.text,lastName: lastName.text,image: image??'',oauth: null,birthdate: birthDate,gender: gender);
       String userid="";
       String message='';
       res.fold((l) => 
@@ -222,9 +232,15 @@ Get.put(CategoryController()) ;
                             await CreateWishListUsecase(sl())(userId: r);
                             await CreateCartUsecase(sl())(userId: r);
                             }else{
-                              //await Createserv
-                            }
-                            
+                             final se= await AddServiceUsecase(sl())(
+                                MyService(service: speciality!, description: description!.text, experience: int.parse(experience!.text), images: [], userId: userid)
+                              );
+                              se.fold((l) => null, (r) {
+                                description.clear();
+                                experience.clear();
+                                speciality=null;
+                              }); 
+                            }           
 
                             email.clear();
                             password.clear();
@@ -333,13 +349,13 @@ String message='error';
     
     final res =await FacebookLoginUsecase(sl())();
     res.fold((l) => null, (r)async {
-          await CreateAccountUsecase(sl()).call(oauth:'F',email: r['id'].toString(), password: '0987654321',address: null,phone: '',firstName: r['name'].split(' ')[0].toString(),lastName: r['name'].split(' ')[1].toString(),image: r['picture']['data']['url'],birthdate: null,gender: null);
+          await CreateAccountUsecase(sl()).call(role: 'user',oauth:'F',email: r['id'].toString(), password: '0987654321',address: null,phone: '',firstName: r['name'].split(' ')[0].toString(),lastName: r['name'].split(' ')[1].toString(),image: r['picture']['data']['url'],birthdate: null,gender: null);
 
          final lg = await LoginUsecase(sl())(email: r['id'], password: '0987654321');
          lg.fold((l) => null, (r) async{
                                       token = r;
                                       await getCurrentUser(token.userId);
-           return Navigator.of(context).pushReplacement(MaterialPageRoute(builder:(_)=> ProfileScreen()));
+           return Navigator.of(context).pushReplacement(MaterialPageRoute(builder:(_)=>const MainScreen()));
            
          });
     });
@@ -352,13 +368,13 @@ String message='error';
     
     final res =await GoogleLoginUsecase(sl())();
     res.fold((l) => null, (r)async {
-          await CreateAccountUsecase(sl()).call(oauth:'G',email: r['email'], password: '0987654321',address: null,phone: '',firstName: r['firstName'],lastName: r['lastName'],image: r['image'],birthdate: null,gender: null);
+          await CreateAccountUsecase(sl()).call(role: 'user',oauth:'G',email: r['email'], password: '0987654321',address: null,phone: '',firstName: r['firstName'],lastName: r['lastName'],image: r['image'],birthdate: null,gender: null);
 
          final lg = await LoginUsecase(sl())(email: r['email'], password: '0987654321');
          lg.fold((l) => null, (r) async{
                                       token = r;
                                       await getCurrentUser(token.userId);
-           return Navigator.of(context).pushReplacement(MaterialPageRoute(builder:(_)=> ProfileScreen()));
+           return Navigator.of(context).pushReplacement(MaterialPageRoute(builder:(_)=>const MainScreen()));
            
          });
     });

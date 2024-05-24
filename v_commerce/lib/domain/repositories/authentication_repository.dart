@@ -6,7 +6,7 @@ import '../entities/token.dart';
 import '../entities/user.dart';
 
 abstract class AuthenticationRepository {
-  Future<Either<Failure,String>> createAccount({required String? address,required email,required firstName,required lastName,required password,required phone,required String image,required String? oauth,required String? birthDate, required String? gender});
+  Future<Either<Failure,String>> createAccount({required String role, required String? address,required email,required firstName,required lastName,required password,required phone,required String image,required String? oauth,required String? birthDate, required String? gender});
   Future<Either<Failure,Token>> login({required String email,required String password});
   Future<Either<Failure,Token>> autologin();
   Future<Either<Failure,Unit>> updateProfil({required address,required email,required firstName,required lastName,required phone,required id,required birthDate,required gender});

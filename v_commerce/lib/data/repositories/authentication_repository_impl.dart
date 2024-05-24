@@ -29,7 +29,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   }
 
   @override
-  Future<Either<Failure, String>> createAccount({required String? address,required email,required firstName,required lastName,required password,required phone,required String? image,required String? oauth,required String? gender,required String? birthDate}) async{
+  Future<Either<Failure, String>> createAccount({required String role, required String? address,required email,required firstName,required lastName,required password,required phone,required String? image,required String? oauth,required String? gender,required String? birthDate}) async{
      try {
       final res = await authRemoteDataSource.createAccount(firstName: firstName,
           lastName: lastName,
@@ -40,6 +40,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
           phone: phone,
           image:image??'',
           oauth:oauth,
+          role: role,
           password: password);
       return Right(res);
     } on RegistrationException catch(e){
