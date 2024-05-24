@@ -3,12 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/core/utils/adaptive.dart';
+import 'package:v_commerce/core/utils/enums.dart';
 import 'package:v_commerce/core/utils/svg.dart';
 import 'package:v_commerce/presentation/UI/screens/auth/forget_password_screen.dart';
 import 'package:v_commerce/presentation/UI/screens/auth/signup_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
 import 'package:v_commerce/presentation/controllers/settings_controller.dart';
+import 'package:v_commerce/presentation/controllers/splashController.dart';
 import '../../../../core/styles/text_styles.dart';
 import '../../widgets/button.dart';
 import '../../widgets/input.dart';
@@ -26,6 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final myController1 = TextEditingController();
   final myController2 = TextEditingController();
  late final SettingsController settingsController; 
+ late final SplashController splashController;
 
   @override
   void dispose() {
@@ -37,6 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     settingsController = Get.find();
+    splashController = Get.find();
     super.initState();
   }
   @override
@@ -126,10 +130,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   
                                 },
                               ),
-                             SizedBox(
+                            splashController.role==UserRole.vendor?const SizedBox():  SizedBox(
                               height: 25.h,
                             ),
-                            Row(
+                         splashController.role==UserRole.vendor?const SizedBox():   Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -138,10 +142,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 const Expanded(child: Divider(color: AppColors.black,thickness: 1,endIndent: 0,indent: 20,)),
 
                             ],),
-                             SizedBox(
+                           splashController.role==UserRole.vendor?const SizedBox():   SizedBox(
                               height: 25.h,
                             ),
-                             Padding(
+                            splashController.role==UserRole.vendor?const SizedBox():  Padding(
                                padding: const EdgeInsets.symmetric(horizontal:40.0),
                                child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,

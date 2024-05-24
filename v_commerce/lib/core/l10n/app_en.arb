@@ -175,6 +175,16 @@
 "settings":"Settings",
 "messaging":"Messaging",
 "my_orders":"My orders",
-"notifications":"Notifications"
+"notifications":"Notifications",
+"splash_text":"Find the best Interior design and Services for you home.",
+"continue_as":"Continue as",
+"professional":"Professional",
+"client":"Client",
+"description":"Description",
+"speciality":"Speciality",
+"experience":"Years of experience",
+"description_required":"Description required",
+"required_experience_years":"Years of experience required"
+
 
 }

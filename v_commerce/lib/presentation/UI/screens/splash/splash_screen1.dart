@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:v_commerce/presentation/UI/screens/auth/login_screen.dart';
+import 'package:v_commerce/core/styles/text_styles.dart';
 import 'package:v_commerce/presentation/UI/screens/main/main_screen.dart';
+import 'package:v_commerce/presentation/UI/screens/splash/splash_screen2.dart';
+
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
 import 'package:v_commerce/presentation/controllers/cart_controller.dart';
 import 'package:v_commerce/presentation/controllers/category_controller.dart';
@@ -11,8 +14,8 @@ import 'package:v_commerce/presentation/controllers/product_controller.dart';
 import 'package:v_commerce/presentation/controllers/promotion_controller.dart';
 import 'package:v_commerce/presentation/controllers/settings_controller.dart';
 import 'package:v_commerce/presentation/controllers/wishlist_controller.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../../core/styles/colors.dart';
 import '../../../../di.dart';
 import '../../../../domain/usecases/authentication_usecases/auto_login_usecase.dart';
 import '../../../../domain/usecases/authentication_usecases/get_user_usecase.dart';
@@ -62,8 +65,8 @@ Get.put(CategoryController()) ;
 
       Navigator.pushReplacement(
           context,
-          MaterialPageRoute(
-              builder: (context) => res ? const MainScreen():const LoginScreen()));
+          CupertinoPageRoute(
+              builder:(_)=>res ? const MainScreen():const SplashScreen2()));
     });
   }
   @override
@@ -75,24 +78,41 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-        future: SplashScreen.init(context, 2),
-        builder:(_,snapshot)=> Container(
-          width: 375.w,
-          height: 812.h,
-          color: AppColors.white,
-          child: const Center(
-            child: Text('Loading...'),
-           // child: Container(
-             // width: 198.w,
-              //height: 198.h,
-              //decoration: const BoxDecoration(
-                //image: DecorationImage(
-                  //  image: AssetImage(Assets.indar), fit: BoxFit.fitHeight),
-              //),
-            //),
+      extendBodyBehindAppBar: true,
+      body: Stack(
+        children: [
+          Image.asset("assets/images/splash 1.png",fit: BoxFit.fill,width: double.infinity,)
+          ,
+          FutureBuilder(
+            future: SplashScreen.init(context, 2),
+            builder:(_,snapshot)=> Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                const SizedBox(height: 10,),
+                Center(
+                  child:Image.asset('assets/images/logoWhite.png',width: 150.w,)
+                 // child: Container(
+                   // width: 198.w,
+                    //height: 198.h,
+                    //decoration: const BoxDecoration(
+                      //image: DecorationImage(
+                        //  image: AssetImage(Assets.indar), fit: BoxFit.fitHeight),
+                    //),
+                  //),
+                ),
+                const SizedBox(height: 180,),
+
+                Padding(
+                  padding: const EdgeInsets.all(25.0),
+                  child: SizedBox(
+                    width: 300.w,
+                    child: Text(AppLocalizations.of(context)!.splash_text,style: AppTextStyle.splashTextStyle,)),
+                )
+              ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

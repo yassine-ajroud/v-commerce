@@ -32,7 +32,7 @@ class MyDrawer extends StatelessWidget {
                 const SizedBox(height: 20,),
                 DrawerItem(label: AppLocalizations.of(context)!.profile, icon: APPSVG.profileIcon, index: 0, onTap: (){controller.selectDrawerItem(0);
                                                 Navigator.of(context).push(MaterialPageRoute(builder: (_)=>const ProfileScreen()));
-}, groupeIndex: controller.groupeValue),
+                }, groupeIndex: controller.groupeValue),
                 DrawerItem(label: AppLocalizations.of(context)!.messaging, icon: APPSVG.messageIcon, index: 1, onTap: (){controller.selectDrawerItem(1);}, groupeIndex: controller.groupeValue),
                 DrawerItem(label: AppLocalizations.of(context)!.notifications, icon: APPSVG.notificationIcon, index: 2, onTap: (){controller.selectDrawerItem(2);}, groupeIndex: controller.groupeValue),
                 DrawerItem(label: AppLocalizations.of(context)!.my_orders, icon: APPSVG.commandIcon, index: 3, onTap: (){controller.selectDrawerItem(3);}, groupeIndex: controller.groupeValue),
@@ -40,7 +40,7 @@ class MyDrawer extends StatelessWidget {
                 Navigator.of(context).push(MaterialPageRoute(builder: (_)=>const SelectLanguageScreen()));
                 }, groupeIndex: controller.groupeValue),
                 DrawerItem(label: AppLocalizations.of(context)!.logout, icon: APPSVG.logoutIcon, index: 5, onTap: ()async{controller.selectDrawerItem(0);  showDialog(context: context, builder: ((ctx) =>const LogoutDialog() ));                                                 controller.toggleDrawer();
-}, groupeIndex: controller.groupeValue),
+                }, groupeIndex: controller.groupeValue),
 
             ]),
           ),

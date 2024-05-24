@@ -50,6 +50,7 @@ class AuthenticationController extends GetxController{
   String? gender;
   String? birthDate;
   String?city;
+  String? speciality;
   final ImagePicker _picker = ImagePicker();
 
   bool get missingData=>currentUser.phone=='' ||currentUser.address=='' || currentUser.birthDate==''||currentUser.gender=='' ;
@@ -70,6 +71,11 @@ class AuthenticationController extends GetxController{
     city=value;
     update();
   }
+  void setSpeciality(String value){
+    speciality=value;
+    update();
+  }
+  
 
   Future<void> pickImage()async{
     try {
@@ -201,15 +207,25 @@ Get.put(CategoryController()) ;
 
   }
 
-  Future<void> createAccount({required String  address,required TextEditingController email,required TextEditingController firstName,required TextEditingController lastName,required TextEditingController password,required TextEditingController cpassword,required TextEditingController phone,String? image, required String birthDate,required String gender ,required BuildContext context})async{
+  Future<String> createAccount({required String  address,required TextEditingController email,required TextEditingController firstName,required TextEditingController lastName,required TextEditingController password,required TextEditingController cpassword,required TextEditingController phone,String? image, required String birthDate,required String gender ,required BuildContext context,bool isPro=false,
+  TextEditingController? description,TextEditingController? eperience
+  })async{
           final res = await CreateAccountUsecase(sl()).call(email: email.text, password: password.text,address: address,phone: phone.text,firstName: firstName.text,lastName: lastName.text,image: image??'',oauth: null,birthdate: birthDate,gender: gender);
+      String userid="";
       String message='';
       res.fold((l) => 
                           message= l.message!,
                           (r) async{
-                                                        message=AppLocalizations.of(context)!.account_created;
+                            userid=r;
+                            message=AppLocalizations.of(context)!.account_created;
+                            if(!isPro){
                             await CreateWishListUsecase(sl())(userId: r);
                             await CreateCartUsecase(sl())(userId: r);
+                            }else{
+                              //await Createserv
+                            }
+                            
+
                             email.clear();
                             password.clear();
                             phone.clear();
@@ -231,7 +247,10 @@ Get.put(CategoryController()) ;
                           backgroundColor: AppColors.toastColor,
                           textColor: AppColors.white,
                           fontSize: 16.0);
+  
+  return userid;
   }
+
 
   Future<void> getCurrentUser(String userId)async{
       final res = await GetUserUsecase(sl())(userId);

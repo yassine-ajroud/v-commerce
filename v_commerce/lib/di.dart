@@ -8,6 +8,7 @@ import 'package:v_commerce/data/data_sources/remote_data_source/rating_remote_da
 import 'package:v_commerce/data/data_sources/remote_data_source/reclamations_remote_data_source.dart';
 import 'package:v_commerce/data/data_sources/remote_data_source/review_remote_data_source.dart';
 import 'package:v_commerce/data/data_sources/remote_data_source/sales_remote_data_source.dart';
+import 'package:v_commerce/data/data_sources/remote_data_source/service_category_remote_data_source.dart';
 import 'package:v_commerce/data/data_sources/remote_data_source/supplier_remote_data_source.dart';
 import 'package:v_commerce/data/data_sources/remote_data_source/wishlist_remote_data_source.dart';
 import 'package:v_commerce/data/repositories/cart_repository_impl.dart';
@@ -19,6 +20,7 @@ import 'package:v_commerce/data/repositories/rating_repository_impl.dart';
 import 'package:v_commerce/data/repositories/reclamations_repository_impl.dart';
 import 'package:v_commerce/data/repositories/review_repository_impl.dart';
 import 'package:v_commerce/data/repositories/sales_repository_impl.dart';
+import 'package:v_commerce/data/repositories/service_category_repository_impl.dart';
 import 'package:v_commerce/data/repositories/supplier_repository_impl.dart';
 import 'package:v_commerce/data/repositories/wishlist_repository_impl.dart';
 import 'package:v_commerce/domain/repositories/cart_repository.dart';
@@ -30,6 +32,7 @@ import 'package:v_commerce/domain/repositories/rating_repository.dart';
 import 'package:v_commerce/domain/repositories/reclamation_repository.dart';
 import 'package:v_commerce/domain/repositories/review_repository.dart';
 import 'package:v_commerce/domain/repositories/sales_repository.dart';
+import 'package:v_commerce/domain/repositories/service_category_repository.dart';
 import 'package:v_commerce/domain/repositories/supplier_repository.dart';
 import 'package:v_commerce/domain/repositories/wishlist_repository.dart';
 import 'package:v_commerce/domain/usecases/authentication_usecases/forget_password_usecase.dart';
@@ -62,6 +65,7 @@ import 'package:v_commerce/domain/usecases/sales_usecases/delete_sale_usecase.da
 import 'package:v_commerce/domain/usecases/sales_usecases/get_all_sales_usecase.dart';
 import 'package:v_commerce/domain/usecases/sales_usecases/get_single_sale_usecase.dart';
 import 'package:v_commerce/domain/usecases/sales_usecases/update_sale_usecase.dart';
+import 'package:v_commerce/domain/usecases/service_category_usecases/get_servive_categories.dart';
 import 'package:v_commerce/domain/usecases/sub_category_usecases/get_all_sub_categories_usecase.dart';
 import 'package:v_commerce/domain/usecases/supplier_usecases/get_supplier_by_ud_usecase.dart';
 
@@ -112,7 +116,8 @@ Future<void> init() async {
     () => SalesRepositoryImpl(sl()));
   sl.registerLazySingleton<ReclamationRepository>(
     () => ReclamationsRepositoryImpl(sl()));
-
+  sl.registerLazySingleton<ServiceCategoryRepository>(
+    () => ServiceCategoryRepositoryImpl(sl()));
 
   /* data sources */
   sl.registerLazySingleton<AuthenticationRemoteDataSource>(
@@ -141,7 +146,8 @@ Future<void> init() async {
     () => SalesRemoteDataSourceImp());
   sl.registerLazySingleton<ReclamtionsRemoteDataSource>(
     () => ReclamationRemoteDataSourceImpl());
-    
+  sl.registerLazySingleton<ServiceCategoryRemoteDataSource>(
+    () => ServiceCategoryRemoteDataSourceImpl());
  
   /* usecases */
   //authentication//
@@ -212,5 +218,8 @@ Future<void> init() async {
   sl.registerLazySingleton(() => AddReclamationsUsecase(sl()));
   sl.registerLazySingleton(() => GetAllReclamationsUsecase(sl()));
   sl.registerLazySingleton(() => GetSingleReclamationUsecase(sl()));
+
+  //service categories//
+  sl.registerLazySingleton(() => GetAllServiceCategoriesUsecase(sl()));
 
 }

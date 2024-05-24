@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:v_commerce/presentation/UI/screens/splash/splash_screen.dart';
+import 'package:v_commerce/presentation/UI/screens/splash/splash_screen1.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
 import 'package:v_commerce/presentation/controllers/settings_controller.dart';
+import 'package:v_commerce/presentation/controllers/splashController.dart';
 import 'core/l10n/l10n.dart';
 import 'di.dart' as di;
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -22,6 +23,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(AuthenticationController());
+      Get.put(SplashController());
+
     return GetBuilder<SettingsController>(
         init: SettingsController(),
         builder: (controller) {

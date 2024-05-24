@@ -5,13 +5,16 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:v_commerce/core/utils/adaptive.dart';
+import 'package:v_commerce/core/utils/enums.dart';
 import 'package:v_commerce/core/utils/string_const.dart';
 import 'package:v_commerce/core/utils/svg.dart';
 import 'package:v_commerce/presentation/UI/screens/auth/login_screen.dart';
+import 'package:v_commerce/presentation/UI/screens/auth/signupScreen3.dart';
 import 'package:v_commerce/presentation/UI/widgets/date_picker.dart';
 import 'package:v_commerce/presentation/UI/widgets/gender_box.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
 import 'package:v_commerce/presentation/controllers/settings_controller.dart';
+import 'package:v_commerce/presentation/controllers/splashController.dart';
 import '../../../../core/styles/colors.dart';
 import '../../../../core/styles/text_styles.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -37,10 +40,12 @@ class _SignupScreen2State extends State<SignupScreen2> {
   
   final phone = TextEditingController();
   late final SettingsController settingsController;
+  late final SplashController splashController;
 
   @override
   void initState() {
     settingsController=Get.find();
+    splashController = Get.find();
     super.initState();
   }
 
@@ -145,7 +150,7 @@ class _SignupScreen2State extends State<SignupScreen2> {
                       ],),
                                               SizedBox(height: 20.h,),
 
-                      SizedBox(
+                 splashController.role==UserRole.vendor?const SizedBox():  SizedBox(
                         width: MediaQuery.sizeOf(context).width,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -155,7 +160,7 @@ class _SignupScreen2State extends State<SignupScreen2> {
                               init: AuthenticationController(),
                               builder: (controller) {
                                 return Checkbox(
-                                  activeColor: AppColors.primary,
+                                  activeColor: AppColors.secondary,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5),
                                   ),
@@ -182,10 +187,12 @@ class _SignupScreen2State extends State<SignupScreen2> {
                       init: AuthenticationController(),
                       builder: (controller) {
                         return MyButton(
-                          text: AppLocalizations.of(context)!.signUp,
+                          text:splashController.role==UserRole.vendor?AppLocalizations.of(context)!.next : AppLocalizations.of(context)!.signUp,
                           click: () async {
                             if (_formKey.currentState!.validate()) {
-
+                              if(splashController.role==UserRole.vendor){
+                                Navigator.of(context).push(MaterialPageRoute(builder: (_)=>const SignupScreen3()));
+                              }else{
                               if(controller.termsAccepted){
                                 if(controller.birthDate!=null&&controller.gender!=null && controller.city!=null){
                                 await controller.createAccount(
@@ -222,7 +229,7 @@ class _SignupScreen2State extends State<SignupScreen2> {
                         fontSize: 16.0);
                         }
                             
-                    }},
+                    }}},
                         );
                       },
                     ),

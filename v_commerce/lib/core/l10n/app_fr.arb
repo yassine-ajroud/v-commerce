@@ -175,7 +175,19 @@
 "settings":"Paramètres",
 "messaging":"Messagerie",
 "my_orders":"Mes commandes",
-"notifications":"Notifications"
+"notifications":"Notifications",
+"splash_text":"Trouvez le meilleur design d'intérieur et les meilleurs services pour votre maison.",
+"continue_as":"Continuer en tant que",
+"professional":"professionnel",
+"client":"Client",
+"description":"Description",
+"speciality":"Spécialité",
+"experience":"Années d'expérience",
+"description_required":"description requise",
+"required_experience_years":"Years of experience requise"
+
+
+
 
 
 

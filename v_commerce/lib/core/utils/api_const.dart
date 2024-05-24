@@ -62,6 +62,8 @@ class ApiConst {
  //reclamation apis
   static const String reclamations = "$baseUrl/reclamations";
 
+  //service
+  static const String serviceCategory="$baseUrl/service_category";
 /*
   //static const String paiement = "$baseUrl/payment";
 */
