@@ -4,13 +4,15 @@ import 'package:get/get.dart';
 import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/core/styles/text_styles.dart';
 import 'package:v_commerce/core/utils/svg.dart';
+import 'package:v_commerce/domain/entities/user.dart';
 import 'package:v_commerce/presentation/UI/widgets/change_profil_image_dialog.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
 import 'package:v_commerce/presentation/controllers/service_category_controller.dart';
 
 class ProfessionalInfoCard extends StatelessWidget {
  final String serviceId;
-  const ProfessionalInfoCard({super.key,required this.serviceId});
+ final User user;
+  const ProfessionalInfoCard({super.key,required this.serviceId,required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class ProfessionalInfoCard extends StatelessWidget {
                             children: [
                             CircleAvatar(
                               radius: 60,
-                              backgroundImage:controller.currentUser.image== '' ? Image.asset('assets/images/userImage.jpeg').image:NetworkImage(controller.currentUser.image!),
+                              backgroundImage:user.image== '' ? Image.asset('assets/images/userImage.jpeg').image:NetworkImage(user.image!),
                             ),
                             Positioned(
                               bottom: 0,
@@ -49,12 +51,12 @@ class ProfessionalInfoCard extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('${controller.currentUser.firstName} ${controller.currentUser.lastName}',style: AppTextStyle.appBarTextButtonStyle,),
+                    Text('${user.firstName} ${user.lastName}',style: AppTextStyle.appBarTextButtonStyle,),
                     const SizedBox(height: 5,),
                     Text(serviceCategoryController.serviceTitle(serviceId),style: AppTextStyle.smallblackTextStyle,),
                     const SizedBox(height: 5,),
 
-Text.rich( TextSpan(children:[WidgetSpan(child: SvgPicture.string(APPSVG.locationIcon),alignment: PlaceholderAlignment.middle,),TextSpan(text:' ${controller.currentUser.address}',style: AppTextStyle.smallblackTextStyle)]),textAlign: TextAlign.center,),
+Text.rich( TextSpan(children:[WidgetSpan(child: SvgPicture.string(APPSVG.locationIcon),alignment: PlaceholderAlignment.middle,),TextSpan(text:' ${user.address}',style: AppTextStyle.smallblackTextStyle)]),textAlign: TextAlign.center,),
                   ],
                 )
               ],

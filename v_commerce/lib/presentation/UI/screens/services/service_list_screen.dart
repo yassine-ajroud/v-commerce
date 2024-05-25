@@ -6,6 +6,7 @@ import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/core/utils/string_const.dart';
 import 'package:v_commerce/core/utils/svg.dart';
 import 'package:v_commerce/presentation/UI/screens/cart/cart_screen.dart';
+import 'package:v_commerce/presentation/UI/screens/services/professional_proflie_screen.dart';
 import 'package:v_commerce/presentation/UI/widgets/search_input.dart';
 import 'package:v_commerce/presentation/UI/widgets/service_item.dart';
 import 'package:v_commerce/presentation/controllers/service_controller.dart';
@@ -77,10 +78,19 @@ class ServiceListScreen extends StatelessWidget {
                             itemCount: controller.filtredServices.length,
                             itemBuilder: (_,index) {
                               final user= controller.users.firstWhere((element) => element.id==controller.filtredServices[index].userId);
-                              return ServiceItem(image: controller.filtredServices[index].images[0],
-                             firstName: user.firstName, 
-                             lastName: user.lastName,
-                              address: user.address!);
+                              String? img = controller.filtredServices[index].images.isEmpty?null:controller.filtredServices[index].images[0];
+                              return InkWell(
+                                onTap: (){
+                                  controller.selectedServiceId=controller.filtredServices[index].id!;
+                                  print(   controller.selectedServiceId=controller.filtredServices[index].id!);
+                                   Navigator.of(context).push(MaterialPageRoute( builder:(_)=>const ProfessionalProfileScreen()));
+
+                                },
+                                child: ServiceItem(image:img,
+                                                           firstName: user.firstName, 
+                                                           lastName: user.lastName,
+                                address: user.address!),
+                              );
                             }
                             
                             

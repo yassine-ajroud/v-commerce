@@ -14,6 +14,7 @@ import 'package:v_commerce/domain/entities/user.dart';
 import 'package:v_commerce/domain/usecases/authentication_usecases/get_user_usecase.dart';
 import 'package:v_commerce/domain/usecases/service_usecases/add_service_image_usecase.dart';
 import 'package:v_commerce/domain/usecases/service_usecases/get_all_services_usecase.dart';
+import 'package:v_commerce/domain/usecases/service_usecases/get_service_by_id_usecase.dart';
 import 'package:v_commerce/domain/usecases/service_usecases/get_service_by_user_id.dart';
 import 'package:v_commerce/domain/usecases/service_usecases/update_service_image_usecase.dart';
 import 'package:v_commerce/domain/usecases/service_usecases/update_service_usecase.dart';
@@ -26,8 +27,22 @@ class ServiceController extends GetxController{
   List<MyService> filtredServices=[];
   List<User> users=[];
   String selectedServiceCategory='';
+  String selectedServiceId='';
+  late MyService selectedService;
+  late User selectedUser;
+
    TextEditingController searchController = TextEditingController(); 
 
+  Future<MyService> getCurrentService()async{
+    print('get $selectedServiceId');
+    final res = await GetServiceByIdUsecase(sl())(selectedServiceId);
+    res.fold((l) => null, (r) async{
+      return selectedService=r;
+    });
+          final res1 = await GetUserUsecase(sl())(selectedService.userId);
+      res1.fold((l) => null, (r) => selectedUser=r);
+    return selectedService;
+  }
 
   Future<MyService> getCurrentUserService()async{
     AuthenticationController authenticationController=Get.find();
@@ -48,7 +63,6 @@ class ServiceController extends GetxController{
 }
 
 Future<List<MyService>> getAllServices()async{
-  print(selectedServiceCategory);
   final res = await GetAllServicesUsecase(sl())(selectedServiceCategory);
   res.fold((l) => null, (r) {
     filtredServices=r;
