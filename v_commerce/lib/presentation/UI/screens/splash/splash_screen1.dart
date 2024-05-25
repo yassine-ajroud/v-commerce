@@ -13,6 +13,8 @@ import 'package:v_commerce/presentation/controllers/category_controller.dart';
 import 'package:v_commerce/presentation/controllers/drawerController.dart';
 import 'package:v_commerce/presentation/controllers/product_controller.dart';
 import 'package:v_commerce/presentation/controllers/promotion_controller.dart';
+import 'package:v_commerce/presentation/controllers/service_category_controller.dart';
+import 'package:v_commerce/presentation/controllers/service_controller.dart';
 import 'package:v_commerce/presentation/controllers/settings_controller.dart';
 import 'package:v_commerce/presentation/controllers/wishlist_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -62,6 +64,8 @@ Get.put(CategoryController()) ;
           isPro=true;
         }
                         Get.put(MyDrawerController()) ;
+                        Get.put(ServiceCategoryController()) ;
+                        Get.put(ServiceController());
 
 
       });
@@ -85,42 +89,44 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      body: Stack(
-        children: [
-          Image.asset("assets/images/splash 1.png",fit: BoxFit.fill,width: double.infinity,)
-          ,
-          FutureBuilder(
-            future: SplashScreen.init(context, 2),
-            builder:(_,snapshot)=> Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                const SizedBox(height: 10,),
-                Center(
-                  child:Image.asset('assets/images/logoWhite.png',width: 150.w,)
-                 // child: Container(
-                   // width: 198.w,
-                    //height: 198.h,
-                    //decoration: const BoxDecoration(
-                      //image: DecorationImage(
-                        //  image: AssetImage(Assets.indar), fit: BoxFit.fitHeight),
+    return SafeArea(
+      child: Scaffold(
+        extendBodyBehindAppBar: true,
+        body: Stack(
+          children: [
+            Image.asset("assets/images/splash 1.png",fit: BoxFit.fill,width: double.infinity,)
+            ,
+            FutureBuilder(
+              future: SplashScreen.init(context, 2),
+              builder:(_,snapshot)=> Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  const SizedBox(height: 10,),
+                  Center(
+                    child:Image.asset('assets/images/logoWhite.png',width: 150.w,)
+                   // child: Container(
+                     // width: 198.w,
+                      //height: 198.h,
+                      //decoration: const BoxDecoration(
+                        //image: DecorationImage(
+                          //  image: AssetImage(Assets.indar), fit: BoxFit.fitHeight),
+                      //),
                     //),
-                  //),
-                ),
-                const SizedBox(height: 180,),
-
-                Padding(
-                  padding: const EdgeInsets.all(25.0),
-                  child: SizedBox(
-                    width: 300.w,
-                    child: Text(AppLocalizations.of(context)!.splash_text,style: AppTextStyle.splashTextStyle,)),
-                )
-              ],
+                  ),
+                  const SizedBox(height: 180,),
+    
+                  Padding(
+                    padding: const EdgeInsets.all(25.0),
+                    child: SizedBox(
+                      width: 300.w,
+                      child: Text(AppLocalizations.of(context)!.splash_text,style: AppTextStyle.splashTextStyle,)),
+                  )
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

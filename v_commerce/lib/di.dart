@@ -69,9 +69,12 @@ import 'package:v_commerce/domain/usecases/sales_usecases/get_all_sales_usecase.
 import 'package:v_commerce/domain/usecases/sales_usecases/get_single_sale_usecase.dart';
 import 'package:v_commerce/domain/usecases/sales_usecases/update_sale_usecase.dart';
 import 'package:v_commerce/domain/usecases/service_category_usecases/get_servive_categories.dart';
+import 'package:v_commerce/domain/usecases/service_usecases/add_service_image_usecase.dart';
 import 'package:v_commerce/domain/usecases/service_usecases/add_service_usecase.dart';
 import 'package:v_commerce/domain/usecases/service_usecases/get_all_services_usecase.dart';
 import 'package:v_commerce/domain/usecases/service_usecases/get_service_by_id_usecase.dart';
+import 'package:v_commerce/domain/usecases/service_usecases/get_service_by_user_id.dart';
+import 'package:v_commerce/domain/usecases/service_usecases/update_service_image_usecase.dart';
 import 'package:v_commerce/domain/usecases/service_usecases/update_service_usecase.dart';
 import 'package:v_commerce/domain/usecases/sub_category_usecases/get_all_sub_categories_usecase.dart';
 import 'package:v_commerce/domain/usecases/supplier_usecases/get_supplier_by_ud_usecase.dart';
@@ -237,5 +240,8 @@ Future<void> init() async {
   sl.registerLazySingleton(() => AddServiceUsecase(sl()));
   sl.registerLazySingleton(() => GetAllServicesUsecase(sl()));
   sl.registerLazySingleton(() => GetServiceByIdUsecase(sl()));
+  sl.registerLazySingleton(() => GetServiceByUserIdUsecase(sl()));
   sl.registerLazySingleton(() => UpdateServiceUsecase(sl()));
+  sl.registerLazySingleton(() => AddServiceImageUsecase(sl()));
+  sl.registerLazySingleton(() => UpdateServiceImageUsecase(sl()));
 }

@@ -7,9 +7,9 @@ class DrawerItem extends StatelessWidget {
  final String icon;
  final int index;
  final void Function() onTap;
- final int groupeIndex;
+ final int? groupeIndex;
  final Widget? tariling;
-  const DrawerItem({super.key,required this.label,required this.icon,required this.index,required this.onTap,required this.groupeIndex, this.tariling});
+  const DrawerItem({super.key,required this.label,required this.icon,required this.index,required this.onTap, this.groupeIndex, this.tariling});
 
   @override
   Widget build(BuildContext context) {

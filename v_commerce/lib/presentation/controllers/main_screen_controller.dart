@@ -7,7 +7,7 @@ import 'package:v_commerce/presentation/UI/screens/main/wishlist_screen.dart';
 
 class MainScreenController extends GetxController{
   int selectedScreen=0;
-  List<Widget> screens=[HomeScreen(),CategoryScreen(),ServiceScreen(),WishListScreen()];
+  List<Widget> screens=[const HomeScreen(),const CategoryScreen(),const ServiceScreen(),const WishListScreen()];
 
   void selectScreen(int index){
     selectedScreen=index;

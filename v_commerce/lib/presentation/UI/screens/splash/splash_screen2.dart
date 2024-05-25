@@ -20,7 +20,7 @@ class SplashScreen2 extends StatelessWidget {
       extendBodyBehindAppBar: true,
       body: Stack(
         children: [
-          Image.asset("assets/images/splash2.png",fit: BoxFit.fill,width: double.infinity,)
+          Image.asset("assets/images/splash2.png",fit: BoxFit.fill,height: double.infinity,)
           ,
          Padding(
            padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 70),

@@ -185,7 +185,12 @@
 "speciality":"التخصص",
 "experience":"سنين الخبرة",
 "description_required":"الوصف مطلوب",
-"required_experience_years":"سنوات الخبرة مطلوب"
+"required_experience_years":"سنوات الخبرة مطلوب",
+"pro_profile":"ملف تعريف مزود الخدمة",
+"general_informations":"المعلومات العامة",
+"security":"حماية"
+
+
 
 
 

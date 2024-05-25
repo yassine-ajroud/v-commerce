@@ -184,7 +184,13 @@
 "speciality":"Spécialité",
 "experience":"Années d'expérience",
 "description_required":"description requise",
-"required_experience_years":"Years of experience requise"
+"required_experience_years":"Years of experience requise",
+"pro_profile":"Profil du prestataire de services",
+"general_informations":"Informations générales",
+"security":"Sécurité"
+
+
+
 
 
 

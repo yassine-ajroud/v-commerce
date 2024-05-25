@@ -19,7 +19,7 @@ class BottomNavBar extends StatelessWidget {
       children: [
         Container(
           height: 65,
-          margin: EdgeInsets.all(15),
+          margin:const EdgeInsets.all(15),
           decoration: BoxDecoration(
             color: AppColors.extraLightBlueColor,
             borderRadius: BorderRadius.circular(30)

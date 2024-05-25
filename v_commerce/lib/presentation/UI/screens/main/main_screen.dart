@@ -10,7 +10,9 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //MyDrawerController controller=Get.find();
+    MyDrawerController drawerController=Get.find();
+    drawerController.scaffoldKey = GlobalKey<ScaffoldState>();
+
     return  SafeArea(
       child: GetBuilder(
         init: MainScreenController(),

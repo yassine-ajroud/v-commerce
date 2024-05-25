@@ -29,6 +29,7 @@ import 'package:v_commerce/presentation/UI/screens/auth/otp_screen.dart';
 import 'package:v_commerce/presentation/UI/screens/auth/reset_password_screen.dart';
 import 'package:v_commerce/presentation/UI/screens/main/main_screen.dart';
 import 'package:v_commerce/presentation/UI/screens/services/professional_home_screen.dart';
+import 'package:v_commerce/presentation/UI/screens/splash/splash_screen2.dart';
 import 'package:v_commerce/presentation/controllers/category_controller.dart';
 import 'package:v_commerce/presentation/controllers/drawerController.dart';
 import 'package:v_commerce/presentation/controllers/product_controller.dart';
@@ -53,6 +54,7 @@ class AuthenticationController extends GetxController{
   String? birthDate;
   String?city;
   String? speciality;
+  String? description;
   final ImagePicker _picker = ImagePicker();
 
   bool get missingData=>currentUser.phone=='' ||currentUser.address=='' || currentUser.birthDate==''||currentUser.gender=='' ;
@@ -145,6 +147,7 @@ class AuthenticationController extends GetxController{
                               return Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>const MainScreen()));
 
                               }else{
+                                                        Get.put(MyDrawerController()) ;
                               return Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>const ProfessionalHomeScreen()));
 
                               }
@@ -341,7 +344,7 @@ String message='error';
                     isLoading = false;
     update();
     await LogoutUsecase(sl())();
-    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>LoginScreen()));
+    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>const SplashScreen2()));
   }
 
   Future<void> facebookLogin(BuildContext context)async{

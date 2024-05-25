@@ -77,6 +77,8 @@ class ControllerID{
     static const LIKE_PRODUCT='like_product';
     static const SALE_QUANTITY='sale_quantity';
     static const PAYMENT_METHOD='paymentmethod';
-
+    static const SERVICE_IMAGE_CARROUSEL='service_image_carrousel';
+    static const SERVICE_CATEGORY_FILTER = 'service_category_filter';
+    static const SERVICE_FILTER = 'service_filter';
 }
 

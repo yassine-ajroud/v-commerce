@@ -7,40 +7,32 @@ import 'package:v_commerce/core/utils/string_const.dart';
 import 'package:v_commerce/core/utils/svg.dart';
 import 'package:v_commerce/presentation/UI/screens/cart/cart_screen.dart';
 import 'package:v_commerce/presentation/UI/widgets/search_input.dart';
-import 'package:v_commerce/presentation/UI/widgets/service_category_item.dart';
-import 'package:v_commerce/presentation/controllers/drawerController.dart';
-import 'package:v_commerce/presentation/controllers/service_category_controller.dart';
+import 'package:v_commerce/presentation/UI/widgets/service_item.dart';
+import 'package:v_commerce/presentation/controllers/service_controller.dart';
 
-class ServiceScreen extends StatelessWidget {
-  const ServiceScreen({super.key});
+class ServiceListScreen extends StatelessWidget {
+  const ServiceListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final ServiceCategoryController categoryController=Get.find();
+    final ServiceController categoryController=Get.find();
 
     return SafeArea(child: Scaffold(
       backgroundColor: AppColors.backgroundWhite,
       body: FutureBuilder(
-        future: categoryController.getServiceCategories(),
+        future: categoryController.getAllServices(),
         builder: (context, snapshot) {
           if(snapshot.hasData){
  return CustomScrollView(
             slivers: [
                       SliverAppBar(
                         automaticallyImplyLeading: false,
-                        leading:GetBuilder(
-                          init: MyDrawerController(),
-                          builder: (drawerController) {
-                            return Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: InkWell(
-                                onTap: (){
-                                  drawerController.toggleDrawer();
-                                },
-                                child: SvgPicture.string(APPSVG.menuIcon)),
-                            );
-                          }
-                        ) ,
+                             leading:IconButton(
+                      onPressed: (){
+                      Navigator.of(context).pop();
+                    }, 
+                    padding: EdgeInsets.zero,
+                    icon:const Icon(Icons.arrow_back,size: 30,))  ,
                         backgroundColor: Colors.white,
                         surfaceTintColor: Colors.white,
                    shadowColor: Colors.grey,
@@ -56,14 +48,14 @@ class ServiceScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical:20,horizontal: 15),
                       child: Builder(
                         builder: (ctx) {
-                          return GetBuilder<ServiceCategoryController>(
-                            init: ServiceCategoryController(),
+                          return GetBuilder<ServiceController>(
+                            init: ServiceController(),
                             builder: (controller) {
                               return Column(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children:[
                                    SearchInput(controller: controller.searchController,onChanged: (v){
-                                    controller.filterServiceCategories(v);
+                                    controller.filterService(v);
                                   },),
       
                                 
@@ -78,12 +70,21 @@ class ServiceScreen extends StatelessWidget {
                   ),   
                   SliverPadding(padding:  const EdgeInsets.symmetric(horizontal:15),
                   sliver:GetBuilder(
-                      init: ServiceCategoryController(),
-                      id: ControllerID.SERVICE_CATEGORY_FILTER,
+                      init: ServiceController(),
+                      id: ControllerID.SERVICE_FILTER,
                       builder: (controller) {
                         return SliverList.builder(
-                            itemCount: controller.filtredServiceCategoriesList.length,
-                            itemBuilder: (_,index)=>ServiceCategoryItem(id:controller.filtredServiceCategoriesList[index].id ,image: controller.filtredServiceCategoriesList[index].image, title: controller.filtredServiceCategoriesList[index].title));
+                            itemCount: controller.filtredServices.length,
+                            itemBuilder: (_,index) {
+                              final user= controller.users.firstWhere((element) => element.id==controller.filtredServices[index].userId);
+                              return ServiceItem(image: controller.filtredServices[index].images[0],
+                             firstName: user.firstName, 
+                             lastName: user.lastName,
+                              address: user.address!);
+                            }
+                            
+                            
+                            );
                       }
                     ) ,
       ) ,

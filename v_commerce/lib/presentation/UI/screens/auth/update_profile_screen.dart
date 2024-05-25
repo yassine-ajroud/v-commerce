@@ -4,10 +4,14 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:v_commerce/core/utils/adaptive.dart';
 import 'package:v_commerce/core/utils/svg.dart';
+import 'package:v_commerce/domain/entities/service.dart';
 import 'package:v_commerce/presentation/UI/Widgets/input.dart';
 import 'package:v_commerce/presentation/UI/widgets/button.dart';
+import 'package:v_commerce/presentation/UI/widgets/description_input.dart';
+import 'package:v_commerce/presentation/UI/widgets/speciality_input.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:v_commerce/presentation/controllers/service_controller.dart';
 import 'package:v_commerce/presentation/controllers/settings_controller.dart';
 
 import '../../../../core/styles/colors.dart';
@@ -30,8 +34,11 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   final lastname = TextEditingController();
   final phone = TextEditingController();
   final address = TextEditingController();
+  final experience = TextEditingController();
+  final description = TextEditingController();
   final email = TextEditingController();
   final SettingsController settingsController = Get.find();
+   late ServiceController serviceController;
 
   @override
   void initState() {
@@ -44,6 +51,14 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                  c.birthDate=c.currentUser.birthDate;
                   c.gender=c.currentUser.gender;
                  c.city=c.currentUser.address;
+                
+                if(c.currentUser.role=='vendor'){
+                  serviceController = Get.find();
+                        c.speciality=serviceController.currentUserService.service;
+                 experience.text=serviceController.currentUserService.experience.toString();
+                 description.text=serviceController.currentUserService.description;
+                }
+           
   }
 
   @override
@@ -163,13 +178,51 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                         height: 20,
                       ),
                     const  GenderInput(),
+                               const SizedBox(
+                        height: 20,
+                      ),
+                  controller.currentUser.role=='vendor'?  DescriptionInput(hint: AppLocalizations.of(context)!.description,controler: description,
+                     leading: APPSVG.userIcon,
+                      validator: (v) {
+                        if (v!.isEmpty) {
+                          return AppLocalizations.of(context)!
+                              .description_required;
+                        }
+                        return null;
+                      },): const SizedBox(),
+                                    controller.currentUser.role=='vendor'?               const SizedBox(
+                        height: 20,
+                      ): const SizedBox(),
+                   controller.currentUser.role=='vendor'?  const SpecialityInput():const SizedBox(),
+                               controller.currentUser.role=='vendor'?                      const SizedBox(
+                        height: 20,
+                      ): const SizedBox(),
+                      controller.currentUser.role=='vendor'? InputText(
+                        hint: AppLocalizations.of(context)!.experience,
+                        leading: APPSVG.experienceIcon,
+                        type: TextInputType.number,
+                        length: 2,
+                        controler: experience,
+                        validator: (v) {
+                          if (v!.isEmpty) {
+                            return AppLocalizations.of(context)!
+                                .required_experience_years;
+                          }
+                          return null;
+                        }):const SizedBox(),
                           SizedBox(height: 30.h,),
                           MyButton(text: AppLocalizations.of(context)!.save, click: ()async{
                             if(_formKey.currentState!.validate()){
                               
-                                 if(controller.birthDate!=null&&controller.gender!=null && controller.city!=null){
+                                 if(controller.birthDate!=null&&controller.gender!=null && controller.city!=null&&controller.speciality!=null){
                                    await controller.updateProfile(address: controller.city!, email: email, firstName: firstname, lastName: lastname, phone: phone, id:controller.currentUser.id,birthDate:controller.birthDate!,gender:controller.gender!,context: context);
-                               
+                                    if(controller.currentUser.role=='vendor'){
+                                        MyService tser=serviceController.currentUserService;
+                                        tser.description=description.text;
+                                        tser.experience= int.parse(experience.text.toString());
+                                        tser.service=controller.speciality??serviceController.currentUserService.service;
+                                      await serviceController.updateService(tser);
+                                    }
                                   }else{
                                     Fluttertoast.showToast(
                           msg: AppLocalizations.of(context)!.missing_data,
