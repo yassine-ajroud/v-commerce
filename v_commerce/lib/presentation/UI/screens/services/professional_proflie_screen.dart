@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/core/styles/text_styles.dart';
 import 'package:v_commerce/core/utils/adaptive.dart';
@@ -63,7 +64,15 @@ class ProfessionalProfileScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                                              ContactButon(color: AppColors.secondary,text: 'Appelez-moi',onClick: (){},icon: APPSVG.phoneIcon,),
+                                              ContactButon(color: AppColors.secondary,text: 'Appelez-moi',onClick: ()async{
+                                                 Uri url=Uri(scheme: 'tel',path:controller.selectedUser.phone ) ;
+                                                 if (!await launchUrl(url)) {
+                                                  print("error");
+                                                throw Exception('Could not launch $url');
+
+                                                
+                                                }
+                                              },icon: APPSVG.phoneIcon,),
                       ContactButon(color: AppColors.primary,text: 'Contactez-moi',onClick: (){},icon: APPSVG.messageIcon,),
                     ],),
                                         const SizedBox(height: 20,),

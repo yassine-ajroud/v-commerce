@@ -51,6 +51,11 @@
 	<string>Choose photo from gallery.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Take photo from camera.</string>
+	<key>LSApplicationQueriesSchemes</key>
+<array>
+  <string>sms</string>
+  <string>tel</string>
+</array>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Used to capture audio from image picker plugin.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
