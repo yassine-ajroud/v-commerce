@@ -80,5 +80,10 @@ class ControllerID{
     static const SERVICE_IMAGE_CARROUSEL='service_image_carrousel';
     static const SERVICE_CATEGORY_FILTER = 'service_category_filter';
     static const SERVICE_FILTER = 'service_filter';
+    static const UPDTAE_LANGUAGE = 'update_languge';
+    static const UPDTAE_NOTIFICATION = 'update_notification';
+    static const UPDTAE_CONTACT = 'update_contact';
+
+
 }
 

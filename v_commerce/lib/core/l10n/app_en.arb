@@ -187,7 +187,11 @@
 "required_experience_years":"Years of experience required",
 "pro_profile":"Service provider profile",
 "general_informations":"General informations",
-"security":"Security"
+"security":"Security",
+"on":"On",
+"off":"Off",
+"support":"Support",
+"faq":"FAQ"
 
 
 

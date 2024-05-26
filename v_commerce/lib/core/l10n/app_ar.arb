@@ -188,7 +188,13 @@
 "required_experience_years":"سنوات الخبرة مطلوب",
 "pro_profile":"ملف تعريف مزود الخدمة",
 "general_informations":"المعلومات العامة",
-"security":"حماية"
+"security":"حماية",
+"on":"نعم",
+"off":"لا",
+"support":"الدعم",
+"faq":"أسئلة مكررة"
+
+
 
 
 

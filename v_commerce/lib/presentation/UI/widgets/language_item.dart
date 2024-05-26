@@ -22,12 +22,11 @@ class LanguageItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.0.w, vertical: 10.0.h),
+      padding:const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
       child: Container(
-        height: 60.h,
+        height: 20.h,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          border: Border.all(width: 1)
         
         ),
         child: Padding(
@@ -36,7 +35,7 @@ class LanguageItem extends StatelessWidget {
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Text(
               language,
-              style: AppTextStyle.smallblackTextButtonStyle,
+              style: AppTextStyle.smallBlackTitleTextStyle,
             ),
            
                Radio<String>(

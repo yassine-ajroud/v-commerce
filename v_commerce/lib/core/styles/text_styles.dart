@@ -7,7 +7,10 @@ class AppTextStyle {
   static TextStyle secondaryTitleTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 36.sp, color: AppColors.darkGrey2);
   static TextStyle whiteTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp, color: AppColors.white,fontFamily: 'Montserrat');
   //static TextStyle greyTitleTextStyle = TextStyle(fontWeight: FontWeight.normal, fontSize: 15.sp, color: AppColors.darkGrey);
-    
+        static TextStyle whiteTitleTextStyle = TextStyle(fontWeight: FontWeight.w500, fontSize: 16.sp, color: AppColors.white,fontFamily: 'Montserrat');
+    static TextStyle blackSettingsTitleTextStyle = TextStyle(fontWeight: FontWeight.w600, fontSize: 14.sp, color: AppColors.black,fontFamily: 'Montserrat');
+    static TextStyle whiteSettingsTitleTextStyle = TextStyle(fontWeight: FontWeight.w600, fontSize: 14.sp, color: AppColors.white,fontFamily: 'Montserrat');
+
     static TextStyle blackTitleTextStyle = TextStyle(fontWeight: FontWeight.w500, fontSize: 16.sp, color: AppColors.black,fontFamily: 'Montserrat');
     static TextStyle boldBlackTitleTextStyle = TextStyle(fontWeight: FontWeight.w600, fontSize: 18.sp, color: AppColors.black,fontFamily: 'Montserrat');
     static TextStyle descriptionTextStyle = TextStyle(fontWeight: FontWeight.w500, fontSize: 12.sp, color: AppColors.darkGrey2,fontFamily: 'Montserrat');

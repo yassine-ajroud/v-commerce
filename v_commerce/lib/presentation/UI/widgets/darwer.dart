@@ -4,7 +4,7 @@ import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/core/styles/text_styles.dart';
 import 'package:v_commerce/core/utils/svg.dart';
 import 'package:v_commerce/presentation/UI/screens/auth/profile_screen.dart';
-import 'package:v_commerce/presentation/UI/screens/settings/language_settings.dart';
+import 'package:v_commerce/presentation/UI/screens/settings/settings_screen.dart';
 import 'package:v_commerce/presentation/UI/widgets/drawer_item.dart';
 import 'package:v_commerce/presentation/UI/widgets/log_out_dialog.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
@@ -37,7 +37,7 @@ class MyDrawer extends StatelessWidget {
                 DrawerItem(label: AppLocalizations.of(context)!.notifications, icon: APPSVG.notificationIcon, index: 2, onTap: (){controller.selectDrawerItem(2);}, groupeIndex: controller.groupeValue),
                 DrawerItem(label: AppLocalizations.of(context)!.my_orders, icon: APPSVG.commandIcon, index: 3, onTap: (){controller.selectDrawerItem(3);}, groupeIndex: controller.groupeValue),
                 DrawerItem(label: AppLocalizations.of(context)!.settings, icon: APPSVG.settingsIcon, index: 4, onTap: (){controller.selectDrawerItem(4);
-                Navigator.of(context).push(MaterialPageRoute(builder: (_)=>const SelectLanguageScreen()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (_)=>const SettingsScreen()));
                 }, groupeIndex: controller.groupeValue),
                 DrawerItem(label: AppLocalizations.of(context)!.logout, icon: APPSVG.logoutIcon, index: 5, onTap: ()async{controller.selectDrawerItem(0);  showDialog(context: context, builder: ((ctx) =>const LogoutDialog() ));                                                 controller.toggleDrawer();
                 }, groupeIndex: controller.groupeValue),
