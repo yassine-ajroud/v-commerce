@@ -3,10 +3,10 @@ import 'package:v_commerce/core/styles/colors.dart';
 import 'package:v_commerce/core/utils/svg.dart';
 import 'package:v_commerce/presentation/UI/screens/auth/update_password_screen.dart';
 import 'package:v_commerce/presentation/UI/screens/auth/update_profile_screen.dart';
-import 'package:v_commerce/presentation/UI/screens/settings/language_settings.dart';
 import 'package:v_commerce/presentation/UI/widgets/drawer_item.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:v_commerce/presentation/UI/widgets/log_out_dialog.dart';
+import 'package:v_commerce/presentation/UI/screens/settings/settings_screen.dart';
 
 class ProfessionalDrawer extends StatelessWidget {
   const ProfessionalDrawer({super.key});
@@ -28,7 +28,7 @@ class ProfessionalDrawer extends StatelessWidget {
 
                 }),
                 DrawerItem(label: AppLocalizations.of(context)!.settings, icon: APPSVG.settingsIcon, index: 3, onTap: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (_)=>const SelectLanguageScreen()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (_)=>const SettingsScreen()));
                 }),
                 DrawerItem(label: AppLocalizations.of(context)!.logout, icon: APPSVG.logoutIcon, index: 4, onTap: ()async{showDialog(context: context, builder: ((ctx) =>const LogoutDialog() ));                                      
                 }),

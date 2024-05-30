@@ -69,12 +69,12 @@ class RatingSection extends StatelessWidget {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                       RateProgressWidget(titleWidth: 50.w ,value:controller.productRating.number==0?0.0: controller.productRating.fiveStars/controller.productRating.number,label: '5 ${AppLocalizations.of(context)!.stars}',),
-                       RateProgressWidget(titleWidth: 50.w ,value:controller.productRating.number==0?0.0: controller.productRating.fourStars/controller.productRating.number,label: '4 ${AppLocalizations.of(context)!.stars}',),
-                       RateProgressWidget(titleWidth: 50.w ,value:controller.productRating.number==0?0.0: controller.productRating.threeStars/controller.productRating.number,label: '3 ${AppLocalizations.of(context)!.stars}',),
-                        RateProgressWidget(titleWidth: 50.w ,value:controller.productRating.number==0?0.0: controller.productRating.twoStars/controller.productRating.number,label: '2 ${AppLocalizations.of(context)!.stars}',),
+                       RateProgressWidget(titleWidth: 60.w ,value:controller.productRating.number==0?0.0: controller.productRating.fiveStars/controller.productRating.number,label: '5 ${AppLocalizations.of(context)!.stars}',),
+                       RateProgressWidget(titleWidth: 60.w ,value:controller.productRating.number==0?0.0: controller.productRating.fourStars/controller.productRating.number,label: '4 ${AppLocalizations.of(context)!.stars}',),
+                       RateProgressWidget(titleWidth: 60.w ,value:controller.productRating.number==0?0.0: controller.productRating.threeStars/controller.productRating.number,label: '3 ${AppLocalizations.of(context)!.stars}',),
+                        RateProgressWidget(titleWidth: 60.w ,value:controller.productRating.number==0?0.0: controller.productRating.twoStars/controller.productRating.number,label: '2 ${AppLocalizations.of(context)!.stars}',),
 
-                          RateProgressWidget(titleWidth: 50.w ,value:controller.productRating.number==0?0.0: controller.productRating.oneStar/controller.productRating.number,label: '1 ${AppLocalizations.of(context)!.star}',),
+                          RateProgressWidget(titleWidth: 60.w ,value:controller.productRating.number==0?0.0: controller.productRating.oneStar/controller.productRating.number,label: '1 ${AppLocalizations.of(context)!.star}',),
                         ],),
                        
                        

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:v_commerce/presentation/UI/screens/splash/splash_screen1.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
+import 'package:v_commerce/presentation/controllers/category_controller.dart';
 import 'package:v_commerce/presentation/controllers/settings_controller.dart';
 import 'package:v_commerce/presentation/controllers/splashController.dart';
 import 'core/l10n/l10n.dart';
@@ -22,9 +23,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    
     Get.put(AuthenticationController());
       Get.put(SplashController());
-
+    Get.put(CategoryController());
     return GetBuilder<SettingsController>(
         init: SettingsController(),
         builder: (controller) {

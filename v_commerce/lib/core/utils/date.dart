@@ -5,6 +5,7 @@ class DateParser{
   static String getDateDifference(DateTime fromDate,BuildContext context){
     String res='';
   DateTime time = DateTime.timestamp();
+  print(time.difference(fromDate).inDays);
  if (time.difference(fromDate).inMinutes > 60) {
     if (time.difference(fromDate).inHours > 24) {
       if (time.difference(fromDate).inDays > 7) {

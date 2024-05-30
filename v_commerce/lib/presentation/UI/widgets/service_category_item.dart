@@ -22,14 +22,14 @@ class ServiceCategoryItem extends StatelessWidget {
           Navigator.of(context).push(MaterialPageRoute(builder: (_)=>const ServiceListScreen()));
         },
         child: SizedBox(
-          height: 230.h,
+          height: 220.h,
           width: double.infinity,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(25),
-              child: Image.network(image,height: 200.h,width:double.infinity , fit: BoxFit.cover,)),
+              child: Image.network(image,height: 180.h,width:double.infinity , fit: BoxFit.cover,)),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal:10.0,vertical: 5),
                 child: Text(title,style: AppTextStyle.blackTextStyle,),

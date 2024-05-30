@@ -48,6 +48,8 @@ class ReviewRemoteDataSourceImpl implements ReviewRemoteDataSource {
   @override
   Future<ReviewModel> addReview(ReviewModel review) async {
     try {
+            await verifyToken();
+
    final res = await dio.post("${ApiConst.products}/${review.productID}/reviews",
           data: review.toJson(),
             options: Options(
@@ -64,6 +66,7 @@ class ReviewRemoteDataSourceImpl implements ReviewRemoteDataSource {
   @override
   Future<List<ReviewModel>> getAllReviews(String prodId) async {
     try {
+      await verifyToken();
       final response = await dio.get("${ApiConst.products}/$prodId/reviews",
               options: Options(
           headers: {
@@ -83,6 +86,8 @@ class ReviewRemoteDataSourceImpl implements ReviewRemoteDataSource {
   @override
   Future<void> removeReview(String prodId) async {
     try {
+            await verifyToken();
+
       await dio.delete("${ApiConst.reviews}/$prodId",
               options: Options(
           headers: {
@@ -97,6 +102,8 @@ class ReviewRemoteDataSourceImpl implements ReviewRemoteDataSource {
   @override
   Future<void> updateReview(ReviewModel review) async {
     try {
+            await verifyToken();
+
       await dio.put("${ApiConst.reviews}/${review.id}",
           data: review.toJson(),
                   options: Options(

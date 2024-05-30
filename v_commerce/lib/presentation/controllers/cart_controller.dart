@@ -25,10 +25,12 @@ var shipping_fee=40.0;
 
 
 Future<Cart> getUserCart(String userId)async{
-
+cartSales=[];
+cartProducts=[];
  final res= await GetCartUsecase(sl())(userId: userId);
  res.fold((l) => null, (r) =>currentCart=r );
  await getCartSales();
+ print('all sales $cartSales');
  await getCartProducts();
  getReclamationPrice();
  return currentCart;
@@ -36,6 +38,7 @@ Future<Cart> getUserCart(String userId)async{
 
 Future<void> getCartProducts()async{
   cartProducts=[];
+  print("cart $cartSales");
   for (var element in cartSales) {
     final res = await Get3DProductsByIdUseCase(sl())(element.modelId);
     res.fold((l) => null, (r) => cartProducts.add(r));
@@ -77,11 +80,17 @@ Future<void> updateUserCart(Cart newCart)async{
 
 Future<List<Sales>> getCartSales()async{
   cartSales=[];
+    print("sale before $cartSales");
+        print("products before ${currentCart.productsId}");
+
   for (var element in currentCart.productsId) {
        final  res = await GetSingleSalesUsecase(sl())(element);
    res.fold((l) => null, (r) {
+  
      cartSales.add(r);
    }); 
+       print("sale after $cartSales");
+
   }
 
   return cartSales;

@@ -94,7 +94,7 @@ class _SplashScreenState extends State<SplashScreen> {
         extendBodyBehindAppBar: true,
         body: Stack(
           children: [
-            Image.asset("assets/images/splash 1.png",fit: BoxFit.fill,width: double.infinity,)
+            Image.asset("assets/images/splash 1.png",fit: BoxFit.cover,width: double.infinity,height: MediaQuery.sizeOf(context).height,)
             ,
             FutureBuilder(
               future: SplashScreen.init(context, 2),

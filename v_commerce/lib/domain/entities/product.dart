@@ -37,3 +37,4 @@ class LocalDimensions extends Equatable{
   @override
   List<Object?> get props => [height,width,thickness];
 }
+

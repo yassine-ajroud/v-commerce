@@ -9,6 +9,4 @@ abstract class ProductRepository {
   Future<Either<Failure,List<Product>>> getSortedProducts();
   Future<Either<Failure,List<Product>>> getProductsByCategory({required String category});
   Future<Either<Failure,List<Product>>> getProductsBySubCategory({required String category,required String subCategory});
-
-
 }

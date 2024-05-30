@@ -48,7 +48,7 @@ class CartItem extends StatelessWidget {
                     },
                      child: ClipRRect(
                       borderRadius: BorderRadius.circular(15),
-                      child: Image.network(controller.cartProducts.firstWhere((element) => element.id==sale.modelId).texture,height: 100.h,width: 100.w,fit: BoxFit.cover,)),
+                      child: Image.network(controller.cartProducts.firstWhere((element) => element.id==sale.modelId).texture,height: 80.h,width: 80.w,fit: BoxFit.cover,)),
                    ),
                             const SizedBox(width: 10,),
                    SizedBox(

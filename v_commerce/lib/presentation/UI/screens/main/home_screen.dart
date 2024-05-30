@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
@@ -55,6 +56,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 slivers: pc.searchController.text==""? [
                  
                   SliverAppBar(
+                    
+                      systemOverlayStyle: SystemUiOverlayStyle(
+    // Status bar color
+    statusBarColor: Colors.red, 
+
+    // Status bar brightness (optional)
+    statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
+    statusBarBrightness: Brightness.light, // For iOS (dark icons)
+  ),
+  
                     automaticallyImplyLeading: false,
                     leading:GetBuilder(
                       init: MyDrawerController(),

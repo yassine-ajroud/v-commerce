@@ -30,7 +30,9 @@ class ProfileButtonItem extends StatelessWidget {
                   SvgPicture.string(icon),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: Text(text,style: AppTextStyle.smallBlackTitleTextStyle,),
+                    child: SizedBox(
+                      width: 300,
+                      child: Text(text,style: AppTextStyle.smallBlackTitleTextStyle,overflow: TextOverflow.visible,)),
                   )
                 ],
               ),

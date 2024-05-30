@@ -59,6 +59,7 @@ class WishListRemoteDataSourceImpl implements WishListRemoteDataSource {
   @override
   Future<WishListModel> getWishlist({required String userId}) async{
     try {
+      await verifyToken();
       final response = await dio.get(
         ApiConst.getWishlist,
         data: {"userId":userId},
@@ -84,6 +85,7 @@ class WishListRemoteDataSourceImpl implements WishListRemoteDataSource {
   @override
   Future<void> updateWishlist({required WishListModel wishlist}) async{
    try {
+    await verifyToken();
        await dio.put(
         ApiConst.updateWishlist,
         data: {"id": wishlist.id,
@@ -102,6 +104,7 @@ class WishListRemoteDataSourceImpl implements WishListRemoteDataSource {
   @override
   Future<void> deleteWishlist({required String wishlistId})async {
      try {
+          await verifyToken();
        await dio.delete(
         ApiConst.deleteWishlist,
         data: {"id": wishlistId},
