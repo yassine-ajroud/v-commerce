@@ -139,9 +139,10 @@ class AuthenticationController extends GetxController{
                             email.clear();
                             password.clear();
                             await getCurrentUser(r.userId).then((value) {
+                                                                 Get.put(CategoryController()) ;
+
                               if(!isPro){
                                    Get.put(MyDrawerController()) ;
-                                   Get.put(CategoryController()) ;
                                    Get.put(ProductController()) ;
                                    Get.put(PromotionController()); 
                               return Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>const MainScreen()));

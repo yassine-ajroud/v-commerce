@@ -26,7 +26,6 @@ class MyApp extends StatelessWidget {
     
     Get.put(AuthenticationController());
       Get.put(SplashController());
-    Get.put(CategoryController());
     return GetBuilder<SettingsController>(
         init: SettingsController(),
         builder: (controller) {
