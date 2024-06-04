@@ -139,7 +139,7 @@ class AuthenticationController extends GetxController{
                             email.clear();
                             password.clear();
                             await getCurrentUser(r.userId).then((value) {
-                                                                 Get.put(CategoryController()) ;
+                                 Get.put(CategoryController()) ;
 
                               if(!isPro){
                                    Get.put(MyDrawerController()) ;
@@ -267,7 +267,7 @@ class AuthenticationController extends GetxController{
                           backgroundColor: AppColors.toastColor,
                           textColor: AppColors.white,
                           fontSize: 16.0);
-  
+  update();
   return userid;
   }
 

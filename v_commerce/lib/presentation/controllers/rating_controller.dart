@@ -81,7 +81,12 @@ Future<bool> getRating(String prodID) async {
   }
 
   int getUserRating(String prodID,String userID){
+    try{
     return productRating.ratings.firstWhere((element) => element.product==prodID&&element.user==userID).rate;
+
+    }catch(e){
+      return 0;
+    }
   }
   
 }

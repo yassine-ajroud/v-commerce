@@ -53,7 +53,7 @@ class PaymentMethodScreen extends StatelessWidget {
                 padding:  EdgeInsets.symmetric(vertical: 10.0),
                 child:  Divider(),
               ),
-                                    PaymentMethodItem(method: PaymentMethod.digital, icon: APPSVG.commandIcon, label: AppLocalizations.of(context)!.online_payment),
+                                    PaymentMethodItem(method: PaymentMethod.digital, icon: APPSVG.payementCard, label: AppLocalizations.of(context)!.online_payment),
 
                                           const SizedBox(height:60),
                                         MyButton(text: AppLocalizations.of(context)!.next, click: ()async{

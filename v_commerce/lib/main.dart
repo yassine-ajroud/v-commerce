@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:v_commerce/presentation/UI/screens/splash/splash_screen1.dart';
 import 'package:v_commerce/presentation/controllers/authentication_controller.dart';
 import 'package:v_commerce/presentation/controllers/category_controller.dart';
+import 'package:v_commerce/presentation/controllers/drawerController.dart';
 import 'package:v_commerce/presentation/controllers/settings_controller.dart';
 import 'package:v_commerce/presentation/controllers/splashController.dart';
 import 'core/l10n/l10n.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
     
     Get.put(AuthenticationController());
       Get.put(SplashController());
+      Get.put(MyDrawerController());
     return GetBuilder<SettingsController>(
         init: SettingsController(),
         builder: (controller) {
