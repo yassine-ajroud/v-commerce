@@ -58,6 +58,7 @@ void filterCategories(String word){
   void onInit() async{
     super.onInit();
     if(categoriesList.isEmpty){
+      selectedCategory=all;
   await getAllCategories();
 
     }

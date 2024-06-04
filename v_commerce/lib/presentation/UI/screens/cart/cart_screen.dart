@@ -22,7 +22,6 @@ class CartScreen extends StatelessWidget {
       backgroundColor: AppColors.backgroundWhite,
       body: GetBuilder(
         init: CartController(),
-        id: ControllerID.SALE_QUANTITY,
         builder: (controller) {
           return FutureBuilder(
             future: controller.getUserCart(authenticationController.currentUser.id!),
@@ -68,7 +67,13 @@ class CartScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                           Text("${AppLocalizations.of(context)!.total_price} :",style: AppTextStyle.smallBlackTitleTextStyle,),
-                          Text('${(controller.totalPrice).toString()}${AppLocalizations.of(context)!.dinar}',style: AppTextStyle.blackTitleTextStyle,),
+                          GetBuilder(
+                            id:ControllerID.SALE_QUANTITY ,
+                            init: CartController(),
+                            builder: (quantityController) {
+                              return Text('${(quantityController.totalPrice).toString()}${AppLocalizations.of(context)!.dinar}',style: AppTextStyle.blackTitleTextStyle,);
+                            }
+                          ),
                         ],),
                        const SizedBox(height: 10,),
                         CheckoutButton( click: (){

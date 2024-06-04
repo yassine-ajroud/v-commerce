@@ -308,7 +308,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                SliverToBoxAdapter(
                   child: GetBuilder<CategoryController>(
-                                    init:CategoryController(),
+                      init:CategoryController(),
                       id:ControllerID.SELECT_CATEGORY,
         
                     builder: (categoryctrl) {

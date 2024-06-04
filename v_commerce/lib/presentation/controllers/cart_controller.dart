@@ -38,7 +38,7 @@ cartProducts=[];
 
 Future<void> getCartProducts()async{
   cartProducts=[];
-  print("cart $cartSales");
+  print("cart $cartSales 0");
   for (var element in cartSales) {
     final res = await Get3DProductsByIdUseCase(sl())(element.modelId);
     res.fold((l) => null, (r) => cartProducts.add(r));
@@ -80,7 +80,7 @@ Future<void> updateUserCart(Cart newCart)async{
 
 Future<List<Sales>> getCartSales()async{
   cartSales=[];
-    print("sale before $cartSales");
+    print("sale before $cartSales 1");
         print("products before ${currentCart.productsId}");
 
   for (var element in currentCart.productsId) {
@@ -89,7 +89,7 @@ Future<List<Sales>> getCartSales()async{
   
      cartSales.add(r);
    }); 
-       print("sale after $cartSales");
+       print("sale after $cartSales 2");
 
   }
 
@@ -106,7 +106,7 @@ Future<List<Sales>> getCartSales()async{
     final addsale = await AddSaleUsecase(sl()).call(newSale);
     addsale.fold((l) => null, (r) async{
       cartSales.add(r);
-      print(cartSales);
+      print("$cartSales 3");
       await _updateSailes();
     });
   }else{
@@ -132,7 +132,7 @@ void getReclamationPrice(){
 
 Future _updateSailes()async{
           currentCart.productsId=getCartSalesId;
-  print('update cart ${currentCart.productsId}');
+  print('update cart ${currentCart.productsId} 4');
   final rs = await UpdateCartUsecase(sl()).call(cart: currentCart);
     rs.fold((l) => null, (r)  async {
     });

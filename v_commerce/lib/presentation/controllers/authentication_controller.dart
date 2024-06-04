@@ -138,9 +138,10 @@ class AuthenticationController extends GetxController{
                             token = r;
                             email.clear();
                             password.clear();
-                            await getCurrentUser(r.userId).then((value) {
+                            await getCurrentUser(r.userId).then((value)async {
                                  Get.put(CategoryController()) ;
-
+                                 final CategoryController cat = Get.find();
+                                await cat.getAllCategories();
                               if(!isPro){
                                    Get.put(MyDrawerController()) ;
                                    Get.put(ProductController()) ;

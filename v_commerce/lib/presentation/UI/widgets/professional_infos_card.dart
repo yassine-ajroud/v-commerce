@@ -12,7 +12,8 @@ import 'package:v_commerce/presentation/controllers/service_category_controller.
 class ProfessionalInfoCard extends StatelessWidget {
  final String serviceId;
  final User user;
-  const ProfessionalInfoCard({super.key,required this.serviceId,required this.user});
+ final bool? update;
+  const ProfessionalInfoCard({super.key,required this.serviceId,required this.user ,this.update});
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +37,14 @@ class ProfessionalInfoCard extends StatelessWidget {
                               radius: 60,
                               backgroundImage:user.image== '' ? Image.asset('assets/images/userImage.jpeg').image:NetworkImage(user.image!),
                             ),
-                            Positioned(
+                         update??true ?   Positioned(
                               bottom: 0,
                               right: 0,
                               child: CircleAvatar(
                                 backgroundColor: Colors.white,
                                 child: IconButton(icon:const Icon(Icons.edit),onPressed: (){
                                   showDialog(context: context, builder: (_)=> const ProfileImageDialog());
-                                },),))
+                                },),)):Container(),
                             ],
                           ),
                          const SizedBox(width: 20,),

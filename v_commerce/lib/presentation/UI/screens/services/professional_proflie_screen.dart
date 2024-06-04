@@ -59,7 +59,7 @@ class ProfessionalProfileScreen extends StatelessWidget {
                                     style: AppTextStyle.blackTitleTextStyle,
                                     AppLocalizations.of(context)!.pro_profile)),
                                                         const SizedBox(height: 20,),
-                      ProfessionalInfoCard(serviceId: controller.selectedService.service,user: controller.selectedUser,),
+                      ProfessionalInfoCard(serviceId: controller.selectedService.service,user: controller.selectedUser,update: false,),
                     const SizedBox(height: 20,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

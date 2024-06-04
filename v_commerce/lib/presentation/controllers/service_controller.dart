@@ -94,6 +94,7 @@ XFile? img,updateimg;
   final ImagePicker _picker = ImagePicker();
   String fileName = '';
   String updatefileName = '';
+  
   Future<void> pickImage(BuildContext context) async {
     showDialog(
       context: context,
@@ -118,7 +119,10 @@ XFile? img,updateimg;
                             fileName = basename(f!.path);
                           update();
                           }
-                         
+                                     if(f!=null){
+                            await AddServiceImageUsecase(sl())(serviceId: currentUserService.id!,file: f!);
+                            update();
+                          }
                           Navigator.pop(context);
                         },
                         icon: const Icon(
@@ -178,6 +182,10 @@ Future<void> updateImage(BuildContext context,String oldImage)async{
                           update();
                           }
                          
+                                         if(updatef!=null){
+                            await UpdateServiceImageUsecase(sl())(serviceId: currentUserService.id!,file: updatef!,oldImage: oldImage);
+                            update();
+                          }
                           Navigator.pop(context);
                         },
                         icon: const Icon(

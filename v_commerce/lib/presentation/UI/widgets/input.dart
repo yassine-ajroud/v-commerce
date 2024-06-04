@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:v_commerce/core/utils/svg.dart';
 
 import '../../../core/styles/colors.dart';
 
@@ -20,11 +21,11 @@ class InputText extends StatefulWidget {
 
 class _InputTextState extends State<InputText> {
  late bool obs;
- late Icon icon ;
+ late String icon ;
   @override
   void initState() {
     obs=widget.isPassword??false;
-    icon =const Icon(Icons.visibility);
+    icon =APPSVG.visibleIcon;
     super.initState();
   }
   @override
@@ -49,8 +50,9 @@ class _InputTextState extends State<InputText> {
         ) ,
             suffixIcon: widget.isPassword??false ?InkWell(onTap:(){setState(() {
               obs=!obs;
-              icon=Icon(obs?Icons.visibility:Icons.visibility_off);
-            });}, child:icon):null,
+              icon=obs?APPSVG.visibleIcon:APPSVG.invisibleIcon;
+              
+            });}, child:SvgPicture.string(icon,fit: BoxFit.scaleDown, )):null,
           
     ));
   }
